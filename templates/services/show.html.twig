@@ -1,0 +1,162 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ title }} - Multi-Nettoyage Propreté{% endblock %}
+
+{% block body %}
+<!-- Banner Header -->
+    <section class="banner-header valign bg-img bg-imgfixed bg-position-bottom" data-overlay-dark="7" data-background="{{ asset('img/slider/10.jpg') }}">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <h5 class="wow fadeInUp" data-wow-delay=".1s">Nos prestations</h5>
+                    <h3 class="wow fadeInUp" data-wow-delay=".3s">{{ title }}</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Services Page -->
+    <section class="page section-padding">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-10 col-md-12">
+                    <h4>{{ title }}</h4>
+                    <p class="mb-30">{{ description }}</p>
+                    
+                    <h6>Nos prestations incluent :</h6>
+                    <ul class="page-list list-unstyled mb-60">
+                        {% for detail in details %}
+                        <li class="wow fadeInUp" data-wow-delay="{{ loop.index * 0.1 }}s">
+                            <div class="page-list-icon"> <span class="ti-check"></span> </div>
+                            <div class="page-list-text">
+                                <p>{{ detail }}</p>
+                            </div>
+                        </li>
+                        {% endfor %}
+                    </ul>
+
+                    {% if service == 'industriel' %}
+                    <div class="row mb-60">
+                        <div class="col-lg-6 col-md-12">
+                            <div class="img-cover"> <img src="{{ asset('img/services/2.jpg') }}" class="img-fluid rounded-3 mb-25" alt="Nettoyage industriel"> </div>
+                        </div>
+                        <div class="col-lg-6 col-md-12">
+                            <h5>Pourquoi choisir notre service de nettoyage industriel ?</h5>
+                            <p>Nous comprenons les exigences spécifiques des environnements industriels. Notre équipe utilise des méthodes et produits adaptés pour garantir sécurité, efficacité et conformité aux normes en vigueur.</p>
+                            <p>Que ce soit pour le nettoyage de sols d'usines, l'entretien de machines industrielles ou la maintenance des locaux sociaux, nous adaptons nos prestations à vos contraintes opérationnelles.</p>
+                        </div>
+                    </div>
+                    {% elseif service == 'chantier' %}
+                    <div class="row mb-60">
+                        <div class="col-lg-6 col-md-12">
+                            <div class="img-cover"> <img src="{{ asset('img/services/3.jpg') }}" class="img-fluid rounded-3 mb-25" alt="Nettoyage de chantiers"> </div>
+                        </div>
+                        <div class="col-lg-6 col-md-12">
+                            <h5>Nettoyage professionnel pour vos chantiers</h5>
+                            <p>Nous intervenons sur vos chantiers pour assurer un environnement de travail propre et sécurisé. De l'entretien régulier des bases de vie au nettoyage final avant livraison, nous garantissons des résultats impeccables.</p>
+                            <p>Notre expertise couvre tous les aspects du nettoyage de chantier : bungalows, vitres, encadrements, parkings extérieurs et voiries.</p>
+                        </div>
+                    </div>
+                    {% elseif service == 'immeuble' %}
+                    <div class="row mb-60">
+                        <div class="col-lg-6 col-md-12">
+                            <div class="img-cover"> <img src="{{ asset('img/services/1.jpg') }}" class="img-fluid rounded-3 mb-25" alt="Nettoyage d'immeubles"> </div>
+                        </div>
+                        <div class="col-lg-6 col-md-12">
+                            <h5>Entretien complet de votre immeuble</h5>
+                            <p>Nous assurons l'entretien régulier de tous les espaces communs de votre immeuble pour maintenir un environnement agréable et professionnel pour tous les résidents.</p>
+                            <p>De l'entretien des parties communes aux jardins et parkings, nous couvrons tous vos besoins en matière de propreté immobilière.</p>
+                        </div>
+                    </div>
+                    {% elseif service == 'bureaux' %}
+                    <div class="row mb-60">
+                        <div class="col-lg-6 col-md-12">
+                            <div class="img-cover"> <img src="{{ asset('img/services/4.jpg') }}" class="img-fluid rounded-3 mb-25" alt="Nettoyage de bureaux"> </div>
+                        </div>
+                        <div class="col-lg-6 col-md-12">
+                            <h5>Un environnement de travail optimal</h5>
+                            <p>Nous adaptons nos prestations à vos besoins spécifiques : nettoyage quotidien, hebdomadaire ou ponctuel. Notre objectif est de créer un environnement de travail agréable et professionnel.</p>
+                            <p>Mobilier, sols, murs, sanitaires, salles de réunion : nous prenons soin de tous les espaces de vos bureaux pour garantir la propreté et l'hygiène.</p>
+                        </div>
+                    </div>
+                    {% elseif service == 'vitres' %}
+                    <div class="row mb-60">
+                        <div class="col-lg-6 col-md-12">
+                            <div class="img-cover"> <img src="{{ asset('img/services/6.jpg') }}" class="img-fluid rounded-3 mb-25" alt="Nettoyage de vitres"> </div>
+                        </div>
+                        <div class="col-lg-6 col-md-12">
+                            <h5>Laveurs de vitres professionnels</h5>
+                            <p>Notre équipe de laveurs de vitres est composée de professionnels qualifiés (CACES) qui maîtrisent toutes les techniques de nettoyage, y compris pour les vitres difficiles d'accès.</p>
+                            <p>Nous utilisons les moyens adaptés à chaque situation : échafaudages, cordes, nacelles pour garantir un résultat impeccable, quelles que soient les contraintes d'accès.</p>
+                        </div>
+                    </div>
+                    {% endif %}
+
+                    <div class="row">
+                        <div class="col-lg-6 col-md-12">
+                            <div class="img-cover"> <img src="{{ asset('img/services/1.jpg') }}" class="img-fluid rounded-3 mb-25" alt=""> </div>
+                        </div>
+                        <div class="col-lg-6 col-md-12">
+                            <div class="img-cover"> <img src="{{ asset('img/services/2.jpg') }}" class="img-fluid rounded-3 mb-25" alt=""> </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Services Box -->
+    <section class="services-box mb-90 bg-lightblue">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 mb-30 text-center">
+                    <div class="section-subtitle wow fadeInUp" data-wow-delay=".1s">Nos engagements</div>
+                    <div class="section-title wow zoomIn" data-wow-delay=".2s">Pourquoi nous choisir ?</div>
+                </div>
+            </div>
+            <div class="row wow zoomIn" data-wow-delay="0.3s">
+                <div class="col-lg-4 col-md-12">
+                    <div class="item"> <i class="icon fa-thin fa-user-graduate"></i>
+                        <div class="cont">
+                            <h5>Personnel formé et qualifié</h5>
+                            <p>Nos équipes sont régulièrement formées aux dernières techniques et normes d'hygiène.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-12">
+                    <div class="item"> <i class="icon fa-thin fa-tools"></i>
+                        <div class="cont">
+                            <h5>Matériel professionnel</h5>
+                            <p>Nous utilisons des équipements modernes et performants pour garantir des résultats optimaux.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-12">
+                    <div class="item"> <i class="icon fa-thin fa-shield-check"></i>
+                        <div class="cont">
+                            <h5>Respect des normes</h5>
+                            <p>Nous respectons scrupuleusement toutes les réglementations en vigueur.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- CTA -->
+    <section class="appointment">
+        <div class="background bg-img bg-imgfixed section-padding pb-0 left-overlay-secondary" data-background="{{ asset('img/slider/10.jpg') }}" data-overlay-dark="8">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <div class="ready mb-20 wow fadeInUp" data-wow-delay=".1s">
+                            <h4 class="text-white">Intéressé par notre service de {{ title|lower }} ?</h4>
+                            <p class="text-white mt-20">Contactez-nous dès aujourd'hui pour obtenir un devis personnalisé et gratuit.</p>
+                        </div>
+                        <div class="btn-wrap wow fadeInUp" data-wow-delay=".2s">
+                            <a href="{{ path('app_demande_devis_index') }}" class="button-1"> <span class="text">Demander un devis</span> <span class="icon"><i class="fa-solid fa-right-long"></i></span> </a>
+                            <a href="{{ path('app_services') }}" class="button-1" style="margin-left: 15px;"> <span class="text">Voir tous nos services</span> <span class="icon"><i class="fa-solid fa-list"></i></span> </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

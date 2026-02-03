@@ -1,0 +1,40 @@
+{% extends 'base_web.html.twig' %}
+
+{% block title %}Modifier la demande #{{ demande_devi.id }}{% endblock %}
+
+{% block body %}
+  <div class="container">
+    <div class="page-inner">
+      <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row pt-2 pb-4">
+        <div>
+          <h3 class="fw-bold mb-3">Modifier la demande de devis #{{ demande_devi.id }}</h3>
+          <h6 class="op-7 mb-2">Édition des informations de la demande</h6>
+        </div>
+        <div class="ms-md-auto py-2 py-md-0">
+          <a href="{{ path('app_demande_devis_liste') }}" class="btn btn-secondary btn-round">
+            <i class="fas fa-arrow-left me-2"></i>Retour à la liste
+          </a>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card card-round">
+            <div class="card-header">
+              <div class="card-head-row">
+                <div class="card-title">
+                  <i class="fas fa-edit me-2"></i>Formulaire d'édition
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              {{ include('demande_devis/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+{% endblock %}

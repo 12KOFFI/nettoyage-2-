@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Inscription{% endblock %}
+
+{% block body %}
+    <section class="login-page">
+        <div class="container">
+            <div class="login-card">
+                <div class="login-info">
+                    <div class="login-brand">Multi‑Nettoyage Propreté</div>
+                    <h1>Créez votre compte pro</h1>
+                    <p>Rejoignez-nous et profitez d'un espace dédié pour gérer vos prestations de nettoyage en toute simplicité.</p>
+                    <ul>
+                        <li>Suivi en temps réel</li>
+                        <li>Devis personnalisés</li>
+                        <li>Historique complet</li>
+                        <li>Support prioritaire</li>
+                    </ul>
+                </div>
+                <div class="login-form">
+                    <h2>Inscription</h2>
+                    <p class="login-subtitle">Commencez dès maintenant.</p>
+
+                    {% for message in app.flashes('success') %}
+                        <div class="alert alert-success">{{ message }}</div>
+                    {% endfor %}
+
+                    {{ form_start(registrationForm) }}
+                        <label for="registration_form_email">Email</label>
+                        {{ form_widget(registrationForm.email, {'attr': {'class': 'form-control', 'placeholder': 'votre@email.com'}}) }}
+                        {{ form_errors(registrationForm.email) }}
+
+                        <label for="registration_form_plainPassword_first">Mot de passe</label>
+                        {{ form_widget(registrationForm.plainPassword.first, {'attr': {'class': 'form-control', 'placeholder': 'Minimum 6 caractères'}}) }}
+                        {{ form_errors(registrationForm.plainPassword.first) }}
+
+                        <label for="registration_form_plainPassword_second">Confirmer le mot de passe</label>
+                        {{ form_widget(registrationForm.plainPassword.second, {'attr': {'class': 'form-control', 'placeholder': 'Confirmez votre mot de passe'}}) }}
+                        {{ form_errors(registrationForm.plainPassword.second) }}
+
+                        <div style="margin-bottom: 16px; display: flex; align-items: center; gap: 8px;">
+                            {{ form_widget(registrationForm.agreeTerms, {'attr': {'style': 'width: auto; margin: 0;'}}) }}
+                            <label for="registration_form_agreeTerms" style="margin: 0; font-size: 14px; cursor: pointer;">
+                                J'accepte les conditions d'utilisation
+                            </label>
+                        </div>
+                        {{ form_errors(registrationForm.agreeTerms) }}
+
+                        <button class="login-submit" type="submit">Créer mon compte</button>
+                    {{ form_end(registrationForm) }}
+
+                    <div style="text-align: center; margin-top: 20px; padding-top: 20px; border-top: 1px solid #e5e7eb;">
+                        <p style="color: #6b7280; font-size: 14px;">
+                            Vous avez déjà un compte ? 
+                            <a href="{{ path('app_login') }}" style="color: #326bff; text-decoration: none; font-weight: 500;">
+                                Se connecter
+                            </a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

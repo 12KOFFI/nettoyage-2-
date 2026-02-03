@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="zxx">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>{% block title %}Multi-Nettoyage Propreté - Services de nettoyage professionnel{% endblock %}</title>
+    <link rel="icon" type="image/png" href="{{ asset('img/favicon.png') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('css/plugins.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <style>
+    /* Performance hints pour animations WOW */
+    .wow {
+        will-change: transform, opacity;
+    }
+    .wow.animated {
+        will-change: auto;
+    }
+    /* GPU acceleration */
+    .zoomIn, .fadeInUp, .fadeInDown, .fadeInLeft, .fadeInRight {
+        transform: translateZ(0);
+        backface-visibility: hidden;
+    }
+    </style>
+    {% block stylesheets %}{% endblock %}
+</head>
+<body>
+    <!-- Preloader -->
+    <div class="preloader-bg"></div>
+    <div id="preloader">
+        <div id="preloader-status">
+            <div class="preloader-position loader"> <span></span> </div>
+        </div>
+    </div>
+   
+    <div class="cursor js-cursor"></div>
+   
+
+    <div class="progress-wrap cursor-pointer">
+        <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+            <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98" />
+        </svg>
+    </div>
+    <!-- Navbar -->
+    {% include 'layout/navbar.html.twig' %}
+    
+    {% block body %}{% endblock %}
+
+    {% include 'layout/footer.html.twig' %}
+   
+
+
+    <!-- Performance optimization -->
+    <script src="{{ asset('js/scroll-optimizer.js') }}"></script>
+    <!-- jQuery -->
+    <script src="{{ asset('js/jquery-3.7.1.min.js') }}"></script>
+    <script src="{{ asset('js/jquery-migrate-3.5.0.min.js') }}"></script>
+    <script src="{{ asset('js/popper.min.js') }}"></script>
+    <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('js/modernizr-2.6.2.min.js') }}"></script>
+    <script src="{{ asset('js/imagesloaded.pkgd.min.js') }}"></script>
+    <script src="{{ asset('js/jquery.isotope.v3.0.2.js') }}"></script>
+    <script src="{{ asset('js/scrollIt.min.js') }}"></script>
+    <script src="{{ asset('js/jquery.waypoints.min.js') }}"></script>
+    <script src="{{ asset('js/owl.carousel.min.js') }}"></script>
+    <script src="{{ asset('js/jquery.stellar.min.js') }}"></script>
+    <script src="{{ asset('js/jquery.magnific-popup.js') }}"></script>
+    <script src="{{ asset('js/YouTubePopUp.js') }}"></script>
+    <script src="{{ asset('js/smooth-scroll.min.js') }}"></script>
+    <script src="{{ asset('js/wow.min.js') }}"></script>
+    <script src="{{ asset('js/custom.js') }}"></script>
+    {% block javascripts %}{% endblock %}
+</body>
+</html>

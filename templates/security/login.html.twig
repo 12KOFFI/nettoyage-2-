@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Log in!{% endblock %}
+
+{% block body %}
+    <section class="login-page">
+        <div class="container">
+            <div class="login-card">
+                <div class="login-info">
+                    <div class="login-brand">Multi‑Nettoyage Propreté</div>
+                    <h1>Accédez à votre espace pro</h1>
+                    <p>Suivez vos demandes, gérez vos interventions et accédez à vos documents en toute sécurité.</p>
+                    <ul>
+                        <li>Historique des demandes</li>
+                        <li>Suivi des prestations</li>
+                        <li>Support rapide</li>
+                    </ul>
+                </div>
+                <div class="login-form">
+                    <h2>Connexion</h2>
+                    <p class="login-subtitle">Ravi de vous revoir.</p>
+                    <form method="post">
+                        {% if error %}
+                            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                        {% endif %}
+
+                        {% if app.user %}
+                            <div class="alert alert-success">
+                                Connecté en tant que {{ app.user.userIdentifier }}, <a href="{{ logout_path() }}">Se déconnecter</a>
+                            </div>
+                        {% endif %}
+
+                        <label for="username">Email</label>
+                        <input type="email" value="{{ last_username }}" name="_username" id="username" class="form-control" autocomplete="email" required autofocus>
+
+                        <label for="password">Mot de passe</label>
+                        <input type="password" name="_password" id="password" class="form-control" autocomplete="current-password" required>
+
+                        <input type="hidden" name="_csrf_token" data-controller="csrf-protection" value="{{ csrf_token('authenticate') }}">
+
+                        <button class="login-submit" type="submit">Se connecter</button>
+                    </form>
+
+                    <div style="text-align: center; margin-top: 20px; padding-top: 20px; border-top: 1px solid #e5e7eb;">
+                        <p style="color: #6b7280; font-size: 14px;">
+                            Vous n'avez pas encore de compte ? 
+                            <a href="{{ path('app_register') }}" style="color: #326bff; text-decoration: none; font-weight: 500;">
+                                Créer un compte
+                            </a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

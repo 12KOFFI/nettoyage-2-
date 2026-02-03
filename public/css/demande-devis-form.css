@@ -1,0 +1,186 @@
+/* Styles spécifiques au formulaire de demande de devis */
+
+.demande-devis-form .dd-section {
+    margin-bottom: 2.5rem;
+}
+
+.demande-devis-form .dd-section:last-of-type {
+    margin-bottom: 2rem;
+}
+
+.demande-devis-form .dd-section-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding-bottom: 1.1rem;
+    margin-bottom: 1.75rem;
+    border-bottom: 1px solid rgba(90, 143, 123, 0.25);
+}
+
+.demande-devis-form .dd-section-header__icon {
+    width: 46px;
+    height: 46px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, var(--primary-green) 0%, var(--primary-green-light) 100%);
+    color: #fff;
+    font-size: 18px;
+}
+
+.demande-devis-form .dd-section-header__subtitle {
+    margin: 0;
+    font-size: 0.9rem;
+    color: #626d7a;
+}
+
+.demande-devis-form .dd-grid {
+    display: grid;
+    gap: 22px;
+}
+
+.demande-devis-form .dd-grid--two {
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+
+.demande-devis-form .dd-grid .form-group {
+    margin-bottom: 0;
+}
+
+.demande-devis-form .dd-grid .form-control {
+    border-radius: 12px;
+    border: 1px solid rgba(90, 143, 123, 0.35);
+    transition: border-color 0.2s ease;
+}
+
+.demande-devis-form .dd-grid .form-control:focus {
+    border-color: var(--primary-green) !important;
+    outline: 2px solid rgba(90, 143, 123, 0.3);
+}
+
+.demande-devis-form .dd-conditional {
+    transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.demande-devis-form .dd-conditional[style*="display: none"] {
+    opacity: 0;
+    transform: translateY(-6px);
+}
+
+.demande-devis-form .js-prestation-autre-group {
+    background: rgba(90, 143, 123, 0.05);
+    padding: 1.5rem;
+    border-radius: 14px;
+    border: 1px dashed rgba(90, 143, 123, 0.35);
+    margin-top: 1.5rem;
+}
+
+.demande-devis-form .js-prestation-autre-group .form-control {
+    border-radius: 12px;
+    border: 1px solid rgba(90, 143, 123, 0.35);
+    background: #fff;
+    transition: border-color 0.2s ease;
+}
+
+.demande-devis-form .js-prestation-autre-group .form-control:focus {
+    border-color: var(--primary-green) !important;
+    outline: 2px solid rgba(90, 143, 123, 0.3);
+}
+
+.demande-devis-form .dd-prestations-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 18px;
+}
+
+.demande-devis-form .dd-prestation {
+    position: relative;
+}
+
+.demande-devis-form .dd-prestation input[type="checkbox"] {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    margin: 0;
+    cursor: pointer;
+}
+
+.demande-devis-form .dd-prestation label {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 18px 20px;
+    border-radius: 16px;
+    border: 2px solid rgba(90, 143, 123, 0.25);
+    background: #fff;
+    cursor: pointer;
+    transition: border-color 0.25s ease, transform 0.25s ease, background 0.25s ease;
+    min-height: 78px;
+}
+
+.demande-devis-form .dd-prestation label:hover {
+    border-color: var(--primary-green);
+    transform: translateY(-2px);
+}
+
+.demande-devis-form .dd-prestation input[type="checkbox"]:focus-visible + label {
+    outline: 2px solid rgba(90, 143, 123, 0.35);
+}
+
+.demande-devis-form .dd-prestation-badge {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: rgba(90, 143, 123, 0.12);
+    border: 2px solid rgba(90, 143, 123, 0.12);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--primary-green);
+    transition: background 0.25s ease, color 0.25s ease, transform 0.25s ease, border-color 0.25s ease;
+    font-size: 16px;
+}
+
+.demande-devis-form .dd-prestation-content {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.demande-devis-form .dd-prestation-title {
+    font-weight: 600;
+    color: #0e1323;
+}
+
+.demande-devis-form .dd-prestation-subtitle {
+    font-size: 0.9rem;
+    color: #626d7a;
+}
+
+.demande-devis-form .dd-prestation input[type="checkbox"]:checked + label {
+    border-color: var(--primary-green);
+    background: linear-gradient(135deg, rgba(90, 143, 123, 0.12) 0%, rgba(90, 143, 123, 0.22) 100%);
+    transform: translateY(-2px);
+}
+
+.demande-devis-form .dd-prestation input[type="checkbox"]:checked + label .dd-prestation-badge {
+    background: var(--primary-green);
+    color: #fff;
+    border-color: var(--primary-green);
+    transform: scale(1.05);
+}
+
+@media (max-width: 767.98px) {
+    .demande-devis-form .dd-section-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .demande-devis-form .dd-prestations-grid {
+        grid-template-columns: 1fr;
+    }
+}

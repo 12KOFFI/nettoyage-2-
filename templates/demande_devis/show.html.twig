@@ -1,0 +1,546 @@
+{% extends 'base_web.html.twig' %}
+
+{% block title %}Demande #{{ devis.id }}{% endblock %}
+
+{% block body %}
+  <div class="container">
+    <div class="page-inner">
+      <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row pt-2 pb-4">
+        <div>
+          <h3 class="fw-bold mb-3">Demande de devis #{{ devis.id }}</h3>
+          <h6 class="op-7 mb-2">Visualisation des données client</h6>
+        </div>
+        <div class="ms-md-auto py-2 py-md-0 d-flex gap-2">
+          <a href="{{ path('app_demande_devis_liste') }}" class="btn btn-secondary btn-round">
+            <i class="fas fa-arrow-left me-2"></i>Retour à la liste
+          </a>
+          <div class="dropdown">
+            <button class="btn btn-primary btn-round dropdown-toggle" type="button" id="gestionDevisDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+              <i class="fas fa-cog me-2"></i>Gestion du devis
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="gestionDevisDropdown">
+              {% if devis.prix %}
+              <li>
+                <form action="{{ path('app_demande_devis_valider', {'id': devis.id}) }}" method="post" style="display: inline;">
+                  <input type="hidden" name="_token" value="{{ csrf_token('valider' ~ devis.id) }}">
+                  <button type="submit" class="dropdown-item">
+                    <i class="fas fa-check text-success me-2"></i>Valider le devis
+                  </button>
+                </form>
+              </li>
+              <li>
+                <form action="{{ path('app_demande_devis_email', {'id': devis.id}) }}" method="post" style="display: inline;">
+                  <input type="hidden" name="_token" value="{{ csrf_token('email' ~ devis.id) }}">
+                  <button type="submit" class="dropdown-item">
+                    <i class="fas fa-envelope text-primary me-2"></i>Envoyer par email
+                  </button>
+                </form>
+              </li>
+              <li><hr class="dropdown-divider"></li>
+              <li>
+                <a class="dropdown-item" href="{{ path('app_demande_devis_pdf', {'id': devis.id}) }}">
+                  <i class="fas fa-file-pdf text-danger me-2"></i>Télécharger le PDF
+                </a>
+              </li>
+              {% endif %}
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      {% for message in app.flashes('success') %}
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+          <i class="fas fa-check-circle me-2"></i>{{ message }}
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      {% endfor %}
+      {% for message in app.flashes('error') %}
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+          <i class="fas fa-check-circle me-2"></i>{{ message }}
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      {% endfor %}
+
+      <div class="row">
+        <div class="col-md-6">
+          <div class="card card-round">
+            <div class="card-header">
+              <div class="card-head-row">
+                <div class="card-title">
+                  <i class="fas fa-user me-2"></i>Informations client
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              {% if devis.client %}
+                <div class="mb-3">
+                  <label class="form-label fw-bold">Nom complet</label>
+                  <p class="mb-0">{{ devis.client.nom }} {{ devis.client.prenom }}</p>
+                </div>
+                <div class="mb-3">
+                  <label class="form-label fw-bold">Email</label>
+                  <p class="mb-0">
+                    <a href="mailto:{{ devis.client.email }}" class="text-primary">
+                      <i class="fas fa-envelope me-1"></i>{{ devis.client.email }}
+                    </a>
+                  </p>
+                </div>
+                <div class="mb-0">
+                  <label class="form-label fw-bold">Téléphone</label>
+                  <p class="mb-0">
+                    <a href="tel:{{ devis.client.telephone }}" class="text-primary">
+                      <i class="fas fa-phone me-1"></i>{{ devis.client.telephone }}
+                    </a>
+                  </p>
+                </div>
+              {% else %}
+                <p class="text-muted mb-0">Aucune information client disponible</p>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="card card-round">
+            <div class="card-header">
+              <div class="card-head-row">
+                <div class="card-title">
+                  <i class="fas fa-map-marker-alt me-2"></i>Informations local
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              {% if devis.local %}
+                <div class="mb-3">
+                  <label class="form-label fw-bold">Type de local</label>
+                  <p class="mb-0">{{ devis.local.typeLocal }}</p>
+                </div>
+                <div class="mb-3">
+                  <label class="form-label fw-bold">Ville</label>
+                  <p class="mb-0">{{ devis.local.ville }}</p>
+                </div>
+                <div class="mb-0">
+                  <label class="form-label fw-bold">Surface</label>
+                  <p class="mb-0">{{ devis.local.surfaceM2 }} m²</p>
+                </div>
+              {% else %}
+                <p class="text-muted mb-0">Aucune information local disponible</p>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row mt-4">
+        <div class="col-md-12">
+          <div class="card card-round">
+            <div class="card-header">
+              <div class="card-head-row">
+                <div class="card-title">
+                  <i class="fas fa-info-circle me-2"></i>Informations de la demande
+                </div>
+                <div class="card-tools">
+                  {% if devis.statut == 'en_attente' %}
+                    <span class="badge badge-warning">En attente</span>
+                  {% elseif devis.statut == 'traite' %}
+                    <span class="badge badge-success">Traité</span>
+                  {% else %}
+                    <span class="badge badge-secondary">{{ devis.statut }}</span>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-3">
+                  <label class="form-label fw-bold">Date de demande</label>
+                  <p class="mb-0">{{ devis.dateDemande ? devis.dateDemande|date('d/m/Y') : '-' }}</p>
+                </div>
+                <div class="col-md-3">
+                  <label class="form-label fw-bold">Fréquence</label>
+                  <p class="mb-0">{{ devis.frequence }}</p>
+                </div>
+                <div class="col-md-3">
+                  <label class="form-label fw-bold">Créneau horaire</label>
+                  <p class="mb-0">{{ devis.creneauHoraire }}</p>
+                </div>
+                <div class="col-md-3">
+                  <label class="form-label fw-bold">Statut</label>
+                  <p class="mb-0">
+                    {% if devis.statut == 'en_attente' %}
+                      En attente
+                    {% elseif devis.statut == 'traite' %}
+                      Traité
+                    {% else %}
+                      {{ devis.statut }}
+                    {% endif %}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {% if devis.demandePrestations|length > 0 %}
+        <div class="row mt-4">
+          <div class="col-md-12">
+            <div class="card card-round">
+              <div class="card-header">
+                <div class="card-head-row">
+                  <div class="card-title">
+                    <i class="fas fa-tasks me-2"></i>Prestations demandées
+                  </div>
+                </div>
+              </div>
+              <div class="card-body p-0">
+                <div class="table-responsive">
+                  {% if is_granted('ROLE_ADMIN') %}
+                    <form action="{{ path('app_demande_devis_prestations', {'id': devis.id}) }}" method="post">
+                      <input type="hidden" id="prestations_token" name="_token" value="{{ csrf_token('prestations' ~ devis.id) }}">
+                  {% endif %}
+                  <table class="table table-hover align-items-center mb-0">
+                    <thead class="thead-light">
+                      <tr>
+                        <th>Prestation</th>
+                        <th>Description admin</th>
+                        <th>Détails spécifiques</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {% for demandePrest in devis.demandePrestations %}
+                        <tr>
+                          <td>
+                            {% if demandePrest.prestation %}
+                              <strong>{{ demandePrest.prestation.libelle }}</strong>
+                            {% else %}
+                              <strong><i class="fas fa-plus-circle me-2"></i>Autre (Personnalisée)</strong>
+                            {% endif %}
+                          </td>
+                          <td>
+                            {% if is_granted('ROLE_ADMIN') %}
+                              <button 
+                                type="button" 
+                                class="btn btn-sm btn-outline-primary open-modal-btn"
+                                data-prestation-id="{{ demandePrest.id }}"
+                                data-prestation-name="{{ demandePrest.prestation ? demandePrest.prestation.libelle : 'Autre (Personnalisée)' }}"
+                                data-admin-description="{{ demandePrest.adminDescription }}"
+                              >
+                                <i class="fas fa-edit me-1"></i>
+                                {% if demandePrest.adminDescription %}
+                                  Modifier
+                                {% else %}
+                                  Ajouter
+                                {% endif %}
+                              </button>
+                              <textarea
+                                name="admin_description[{{ demandePrest.id }}]"
+                                id="admin_description_{{ demandePrest.id }}"
+                                class="form-control d-none"
+                                rows="2"
+                              >{{ demandePrest.adminDescription }}</textarea>
+                            {% else %}
+                              {% if demandePrest.adminDescription %}
+                                <small class="text-muted">{{ demandePrest.adminDescription }}</small>
+                              {% else %}
+                                <span class="text-muted">-</span>
+                              {% endif %}
+                            {% endif %}
+                          </td>
+                          <td>
+                            {% if demandePrest.detailsSpecifiques %}
+                              {{ demandePrest.detailsSpecifiques }}
+                            {% else %}
+                              <span class="text-muted">-</span>
+                            {% endif %}
+                          </td>
+                        </tr>
+                      {% endfor %}
+                    </tbody>
+                  </table>
+                  {% if is_granted('ROLE_ADMIN') %}
+                    </form>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      {% endif %}
+
+      {# Section Prix #}
+      <div class="row mt-4">
+        <div class="col-md-12">
+          <div class="card card-round">
+            <div class="card-header">
+              <div class="card-head-row">
+                <div class="card-title">
+                  <i class="fas fa-euro-sign me-2"></i>Tarification
+                </div>
+                {% if devis.prix %}
+                  <div class="card-tools">
+                    <span class="badge badge-success">Prix défini</span>
+                  </div>
+                {% endif %}
+              </div>
+            </div>
+            <div class="card-body">
+              {% if devis.prix %}
+                {# Affichage du prix existant #}
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="table-responsive">
+                      <table class="table table-borderless">
+                        <tr>
+                          <td class="fw-bold">Prix unitaire HT :</td>
+                          <td class="text-end">{{ devis.prix.montantHt|number_format(2, ',', ' ') }} €/m²</td>
+                        </tr>
+                        <tr>
+                          <td class="fw-bold">Surface :</td>
+                          <td class="text-end">{{ devis.local ? devis.local.surfaceM2 : 1 }} m²</td>
+                        </tr>
+                        <tr class="table-light">
+                          <td class="fw-bold">Montant HT total :</td>
+                          <td class="text-end">{{ devis.prix.montantHtTotal|number_format(2, ',', ' ') }} €</td>
+                        </tr>
+                        {% if devis.prix.remise and devis.prix.remise > 0 %}
+                        <tr>
+                          <td class="fw-bold">Remise :</td>
+                          <td class="text-end text-danger">- {{ devis.prix.remise|number_format(2, ',', ' ') }} €</td>
+                        </tr>
+                        <tr>
+                          <td class="fw-bold">Sous-total HT :</td>
+                          <td class="text-end">{{ devis.prix.montantHtApresRemise|number_format(2, ',', ' ') }} €</td>
+                        </tr>
+                        {% endif %}
+                        <tr>
+                          <td class="fw-bold">TVA ({{ devis.prix.tva }}%) :</td>
+                          <td class="text-end">{{ devis.prix.montantTva|number_format(2, ',', ' ') }} €</td>
+                        </tr>
+                        <tr class="table-primary">
+                          <td class="fw-bold fs-5">Total TTC :</td>
+                          <td class="text-end fw-bold fs-5">{{ devis.prix.totalTtc|number_format(2, ',', ' ') }} €</td>
+                        </tr>
+                      </table>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="alert alert-info mb-0">
+                      <i class="fas fa-info-circle me-2"></i>
+                      <strong>Prix enregistré le :</strong> {{ devis.prix.dateCreation|date('d/m/Y à H:i') }}<br>
+                      <small>Le prix HT est calculé automatiquement : prix unitaire × surface ({{ devis.local ? devis.local.surfaceM2 : 1 }} m²)</small>
+                    </div>
+                  </div>
+                </div>
+                <hr>
+                <h6 class="fw-bold mb-3"><i class="fas fa-edit me-2"></i>Modifier le prix</h6>
+              {% else %}
+                <div class="alert alert-warning mb-4">
+                  <i class="fas fa-exclamation-triangle me-2"></i>
+                  <strong>Aucun prix défini.</strong> Veuillez renseigner un prix pour activer les fonctionnalités de gestion du devis (validation, envoi par email, téléchargement PDF).
+                </div>
+              {% endif %}
+
+              {# Formulaire Prix #}
+              <div class="alert alert-light mb-3">
+                <i class="fas fa-ruler-combined me-2"></i>
+                <strong>Surface du local :</strong> <span id="surface_value">{{ devis.local ? devis.local.surfaceM2 : 1 }}</span> m²
+                <small class="text-muted ms-2">(Le prix HT sera multiplié par cette surface)</small>
+              </div>
+              {{ form_start(prixForm, {'attr': {'class': 'prix-form'}}) }}
+              <div class="row">
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label class="form-label fw-bold">Prix unitaire HT (€/m²)</label>
+                    {{ form_widget(prixForm.montant_ht) }}
+                    {{ form_errors(prixForm.montant_ht) }}
+                  </div>
+                </div>
+                <div class="col-md-2">
+                  <div class="form-group">
+                    <label class="form-label fw-bold">Montant HT total</label>
+                    <input type="text" id="montant_ht_total_display" class="form-control" readonly placeholder="0,00 €">
+                  </div>
+                </div>
+                <div class="col-md-2">
+                  <div class="form-group">
+                    <label class="form-label fw-bold">Remise (€)</label>
+                    {{ form_widget(prixForm.remise) }}
+                    {{ form_errors(prixForm.remise) }}
+                  </div>
+                </div>
+                <div class="col-md-2">
+                  <div class="form-group">
+                    <label class="form-label fw-bold">TVA</label>
+                    {{ form_widget(prixForm.tva) }}
+                    {{ form_errors(prixForm.tva) }}
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label class="form-label fw-bold">Total TTC (calculé)</label>
+                    <input type="text" id="total_ttc_display" class="form-control bg-success text-white fw-bold" readonly placeholder="0,00 €">
+                  </div>
+                </div>
+              </div>
+              <div class="mt-3">
+                <button type="submit" class="btn btn-success btn-round">
+                  <i class="fas fa-save me-2"></i>{{ devis.prix ? 'Mettre à jour le prix' : 'Enregistrer le prix' }}
+                </button>
+              </div>
+              {{ form_end(prixForm) }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal pour admin_description -->
+  <div class="modal fade" id="adminDescriptionModal" tabindex="-1" aria-labelledby="adminDescriptionModalLabel" aria-hidden="true" data-save-url="{{ path('app_demande_devis_prestations', {'id': devis.id}) }}">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header bg-primary text-white">
+          <h5 class="modal-title" id="adminDescriptionModalLabel">
+            <i class="fas fa-edit me-2"></i>Description administrative
+          </h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body p-3">
+          <div class="container-fluid">
+            <div class="row mb-3">
+              <div class="col-12">
+                <div class="alert alert-info">
+                  <i class="fas fa-info-circle me-2"></i>
+                  <strong>Prestation :</strong> <span id="modal-prestation-name"></span>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-12">
+                <label for="modal-textarea" class="form-label fw-bold">Description administrative</label>
+                <textarea 
+                  id="modal-textarea" 
+                  class="form-control" 
+                  rows="12"
+                  placeholder="Saisissez ici la description administrative détaillée de la prestation..."
+                  style="font-size: 15px; line-height: 1.6;"
+                ></textarea>
+                <small class="text-muted mt-2 d-block">
+                  <i class="fas fa-lightbulb me-1"></i>
+                  Cette description sera utilisée dans le devis PDF et l'email envoyé au client.
+                </small>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+            <i class="fas fa-times me-2"></i>Annuler
+          </button>
+          <button type="button" class="btn btn-success" id="save-modal-btn">
+            <i class="fas fa-check me-2"></i>Enregistrer
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const montantHtInput = document.getElementById('prix_montant_ht');
+      const remiseInput = document.getElementById('prix_remise');
+      const tvaSelect = document.getElementById('prix_tva');
+      const totalDisplay = document.getElementById('total_ttc_display');
+      const montantHtTotalDisplay = document.getElementById('montant_ht_total_display');
+      const surface = parseFloat(document.getElementById('surface_value').textContent) || 1;
+
+      function calculateTotal() {
+        const prixUnitaire = parseFloat(montantHtInput.value) || 0;
+        const remise = parseFloat(remiseInput.value) || 0;
+        const tva = parseFloat(tvaSelect.value) || 0;
+
+        const montantHtTotal = prixUnitaire * surface;
+        const montantApresRemise = montantHtTotal - remise;
+        const montantTva = montantApresRemise * (tva / 100);
+        const totalTtc = montantApresRemise + montantTva;
+
+        montantHtTotalDisplay.value = montantHtTotal.toLocaleString('fr-FR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' €';
+        totalDisplay.value = totalTtc.toLocaleString('fr-FR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' €';
+      }
+
+      montantHtInput.addEventListener('input', calculateTotal);
+      remiseInput.addEventListener('input', calculateTotal);
+      tvaSelect.addEventListener('change', calculateTotal);
+
+      calculateTotal();
+
+      // Gestion du modal admin_description
+      const modal = new bootstrap.Modal(document.getElementById('adminDescriptionModal'));
+      const modalTextarea = document.getElementById('modal-textarea');
+      const modalPrestationName = document.getElementById('modal-prestation-name');
+      const saveModalBtn = document.getElementById('save-modal-btn');
+      const saveUrl = document.getElementById('adminDescriptionModal').dataset.saveUrl;
+      const prestationsToken = document.getElementById('prestations_token');
+      let currentPrestationId = null;
+
+      // Ouvrir le modal au clic sur les boutons "Ajouter/Modifier"
+      document.querySelectorAll('.open-modal-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+          currentPrestationId = this.getAttribute('data-prestation-id');
+          const prestationName = this.getAttribute('data-prestation-name');
+          const adminDescription = this.getAttribute('data-admin-description') || '';
+          
+          modalPrestationName.textContent = prestationName;
+          modalTextarea.value = adminDescription;
+          modal.show();
+        });
+      });
+
+      // Sauvegarder la description au clic sur "Enregistrer"
+      saveModalBtn.addEventListener('click', function() {
+        if (!currentPrestationId || !saveUrl || !prestationsToken) {
+          return;
+        }
+
+        const hiddenTextarea = document.getElementById('admin_description_' + currentPrestationId);
+        if (hiddenTextarea) {
+          hiddenTextarea.value = modalTextarea.value;
+        }
+
+        const formData = new FormData();
+        formData.append('_token', prestationsToken.value);
+        formData.append('admin_description[' + currentPrestationId + ']', modalTextarea.value);
+
+        fetch(saveUrl, {
+          method: 'POST',
+          body: formData
+        })
+          .then(response => {
+            if (!response.ok) {
+              throw new Error('Erreur lors de l\'enregistrement');
+            }
+
+            const btn = document.querySelector('.open-modal-btn[data-prestation-id="' + currentPrestationId + '"]');
+            if (btn) {
+              btn.setAttribute('data-admin-description', modalTextarea.value);
+              const btnText = modalTextarea.value ? 'Modifier' : 'Ajouter';
+              btn.innerHTML = '<i class="fas fa-edit me-1"></i>' + btnText;
+            }
+
+            modal.hide();
+          })
+          .catch(() => {
+            alert('Erreur lors de l\'enregistrement de la description.');
+          });
+      });
+
+      // Réinitialiser le modal à la fermeture
+      document.getElementById('adminDescriptionModal').addEventListener('hidden.bs.modal', function() {
+        currentPrestationId = null;
+        modalTextarea.value = '';
+        modalPrestationName.textContent = '';
+      });
+    });
+  </script>
+{% endblock %}

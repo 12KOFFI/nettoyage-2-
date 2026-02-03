@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}404 - Multi-Nettoyage Propreté{% endblock %}
+
+{% block body %}
+    <!-- Not found -->
+    <section class="notfound section-padding text-center">
+        <div class="v-middle">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-7 col-md-12">
+                        <h1 style="color: #003366;">404</h1>
+                        <h2 style="color: #003366;">Page introuvable<span style="color: #7CB342;">!</span></h2>
+                        <p style="color: #666;">La page que vous recherchez a été déplacée, supprimée, renommée ou n'a jamais existé.</p>
+                        <div style="margin-top: 30px;">
+                            <a href="{{ path('app_home') }}" class="button-1">
+                                <span class="text">Retour à l'accueil</span>
+                                <span class="icon"><i class="fa-solid fa-home"></i></span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Scrolling -->
+    <div class="scrolling scrolling-ticker">
+        <div class="wrapper feather-shadow2">
+            <div class="content">
+                <span><img src="{{ asset('img/asterisk-icon.svg') }}" alt="" loading="lazy">Nettoyage</span>
+                <span><img src="{{ asset('img/asterisk-icon.svg') }}" alt="" loading="lazy">Maintenance</span>
+                <span><img src="{{ asset('img/asterisk-icon.svg') }}" alt="" loading="lazy">Bureaux</span>
+                <span><img src="{{ asset('img/asterisk-icon.svg') }}" alt="" loading="lazy">Industriel</span>
+                <span><img src="{{ asset('img/asterisk-icon.svg') }}" alt="" loading="lazy">Immeubles</span>
+                <span><img src="{{ asset('img/asterisk-icon.svg') }}" alt="" loading="lazy">Chantiers</span>
+                <span><img src="{{ asset('img/asterisk-icon.svg') }}" alt="" loading="lazy">Vitres</span>
+                <span><img src="{{ asset('img/asterisk-icon.svg') }}" alt="" loading="lazy">Propreté</span>
+                <span><img src="{{ asset('img/asterisk-icon.svg') }}" alt="" loading="lazy">Hygiène</span>
+                <span><img src="{{ asset('img/asterisk-icon.svg') }}" alt="" loading="lazy">Qualité</span>
+                <span><img src="{{ asset('img/asterisk-icon.svg') }}" alt="" loading="lazy">Service</span>
+                <span><img src="{{ asset('img/asterisk-icon.svg') }}" alt="" loading="lazy">Professionnel</span>
+            </div>
+            <div class="content">
+                <span><img src="{{ asset('img/asterisk-icon.svg') }}" alt="" loading="lazy">Nettoyage</span>
+                <span><img src="{{ asset('img/asterisk-icon.svg') }}" alt="" loading="lazy">Maintenance</span>
+                <span><img src="{{ asset('img/asterisk-icon.svg') }}" alt="" loading="lazy">Bureaux</span>
+                <span><img src="{{ asset('img/asterisk-icon.svg') }}" alt="" loading="lazy">Industriel</span>
+                <span><img src="{{ asset('img/asterisk-icon.svg') }}" alt="" loading="lazy">Immeubles</span>
+                <span><img src="{{ asset('img/asterisk-icon.svg') }}" alt="" loading="lazy">Chantiers</span>
+                <span><img src="{{ asset('img/asterisk-icon.svg') }}" alt="" loading="lazy">Vitres</span>
+                <span><img src="{{ asset('img/asterisk-icon.svg') }}" alt="" loading="lazy">Propreté</span>
+                <span><img src="{{ asset('img/asterisk-icon.svg') }}" alt="" loading="lazy">Hygiène</span>
+                <span><img src="{{ asset('img/asterisk-icon.svg') }}" alt="" loading="lazy">Qualité</span>
+                <span><img src="{{ asset('img/asterisk-icon.svg') }}" alt="" loading="lazy">Service</span>
+                <span><img src="{{ asset('img/asterisk-icon.svg') }}" alt="" loading="lazy">Professionnel</span>
+            </div>
+        </div>
+    </div>
+{% endblock %}

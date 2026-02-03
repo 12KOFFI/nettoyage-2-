@@ -1,0 +1,176 @@
+{{ form_start(form, {'attr': {'class': 'demande-devis-form'}}) }}
+<div class="dd-section">
+    <div class="dd-section-header">
+        <span class="dd-section-header__icon"><i class="fas fa-user"></i></span>
+        <div>
+            <h5 class="form-section-title mb-0">Vos coordonnées</h5>
+            <p class="dd-section-header__subtitle">Informations de contact</p>
+        </div>
+    </div>
+    <div class="dd-grid dd-grid--two">
+        <div class="form-group">
+            <span class="form-icon"><i class="fas fa-user"></i></span>
+            {{ form_widget(form.client_nom, {'attr': {'class': 'form-control', 'placeholder': 'Nom *'}}) }}
+            {{ form_errors(form.client_nom) }}
+        </div>
+        <div class="form-group">
+            <span class="form-icon"><i class="fas fa-smile"></i></span>
+            {{ form_widget(form.client_prenom, {'attr': {'class': 'form-control', 'placeholder': 'Prénom *'}}) }}
+            {{ form_errors(form.client_prenom) }}
+        </div>
+        <div class="form-group">
+            <span class="form-icon"><i class="fas fa-envelope"></i></span>
+            {{ form_widget(form.client_email, {'attr': {'class': 'form-control', 'placeholder': 'Email *'}}) }}
+            {{ form_errors(form.client_email) }}
+        </div>
+        <div class="form-group">
+            <span class="form-icon"><i class="fas fa-phone"></i></span>
+            {{ form_widget(form.client_telephone, {'attr': {'class': 'form-control', 'placeholder': 'Téléphone *'}}) }}
+            {{ form_errors(form.client_telephone) }}
+        </div>
+    </div>
+</div>
+
+<div class="dd-section mt-4">
+    <div class="dd-section-header">
+        <span class="dd-section-header__icon"><i class="fas fa-building"></i></span>
+        <div>
+            <h5 class="form-section-title mb-0">Informations sur le local</h5>
+            <p class="dd-section-header__subtitle">Détails du lieu à nettoyer</p>
+        </div>
+    </div>
+    <div class="dd-grid dd-grid--two">
+        <div class="form-group">
+            <span class="form-icon"><i class="fas fa-home"></i></span>
+            {{ form_widget(form.local_type, {'attr': {'class': 'form-control', 'id': 'local_type_select', 'onchange': "document.getElementById('local_type_autre_wrap').style.display = this.value === 'autre' ? 'block' : 'none'"}}) }}
+            {{ form_errors(form.local_type) }}
+        </div>
+        <div class="form-group">
+            <span class="form-icon"><i class="fas fa-map-marker-alt"></i></span>
+            {{ form_widget(form.local_ville, {'attr': {'class': 'form-control', 'placeholder': 'Ville ou adresse complète'}}) }}
+            {{ form_errors(form.local_ville) }}
+        </div>
+        <div class="form-group dd-conditional" id="local_type_autre_wrap" style="display: none; grid-column: 1 / -1;">
+            <span class="form-icon"><i class="fas fa-pen"></i></span>
+            <input type="text" name="local_type_autre" class="form-control" placeholder="Précisez le type de local">
+        </div>
+        <div class="form-group" style="grid-column: 1 / -1;">
+            <span class="form-icon"><i class="fas fa-ruler-combined"></i></span>
+            {{ form_widget(form.local_surface, {'attr': {'class': 'form-control', 'placeholder': 'Surface en m² *'}}) }}
+            {{ form_errors(form.local_surface) }}
+        </div>
+    </div>
+</div>
+
+<div class="dd-section mt-4">
+    <div class="dd-section-header">
+        <span class="dd-section-header__icon"><i class="fas fa-broom"></i></span>
+        <div>
+            <h5 class="form-section-title mb-0">Détails de la prestation</h5>
+            <p class="dd-section-header__subtitle">Sélectionnez vos besoins</p>
+        </div>
+    </div>
+    <div class="form-group mb-4">
+        <label class="form-label fw-bold mb-3"><i class="fas fa-list me-2"></i>Prestations souhaitées</label>
+        <div class="dd-prestations-grid">
+            {% for child in form.prestation %}
+                <div class="dd-prestation">
+                    {{ form_widget(child, {'attr': {'class': 'dd-prestation-input'}}) }}
+                    <label for="{{ child.vars.id }}">
+                        <span class="dd-prestation-badge" aria-hidden="true"><i class="fas fa-check"></i></span>
+                        <span class="dd-prestation-content">
+                            <span class="dd-prestation-title">{{ child.vars.label|trans }}</span>
+                            {% if child.vars.help is not empty %}
+                                <span class="dd-prestation-subtitle">{{ child.vars.help|trans }}</span>
+                            {% endif %}
+                        </span>
+                    </label>
+                </div>
+            {% endfor %}
+            <div class="dd-prestation">
+                <input type="checkbox" id="prestation_autre_checkbox" class="dd-prestation-input" value="autre">
+                <label for="prestation_autre_checkbox">
+                    <span class="dd-prestation-badge" aria-hidden="true"><i class="fas fa-plus"></i></span>
+                    <span class="dd-prestation-content">
+                        <span class="dd-prestation-title">Autre</span>
+                        <span class="dd-prestation-subtitle">Prestation personnalisée</span>
+                    </span>
+                </label>
+            </div>
+        </div>
+        {{ form_errors(form.prestation) }}
+    </div>
+    <div class="form-group dd-conditional js-prestation-autre-group" id="prestation_autre_wrap" style="display: none;">
+        <label class="form-label fw-bold mb-2"><i class="fas fa-pen me-2"></i>{{ form.prestation_autre.vars.label }}</label>
+        <span class="form-icon"><i class="fas fa-edit"></i></span>
+        {{ form_widget(form.prestation_autre) }}
+        {{ form_errors(form.prestation_autre) }}
+    </div>
+    <div class="dd-grid dd-grid--two">
+        <div class="form-group">
+            <span class="form-icon"><i class="fas fa-repeat"></i></span>
+            {{ form_widget(form.frequence, {'attr': {'class': 'form-control', 'id': 'frequence_select', 'onchange': "document.getElementById('frequence_autre_wrap').style.display = this.value === 'Autre' ? 'block' : 'none'"}}) }}
+            {{ form_errors(form.frequence) }}
+        </div>
+        <div class="form-group">
+            <span class="form-icon"><i class="fas fa-clock"></i></span>
+            {{ form_widget(form.creneau_horaire, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form.creneau_horaire) }}
+        </div>
+        <div class="form-group dd-conditional" id="frequence_autre_wrap" style="display: none; grid-column: 1 / -1; margin-top: 0;">
+            <span class="form-icon"><i class="fas fa-pen"></i></span>
+            <input type="text" name="frequence_autre" class="form-control" placeholder="Précisez la fréquence souhaitée">
+        </div>
+    </div>
+</div>
+
+<div class="dd-section mt-4">
+    <div class="dd-section-header">
+        <span class="dd-section-header__icon"><i class="fas fa-comment"></i></span>
+        <div>
+            <h5 class="form-section-title mb-0">Détails spécifiques</h5>
+            <p class="dd-section-header__subtitle">Précisions supplémentaires</p>
+        </div>
+    </div>
+    <div class="dd-grid">
+        <div class="form-group form-textarea">
+            <span class="form-icon"><i class="fas fa-comment"></i></span>
+            {{ form_widget(form.details_specifiques, {'attr': {'class': 'form-control', 'rows': 5, 'placeholder': 'Décrivez votre besoin en détail (particularités, attentes spécifiques, contraintes...)'}}) }}
+            {{ form_errors(form.details_specifiques) }}
+        </div>
+    </div>
+</div>
+
+<div class="text-center mt-4">
+    <button type="submit" class="btn-wrap">
+        <span class="button-1">
+            <span class="text">{{ button_label|default('Envoyer ma demande de devis') }}</span>
+            <span class="icon"><i class="fas fa-paper-plane"></i></span>
+        </span>
+    </button>
+</div>
+{{ form_end(form) }}
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const prestationAutreCheckbox = document.getElementById('prestation_autre_checkbox');
+    const prestationAutreWrap = document.getElementById('prestation_autre_wrap');
+    const prestationAutreTextarea = document.querySelector('#prestation_autre_wrap textarea');
+    
+    if (!prestationAutreCheckbox || !prestationAutreWrap) return;
+    
+    function togglePrestationAutre() {
+        if (prestationAutreCheckbox.checked) {
+            prestationAutreWrap.style.display = 'block';
+        } else {
+            prestationAutreWrap.style.display = 'none';
+            if (prestationAutreTextarea) {
+                prestationAutreTextarea.value = '';
+            }
+        }
+    }
+    
+    prestationAutreCheckbox.addEventListener('change', togglePrestationAutre);
+    togglePrestationAutre();
+});
+</script>

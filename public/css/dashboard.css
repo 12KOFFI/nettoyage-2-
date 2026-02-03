@@ -1,0 +1,225 @@
+/* ======= Dashboard Custom Theme ======= */
+:root {
+    --dash-primary: #1f9d55; /* Vert pour correspondre à Multi-Nettoyage Propreté */
+    --dash-primary-hover: #178a48;
+    --dash-dark: #0e1323;
+    --dash-dark-2: #13264a;
+    --dash-accent: #5a8f7b;
+    --dash-bg: #f4f7f6;
+}
+
+body {
+    background: var(--dash-bg);
+}
+
+.alert-success,
+.alert-danger {
+    background: rgba(31, 157, 85, 0.12);
+    border: 1px solid rgba(31, 157, 85, 0.35);
+    color: #145c2e;
+}
+
+.alert-success .btn-close,
+.alert-danger .btn-close {
+    filter: brightness(0.5);
+}
+
+.main-header {
+    background: rgba(255, 255, 255, 0.95);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    backdrop-filter: blur(10px);
+}
+
+.logo-header,
+.sidebar .logo-header {
+    background: #ffffff !important;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.logo-header .logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--dash-dark);
+    font-weight: 800;
+}
+
+.logo-header .logo img {
+    height: 32px;
+}
+
+.logo-header .logo span {
+    font-size: 15px;
+    letter-spacing: -0.2px;
+    color: var(--dash-dark);
+}
+
+.sidebar[data-background-color="dark"] {
+    background: #0e1323 !important;
+}
+
+.sidebar .nav .nav-item a {
+    color: rgba(255, 255, 255, 0.6) !important;
+    padding: 12px 20px !important;
+    margin: 4px 15px !important;
+    border-radius: 10px !important;
+    transition: all 0.3s ease;
+}
+
+.sidebar .nav .nav-item a:hover,
+.sidebar .nav .nav-item.active a {
+    color: #fff !important;
+    background: var(--dash-primary) !important;
+}
+
+.sidebar .nav .nav-item a i {
+    color: inherit !important;
+    font-size: 18px;
+    width: 30px;
+    text-align: center;
+}
+
+.card.card-round {
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.card-stats .numbers .card-category {
+    font-size: 13px;
+    font-weight: 600;
+    color: #8d9498;
+    margin-bottom: 4px;
+}
+
+.card-stats .numbers .card-title {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--dash-dark);
+}
+
+.icon-big {
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 14px;
+}
+
+.avatar-sm {
+    width: 38px;
+    height: 38px;
+}
+
+.avatar-title {
+    font-weight: 600;
+}
+
+.table thead th {
+    background: #f8faf9;
+    color: #6c757d;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 11px;
+    letter-spacing: 0.5px;
+    padding: 15px 20px;
+}
+
+.table tbody td {
+    padding: 15px 20px;
+    vertical-align: middle;
+}
+
+.badge {
+    padding: 6px 12px;
+    font-weight: 600;
+    border-radius: 6px;
+}
+
+.badge-warning {
+    background: #fff8e1 !important;
+    color: #f57c00 !important;
+}
+
+.badge-success {
+    background: #e8f5e9 !important;
+    color: #2e7d32 !important;
+}
+
+.badge-info {
+    background: #e3f2fd !important;
+    color: #1976d2 !important;
+}
+
+.btn-link.btn-primary {
+    color: var(--dash-primary) !important;
+}
+
+.btn-link.btn-primary:hover {
+    color: var(--dash-primary-hover) !important;
+    background: rgba(31, 157, 85, 0.05) !important;
+}
+
+/* ======= Devis Pages Styles ======= */
+.devis-invoice {
+    background: #fff;
+}
+
+.devis-invoice .invoice-logo img {
+    max-height: 50px;
+}
+
+.devis-invoice hr {
+    border-top: 2px solid rgba(14, 19, 35, 0.1);
+}
+
+.devis-invoice h5 {
+    color: #0e1323;
+    font-weight: 700;
+    font-size: 16px;
+}
+
+.devis-invoice .badge-lg {
+    padding: 8px 16px;
+    font-size: 14px;
+}
+
+.table-hover tbody tr:hover {
+    background-color: rgba(50, 107, 255, 0.05);
+}
+
+.pagination .page-link {
+    color: var(--dash-primary);
+    border-color: rgba(14, 19, 35, 0.1);
+}
+
+.pagination .page-item.active .page-link {
+    background-color: var(--dash-primary);
+    border-color: var(--dash-primary);
+}
+
+.pagination .page-link:hover {
+    background-color: rgba(50, 107, 255, 0.1);
+    border-color: var(--dash-primary);
+}
+
+/* Print styles for invoice */
+@media print {
+    .sidebar,
+    .main-header,
+    .btn-round,
+    .card-header,
+    .page-inner > .d-flex {
+        display: none !important;
+    }
+    
+    .devis-invoice {
+        box-shadow: none !important;
+        border: none !important;
+    }
+    
+    .card-body {
+        padding: 0 !important;
+    }
+}
