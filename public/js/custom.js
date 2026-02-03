@@ -259,7 +259,7 @@ $(function () {
     mouseDrag: true,
     autoplay: false,
     autoplayTimeout: 3000,
-    smartSpeed: 1000,
+    smartSpeed: 500,
     dots: false,
     nav: false,
     navText: [
@@ -288,7 +288,7 @@ $(function () {
     mouseDrag: true,
     autoplay: false,
     autoplayTimeout: 5000,
-    smartSpeed: 1000,
+    smartSpeed: 500,
     dots: false,
     nav: false,
     navText: [
@@ -371,7 +371,7 @@ $(function () {
     mouseDrag: true,
     autoplay: false,
     autoplayTimeout: 6000,
-    smartSpeed: 1000,
+    smartSpeed: 500,
     dots: false,
     nav: false,
     navText: [
@@ -400,7 +400,7 @@ $(function () {
     mouseDrag: true,
     autoplay: false,
     autoplayTimeout: 3000,
-    smartSpeed: 1000,
+    smartSpeed: 500,
     dots: false,
     nav: false,
     navText: [
@@ -500,7 +500,7 @@ $(function () {
             {
               scrollTop: target.offset().top,
             },
-            1000,
+            600,
             function () {
               // Callback after animation
               // Must change focus!
@@ -579,14 +579,51 @@ $(function () {
   }
 
   // Initiate the wowjs - OPTIMIZED
+  const wowOffset = window.innerWidth <= 768 ? 30 : 100;
   new WOW({
     boxClass: 'wow',
     animateClass: 'animated',
-    offset: 100,
-    mobile: false,
+    offset: wowOffset,
+    mobile: true,
     live: false,
     scrollContainer: null
   }).init();
+
+  // Mobile Drawer Logic
+  const mobileMenuOpen = document.getElementById('mobileMenuOpen');
+  const mobileMenuClose = document.getElementById('mobileMenuClose');
+  const mobileDrawer = document.getElementById('mobileDrawer');
+  const drawerOverlay = document.getElementById('drawerOverlay');
+  const submenuToggles = document.querySelectorAll('.submenu-toggle');
+
+  if (mobileMenuOpen && mobileDrawer && drawerOverlay) {
+    mobileMenuOpen.addEventListener('click', () => {
+      mobileDrawer.classList.add('open');
+      drawerOverlay.classList.add('active');
+      document.body.style.overflow = 'hidden'; // Prevent scroll
+    });
+
+    const closeDrawer = () => {
+      mobileDrawer.classList.remove('open');
+      drawerOverlay.classList.remove('active');
+      document.body.style.overflow = '';
+    };
+
+    mobileMenuClose.addEventListener('click', closeDrawer);
+    drawerOverlay.addEventListener('click', closeDrawer);
+
+    // Submenu Toggle
+    submenuToggles.forEach(toggle => {
+      toggle.addEventListener('click', (e) => {
+        const parent = toggle.parentElement;
+        const submenu = parent.querySelector('.drawer-submenu');
+        if (submenu) {
+          parent.classList.toggle('active');
+          $(submenu).slideToggle(300);
+        }
+      });
+    });
+  }
 
   // YouTubePopUp
   $("a.vid").YouTubePopUp();

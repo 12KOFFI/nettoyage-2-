@@ -1,34 +1,82 @@
 <nav class="navbar navbar-expand-lg">
-        <div class="container">
-            <!-- Logo -->
-            <div class="logo-wrapper">
-                <a class="logo" href="{{ path('app_home') }}"><img src="{{ asset('img/logo.png') }}" class="logo-img" alt=""></a>
-            </div>
-            <!-- Button -->
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation"> <span class="navbar-toggler-icon"><i class="ti-menu"></i></span> </button>
-            <!-- Menu -->
-            <div class="collapse navbar-collapse" id="navbar">
-                <ul class="navbar-nav mx-auto">
-                    <li class="nav-item"><a class="nav-link {% if app.request.get('_route') == 'app_home' %}active{% endif %}" href="{{ path('app_home') }}">Accueil</a></li>
-                    <li class="nav-item"><a class="nav-link {% if app.request.get('_route') == 'app_about' %}active{% endif %}" href="{{ path('app_about') }}">À propos</a></li>
-                    <li class="nav-item dropdown"> <a class="nav-link {% if app.request.get('_route') starts with 'app_services' %}active{% endif %} dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">Services <i class="ti-angle-down"></i></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="{{ path('app_services') }}" class="dropdown-item"><span>Tous nos services</span></a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a href="{{ path('app_service_industriel') }}" class="dropdown-item"><span>Nettoyage industriel</span></a></li>
-                            <li><a href="{{ path('app_service_chantier') }}" class="dropdown-item"><span>Nettoyage de chantiers</span></a></li>
-                            <li><a href="{{ path('app_service_immeuble') }}" class="dropdown-item"><span>Nettoyage d'immeubles</span></a></li>
-                            <li><a href="{{ path('app_service_bureaux') }}" class="dropdown-item"><span>Nettoyage de bureaux</span></a></li>
-                            <li><a href="{{ path('app_service_vitres') }}" class="dropdown-item"><span>Nettoyage de vitres</span></a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item"><a class="nav-link {% if app.request.get('_route') == 'app_demande_devis_index' %}active{% endif %}" href="{{ path('app_demande_devis_index') }}">Contact</a></li>
-                </ul>
-                <div class="navbar-right">
-                    <div class="btn-wrap">
-                        <a href="{{ path('app_demande_devis_index') }}" class="button" style="background-color: #1f9d55; border-color: #1f9d55; color: #fff;"> <span class="text">Demander un devis</span> <span class="icon"><i class="fa-solid fa-right-long"></i></span> </a>
-                    </div>
+    <div class="container">
+        <!-- Logo -->
+        <div class="logo-wrapper">
+            <a class="logo" href="{{ path('app_home') }}">
+                <img src="{{ asset('img/logo.png') }}" class="logo-img" alt="Logo">
+            </a>
+        </div>
+        
+        <!-- Toggle Button for Mobile -->
+        <div class="navbar-mobile-controls d-lg-none">
+            <button class="navbar-toggler-custom" type="button" id="mobileMenuOpen">
+                <span class="burger-icon"></span>
+            </button>
+        </div>
+
+        <!-- Desktop Menu -->
+        <div class="collapse navbar-collapse d-none d-lg-flex" id="navbar">
+            <ul class="navbar-nav mx-auto">
+                <li class="nav-item"><a class="nav-link {% if app.request.get('_route') == 'app_home' %}active{% endif %}" href="{{ path('app_home') }}">Accueil</a></li>
+                <li class="nav-item"><a class="nav-link {% if app.request.get('_route') == 'app_about' %}active{% endif %}" href="{{ path('app_about') }}">À propos</a></li>
+                <li class="nav-item dropdown"> 
+                    <a class="nav-link {% if app.request.get('_route') starts with 'app_services' %}active{% endif %} dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
+                        Services <i class="ti-angle-down"></i>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="{{ path('app_services') }}" class="dropdown-item"><span>Tous nos services</span></a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a href="{{ path('app_service_industriel') }}" class="dropdown-item"><span>Nettoyage industriel</span></a></li>
+                        <li><a href="{{ path('app_service_chantier') }}" class="dropdown-item"><span>Nettoyage de chantiers</span></a></li>
+                        <li><a href="{{ path('app_service_immeuble') }}" class="dropdown-item"><span>Nettoyage d'immeubles</span></a></li>
+                        <li><a href="{{ path('app_service_bureaux') }}" class="dropdown-item"><span>Nettoyage de bureaux</span></a></li>
+                        <li><a href="{{ path('app_service_vitres') }}" class="dropdown-item"><span>Nettoyage de vitres</span></a></li>
+                    </ul>
+                </li>
+                <li class="nav-item"><a class="nav-link {% if app.request.get('_route') == 'app_demande_devis_index' %}active{% endif %}" href="{{ path('app_demande_devis_index') }}">Contact</a></li>
+            </ul>
+            <div class="navbar-right">
+                <div class="btn-wrap">
+                    <a href="{{ path('app_demande_devis_index') }}" class="button"> 
+                        <span class="text">Demander un devis</span> 
+                        <span class="icon"><i class="fa-solid fa-right-long"></i></span> 
+                    </a>
                 </div>
             </div>
         </div>
-    </nav>
+
+        <!-- Mobile Drawer Menu -->
+        <div class="mobile-drawer" id="mobileDrawer">
+            <div class="drawer-header">
+                <div class="drawer-logo">
+                    <img src="{{ asset('img/logo.png') }}" alt="Logo">
+                </div>
+                <button class="drawer-close" id="mobileMenuClose">
+                    <i class="ti-close"></i>
+                </button>
+            </div>
+            <div class="drawer-body">
+                <ul class="drawer-nav">
+                    <li><a href="{{ path('app_home') }}" class="{% if app.request.get('_route') == 'app_home' %}active{% endif %}"><i class="ti-home"></i> Accueil</a></li>
+                    <li><a href="{{ path('app_about') }}" class="{% if app.request.get('_route') == 'app_about' %}active{% endif %}"><i class="ti-user"></i> À propos</a></li>
+                    <li class="has-submenu">
+                        <a href="javascript:void(0);" class="submenu-toggle"><i class="ti-settings"></i> Services <i class="ti-angle-right arrow"></i></a>
+                        <ul class="drawer-submenu">
+                            <li><a href="{{ path('app_services') }}">Tous nos services</a></li>
+                            <li><a href="{{ path('app_service_industriel') }}">Nettoyage industriel</a></li>
+                            <li><a href="{{ path('app_service_chantier') }}">Nettoyage de chantiers</a></li>
+                            <li><a href="{{ path('app_service_immeuble') }}">Nettoyage d'immeubles</a></li>
+                            <li><a href="{{ path('app_service_bureaux') }}">Nettoyage de bureaux</a></li>
+                            <li><a href="{{ path('app_service_vitres') }}">Nettoyage de vitres</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="{{ path('app_demande_devis_index') }}" class="{% if app.request.get('_route') == 'app_demande_devis_index' %}active{% endif %}"><i class="ti-email"></i> Contact</a></li>
+                </ul>
+                <div class="drawer-footer">
+                    <a href="{{ path('app_demande_devis_index') }}" class="btn-drawer-quote">Demander un devis</a>
+                </div>
+            </div>
+        </div>
+        <div class="drawer-overlay" id="drawerOverlay"></div>
+    </div>
+</nav>
