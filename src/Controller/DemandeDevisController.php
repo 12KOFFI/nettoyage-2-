@@ -70,7 +70,7 @@ final class DemandeDevisController extends AbstractController
     }
 
     #[Route('/new', name: 'app_demande_devis_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, EmailService $emailService): Response
     {
         $demandeDevi = new DemandeDevis();
         $form = $this->createForm(DemandeDevisType::class, $demandeDevi);
@@ -79,6 +79,12 @@ final class DemandeDevisController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($demandeDevi);
             $entityManager->flush();
+
+            try {
+                $emailService->sendNewDemandeDevisNotification($demandeDevi);
+            } catch (\Throwable $exception) {
+                $this->addFlash('error', "Erreur lors de l'envoi de l'email : " . $exception->getMessage());
+            }
 
             return $this->redirectToRoute('app_demande_devis_index', [], Response::HTTP_SEE_OTHER);
         }

@@ -1,0 +1,11 @@
+<h2>Nouvelle demande de devis</h2>
+<p>Une nouvelle demande de devis a été soumise via le site.</p>
+
+<ul>
+    <li><strong>Client :</strong> {{ clientName }}</li>
+    <li><strong>Email :</strong> {{ clientEmail }}</li>
+    <li><strong>Date :</strong> {{ demande.dateDemande ? demande.dateDemande|date('d/m/Y H:i') : 'N/A' }}</li>
+    <li><strong>Statut :</strong> {{ demande.statut }}</li>
+</ul>
+
+<p>Merci de consulter l'admin pour traiter cette demande.</p>

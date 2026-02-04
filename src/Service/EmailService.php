@@ -13,7 +13,8 @@ class EmailService
     public function __construct(
         private MailerInterface $mailer,
         private PdfGenerator $pdfGenerator,
-        private Environment $twig
+        private Environment $twig,
+        private string $adminEmail
     ) {
     }
 
@@ -49,6 +50,30 @@ class EmailService
             ->attach($pdfContent, $demandeDevis->getNumeroDevis() . '.pdf', 'application/pdf');
 
         // Envoyer l'email
+        $this->mailer->send($email);
+    }
+
+    /**
+     * Notifie l'admin d'une nouvelle demande de devis
+     */
+    public function sendNewDemandeDevisNotification(DemandeDevis $demandeDevis): void
+    {
+        $client = $demandeDevis->getClient();
+        $clientName = $client ? trim($client->getPrenom() . ' ' . $client->getNom()) : 'Client non renseigné';
+        $clientEmail = $client ? $client->getEmail() : null;
+
+        $fromEmail = $clientEmail ?: $this->adminEmail;
+
+        $email = (new Email())
+            ->from($fromEmail)
+            ->to($this->adminEmail)
+            ->subject('Nouvelle demande de devis reçue')
+            ->html($this->twig->render('demande_devis/email/new_demande.html.twig', [
+                'demande' => $demandeDevis,
+                'clientName' => $clientName,
+                'clientEmail' => $clientEmail ?? 'Email non renseigné',
+            ]));
+
         $this->mailer->send($email);
     }
 
