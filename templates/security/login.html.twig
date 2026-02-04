@@ -21,7 +21,7 @@
                     <p class="login-subtitle">Ravi de vous revoir.</p>
                     <form method="post">
                         {% if error %}
-                            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                            <div class="alert alert-danger">Identifiants incorrects. Vérifiez votre email et votre mot de passe.</div>
                         {% endif %}
 
                         {% if app.user %}
