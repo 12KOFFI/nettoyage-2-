@@ -71,7 +71,6 @@
                 <table class="table table-hover align-items-center mb-0">
                   <thead class="thead-light">
                     <tr>
-                      <th scope="col">#</th>
                       <th scope="col">Client</th>
                       <th scope="col">Email</th>
                       <th scope="col">Local</th>
@@ -84,7 +83,6 @@
                   <tbody>
                     {% for devi in devis %}
                       <tr>
-                        <td class="fw-bold">#{{ devi.id }}</td>
                         <td>
                           {% if devi.client %}
                             {{ devi.client.nom }} {{ devi.client.prenom }}

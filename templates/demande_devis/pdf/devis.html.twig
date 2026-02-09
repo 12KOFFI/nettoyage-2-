@@ -135,20 +135,30 @@
                         <td style="width: 40%;">Prestation</td>
                         <td style="width: 60%;">Description</td>
                     </tr>
+                    {% set detailsSpecifiques = null %}
                     {% for dp in prestations %}
+                    {% if dp.detailsSpecifiques and detailsSpecifiques is null %}
+                        {% set detailsSpecifiques = dp.detailsSpecifiques %}
+                    {% endif %}
                     <tr{% if not dp.prestation %} style="background: #e8f5e9;"{% endif %}>
                         <td>
                             {% if dp.prestation and dp.prestation.libelle != 'Autre (Personnalisée)' %}
                                 {{ dp.prestation.libelle }}
                             {% else %}
-                                {{ dp.detailsSpecifiques|default('Autre (Personnalisée)') }}
+                                Autre (Personnalisée)
                             {% endif %}
                         </td>
-                        <td>{{ dp.adminDescription|default(dp.detailsSpecifiques|default('—')) }}</td>
+                        <td>{{ dp.adminDescription|default('—') }}</td>
                     </tr>
                     {% endfor %}
                 </tbody>
             </table>
+            {% endif %}
+
+            {% if detailsSpecifiques is defined and detailsSpecifiques %}
+            <div style="margin-top: 10px; padding: 8px 10px; background: #f5f5f5; border-left: 3px solid #7CB342; font-size: 11px;">
+                <strong>Détails spécifiques :</strong> {{ detailsSpecifiques }}
+            </div>
             {% endif %}
         </div>
 

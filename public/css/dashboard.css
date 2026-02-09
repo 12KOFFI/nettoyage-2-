@@ -1,15 +1,6 @@
 /* ======= Dashboard Custom Theme ======= */
-:root {
-    --dash-primary: #1f9d55; /* Vert pour correspondre à Multi-Nettoyage Propreté */
-    --dash-primary-hover: #178a48;
-    --dash-dark: #0e1323;
-    --dash-dark-2: #13264a;
-    --dash-accent: #5a8f7b;
-    --dash-bg: #f4f7f6;
-}
-
 body {
-    background: var(--dash-bg);
+    background: #f4f7f6;
 }
 
 .alert-success,
@@ -30,53 +21,145 @@ body {
     backdrop-filter: blur(10px);
 }
 
+/* ======= Sidebar Logo ======= */
 .logo-header,
 .sidebar .logo-header {
-    background: #ffffff !important;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    background: #80b327 !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 0 20px;
+    height: 70px;
 }
 
 .logo-header .logo {
     display: flex;
     align-items: center;
     gap: 12px;
-    color: var(--dash-dark);
+    color: #fff;
     font-weight: 800;
+    text-decoration: none;
 }
 
 .logo-header .logo img {
-    height: 32px;
+    height: 36px;
+    filter: brightness(0) invert(1);
 }
 
 .logo-header .logo span {
-    font-size: 15px;
-    letter-spacing: -0.2px;
-    color: var(--dash-dark);
+    font-size: 13px;
+   letter-spacing: -0.2px;
+    color: #fff;
+    font-weight: 700;
 }
 
+.logo-header .nav-toggle .btn-toggle {
+    color: rgba(255, 255, 255, 0.5);
+ 
+}
+
+.logo-header .nav-toggle .btn-toggle:hover {
+    color: #fff;
+}
+
+/* ======= Sidebar Body ======= */
 .sidebar[data-background-color="dark"] {
-    background: #0e1323 !important;
+    background: #021e5eff  !important;
 }
 
-.sidebar .nav .nav-item a {
-    color: rgba(255, 255, 255, 0.6) !important;
-    padding: 12px 20px !important;
-    margin: 4px 15px !important;
+.sidebar .sidebar-wrapper {
+    padding-top: 10px;
+}
+
+.sidebar .nav {
+    margin-top: 10px !important;
+}
+
+.sidebar .nav .nav-section .text-section {
+    color: rgba(255, 255, 255, 0.35) !important;
+    font-size: 11px !important;
+    text-transform: uppercase !important;
+    letter-spacing: 1.2px !important;
+    padding: 8px 28px !important;
+    margin-top: 20px !important;
+    margin-bottom: 8px !important;
+}
+
+.sidebar .nav > .nav-item a {
+    color: rgba(255, 255, 255, 0.55) !important;
+    padding: 11px 20px !important;
+    margin: 2px 14px !important;
     border-radius: 10px !important;
-    transition: all 0.3s ease;
+    transition: all 0.25s ease;
+    position: relative;
 }
 
-.sidebar .nav .nav-item a:hover,
-.sidebar .nav .nav-item.active a {
+.sidebar .nav > .nav-item a:hover {
     color: #fff !important;
-    background: var(--dash-primary) !important;
+    background: rgba(255, 255, 255, 0.08) !important;
 }
 
-.sidebar .nav .nav-item a i {
-    color: inherit !important;
-    font-size: 18px;
-    width: 30px;
+.sidebar .nav > .nav-item a:hover i {
+    color: #80B327 !important;
+}
+
+.sidebar .nav > .nav-item.active > a {
+    color: #fff !important;
+    background: #80B327 !important;
+    box-shadow: 0 4px 15px rgba(128, 179, 39, 0.35);
+}
+
+.sidebar .nav > .nav-item.active > a:before {
+    display: none;
+}
+
+.sidebar .nav > .nav-item.active > a i {
+    color: #fff !important;
+}
+
+.sidebar .nav > .nav-item.active > a p {
+    color: #fff !important;
+}
+
+.sidebar .nav > .nav-item a i {
+    color: #fff !important;
+    font-size: 17px;
+    width: 28px;
     text-align: center;
+    transition: color 0.25s ease;
+}
+
+.sidebar .nav > .nav-item a p {
+    font-size: 14px !important;
+    font-weight: 500 !important;
+}
+
+.sidebar .nav > .nav-item.active a p {
+    font-weight: 600 !important;
+}
+
+/* Sidebar user section */
+.sidebar .user {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    padding-bottom: 15px !important;
+    margin-bottom: 5px;
+}
+
+.sidebar .user .info a > span {
+    color: rgba(255, 255, 255, 0.7) !important;
+}
+
+.sidebar .user .info a > span .user-level {
+    color: #80B327 !important;
+}
+
+/* Scrollbar inside sidebar */
+.sidebar .sidebar-wrapper .scroll-element .scroll-bar {
+    background: rgba(255, 255, 255, 0.15) !important;
+    border-radius: 3px;
+}
+
+/* Sidebar collapsed state */
+.sidebar_minimize .sidebar .nav > .nav-item.active > a {
+    background: #80B327 !important;
 }
 
 .card.card-round {
@@ -95,7 +178,7 @@ body {
 .card-stats .numbers .card-title {
     font-size: 24px;
     font-weight: 700;
-    color: var(--dash-dark);
+    color: #0a0f2e;
 }
 
 .icon-big {
@@ -153,11 +236,11 @@ body {
 }
 
 .btn-link.btn-primary {
-    color: var(--dash-primary) !important;
+    color: #80B327 !important;
 }
 
 .btn-link.btn-primary:hover {
-    color: var(--dash-primary-hover) !important;
+    color: #6a9620 !important;
     background: rgba(31, 157, 85, 0.05) !important;
 }
 
@@ -190,18 +273,18 @@ body {
 }
 
 .pagination .page-link {
-    color: var(--dash-primary);
+    color: #80B327;
     border-color: rgba(14, 19, 35, 0.1);
 }
 
 .pagination .page-item.active .page-link {
-    background-color: var(--dash-primary);
-    border-color: var(--dash-primary);
+    background-color: #80B327;
+    border-color: #80B327;
 }
 
 .pagination .page-link:hover {
     background-color: rgba(50, 107, 255, 0.1);
-    border-color: var(--dash-primary);
+    border-color: #80B327;
 }
 
 /* Print styles for invoice */

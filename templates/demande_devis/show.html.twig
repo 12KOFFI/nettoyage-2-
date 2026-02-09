@@ -204,7 +204,6 @@
                       <tr>
                         <th>Prestation</th>
                         <th>Description admin</th>
-                        <th>Détails spécifiques</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -247,13 +246,6 @@
                               {% endif %}
                             {% endif %}
                           </td>
-                          <td>
-                            {% if demandePrest.detailsSpecifiques %}
-                              {{ demandePrest.detailsSpecifiques }}
-                            {% else %}
-                              <span class="text-muted">-</span>
-                            {% endif %}
-                          </td>
                         </tr>
                       {% endfor %}
                     </tbody>
@@ -262,6 +254,18 @@
                     </form>
                   {% endif %}
                 </div>
+              {% set detailsSpecifiques = null %}
+              {% for demandePrest in devis.demandePrestations %}
+                {% if demandePrest.detailsSpecifiques and detailsSpecifiques is null %}
+                  {% set detailsSpecifiques = demandePrest.detailsSpecifiques %}
+                {% endif %}
+              {% endfor %}
+              {% if detailsSpecifiques %}
+              <div class="card-footer">
+                <strong><i class="fas fa-info-circle me-2"></i>Détails spécifiques :</strong>
+                <p class="mb-0 mt-1">{{ detailsSpecifiques }}</p>
+              </div>
+              {% endif %}
               </div>
             </div>
           </div>
@@ -453,94 +457,100 @@
       const tvaSelect = document.getElementById('prix_tva');
       const totalDisplay = document.getElementById('total_ttc_display');
       const montantHtTotalDisplay = document.getElementById('montant_ht_total_display');
-      const surface = parseFloat(document.getElementById('surface_value').textContent) || 1;
+      const surfaceEl = document.getElementById('surface_value');
+      const surface = surfaceEl ? (parseFloat(surfaceEl.textContent) || 1) : 1;
 
-      function calculateTotal() {
-        const prixUnitaire = parseFloat(montantHtInput.value) || 0;
-        const remise = parseFloat(remiseInput.value) || 0;
-        const tva = parseFloat(tvaSelect.value) || 0;
+      if (montantHtInput && remiseInput && tvaSelect && totalDisplay && montantHtTotalDisplay) {
+        function calculateTotal() {
+          const prixUnitaire = parseFloat(montantHtInput.value) || 0;
+          const remise = parseFloat(remiseInput.value) || 0;
+          const tva = parseFloat(tvaSelect.value) || 0;
 
-        const montantHtTotal = prixUnitaire * surface;
-        const montantApresRemise = montantHtTotal - remise;
-        const montantTva = montantApresRemise * (tva / 100);
-        const totalTtc = montantApresRemise + montantTva;
+          const montantHtTotal = prixUnitaire * surface;
+          const montantApresRemise = montantHtTotal - remise;
+          const montantTva = montantApresRemise * (tva / 100);
+          const totalTtc = montantApresRemise + montantTva;
 
-        montantHtTotalDisplay.value = montantHtTotal.toLocaleString('fr-FR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' €';
-        totalDisplay.value = totalTtc.toLocaleString('fr-FR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' €';
+          montantHtTotalDisplay.value = montantHtTotal.toLocaleString('fr-FR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' €';
+          totalDisplay.value = totalTtc.toLocaleString('fr-FR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' €';
+        }
+
+        montantHtInput.addEventListener('input', calculateTotal);
+        remiseInput.addEventListener('input', calculateTotal);
+        tvaSelect.addEventListener('change', calculateTotal);
+
+        calculateTotal();
       }
 
-      montantHtInput.addEventListener('input', calculateTotal);
-      remiseInput.addEventListener('input', calculateTotal);
-      tvaSelect.addEventListener('change', calculateTotal);
-
-      calculateTotal();
-
       // Gestion du modal admin_description
-      const modal = new bootstrap.Modal(document.getElementById('adminDescriptionModal'));
-      const modalTextarea = document.getElementById('modal-textarea');
-      const modalPrestationName = document.getElementById('modal-prestation-name');
-      const saveModalBtn = document.getElementById('save-modal-btn');
-      const saveUrl = document.getElementById('adminDescriptionModal').dataset.saveUrl;
-      const prestationsToken = document.getElementById('prestations_token');
-      let currentPrestationId = null;
+      const adminModalEl = document.getElementById('adminDescriptionModal');
+      if (adminModalEl) {
+        const modal = new bootstrap.Modal(adminModalEl);
+        const modalTextarea = document.getElementById('modal-textarea');
+        const modalPrestationName = document.getElementById('modal-prestation-name');
+        const saveModalBtn = document.getElementById('save-modal-btn');
+        const saveUrl = adminModalEl.dataset.saveUrl;
+        const prestationsToken = document.getElementById('prestations_token');
+        let currentPrestationId = null;
 
-      // Ouvrir le modal au clic sur les boutons "Ajouter/Modifier"
-      document.querySelectorAll('.open-modal-btn').forEach(btn => {
-        btn.addEventListener('click', function() {
-          currentPrestationId = this.getAttribute('data-prestation-id');
-          const prestationName = this.getAttribute('data-prestation-name');
-          const adminDescription = this.getAttribute('data-admin-description') || '';
-          
-          modalPrestationName.textContent = prestationName;
-          modalTextarea.value = adminDescription;
-          modal.show();
-        });
-      });
-
-      // Sauvegarder la description au clic sur "Enregistrer"
-      saveModalBtn.addEventListener('click', function() {
-        if (!currentPrestationId || !saveUrl || !prestationsToken) {
-          return;
-        }
-
-        const hiddenTextarea = document.getElementById('admin_description_' + currentPrestationId);
-        if (hiddenTextarea) {
-          hiddenTextarea.value = modalTextarea.value;
-        }
-
-        const formData = new FormData();
-        formData.append('_token', prestationsToken.value);
-        formData.append('admin_description[' + currentPrestationId + ']', modalTextarea.value);
-
-        fetch(saveUrl, {
-          method: 'POST',
-          body: formData
-        })
-          .then(response => {
-            if (!response.ok) {
-              throw new Error('Erreur lors de l\'enregistrement');
-            }
-
-            const btn = document.querySelector('.open-modal-btn[data-prestation-id="' + currentPrestationId + '"]');
-            if (btn) {
-              btn.setAttribute('data-admin-description', modalTextarea.value);
-              const btnText = modalTextarea.value ? 'Modifier' : 'Ajouter';
-              btn.innerHTML = '<i class="fas fa-edit me-1"></i>' + btnText;
-            }
-
-            modal.hide();
-          })
-          .catch(() => {
-            alert('Erreur lors de l\'enregistrement de la description.');
+        // Ouvrir le modal au clic sur les boutons "Ajouter/Modifier"
+        document.querySelectorAll('.open-modal-btn').forEach(btn => {
+          btn.addEventListener('click', function() {
+            currentPrestationId = this.getAttribute('data-prestation-id');
+            const prestationName = this.getAttribute('data-prestation-name');
+            const adminDescription = this.getAttribute('data-admin-description') || '';
+            
+            modalPrestationName.textContent = prestationName;
+            modalTextarea.value = adminDescription;
+            modal.show();
           });
-      });
+        });
 
-      // Réinitialiser le modal à la fermeture
-      document.getElementById('adminDescriptionModal').addEventListener('hidden.bs.modal', function() {
-        currentPrestationId = null;
-        modalTextarea.value = '';
-        modalPrestationName.textContent = '';
-      });
+        // Sauvegarder la description au clic sur "Enregistrer"
+        saveModalBtn.addEventListener('click', function() {
+          if (!currentPrestationId || !saveUrl || !prestationsToken) {
+            return;
+          }
+
+          const hiddenTextarea = document.getElementById('admin_description_' + currentPrestationId);
+          if (hiddenTextarea) {
+            hiddenTextarea.value = modalTextarea.value;
+          }
+
+          const formData = new FormData();
+          formData.append('_token', prestationsToken.value);
+          formData.append('admin_description[' + currentPrestationId + ']', modalTextarea.value);
+
+          fetch(saveUrl, {
+            method: 'POST',
+            body: formData
+          })
+            .then(response => {
+              if (!response.ok) {
+                throw new Error('Erreur lors de l\'enregistrement');
+              }
+
+              const btn = document.querySelector('.open-modal-btn[data-prestation-id="' + currentPrestationId + '"]');
+              if (btn) {
+                btn.setAttribute('data-admin-description', modalTextarea.value);
+                const btnText = modalTextarea.value ? 'Modifier' : 'Ajouter';
+                btn.innerHTML = '<i class="fas fa-edit me-1"></i>' + btnText;
+              }
+
+              modal.hide();
+            })
+            .catch(() => {
+              alert('Erreur lors de l\'enregistrement de la description.');
+            });
+        });
+
+        // Réinitialiser le modal à la fermeture
+        adminModalEl.addEventListener('hidden.bs.modal', function() {
+          currentPrestationId = null;
+          modalTextarea.value = '';
+          modalPrestationName.textContent = '';
+        });
+      }
     });
   </script>
 {% endblock %}

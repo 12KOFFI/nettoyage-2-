@@ -521,38 +521,41 @@ $(function () {
 
   // Scroll back to top
   var progressPath = document.querySelector(".progress-wrap path");
-  var pathLength = progressPath.getTotalLength();
-  progressPath.style.transition = progressPath.style.WebkitTransition = "none";
-  progressPath.style.strokeDasharray = pathLength + " " + pathLength;
-  progressPath.style.strokeDashoffset = pathLength;
-  progressPath.getBoundingClientRect();
-  progressPath.style.transition = progressPath.style.WebkitTransition =
-    "stroke-dashoffset 10ms linear";
-  var updateProgress = window.scrollOptimizer.throttle(function () {
-    var scroll = window.pageYOffset || document.documentElement.scrollTop;
-    var height = document.documentElement.scrollHeight - window.innerHeight;
-    var progress = pathLength - (scroll * pathLength) / height;
-    progressPath.style.strokeDashoffset = progress;
-    
-    // Progress wrap visibility
-    var progressWrap = document.querySelector('.progress-wrap');
-    if (progressWrap) {
-      if (scroll > 150) {
-        progressWrap.classList.add('active-progress');
-      } else {
-        progressWrap.classList.remove('active-progress');
+  var scrollTopDuration = 600;
+  if (progressPath) {
+    var pathLength = progressPath.getTotalLength();
+    progressPath.style.transition = progressPath.style.WebkitTransition = "none";
+    progressPath.style.strokeDasharray = pathLength + " " + pathLength;
+    progressPath.style.strokeDashoffset = pathLength;
+    progressPath.getBoundingClientRect();
+    progressPath.style.transition = progressPath.style.WebkitTransition =
+      "stroke-dashoffset 10ms linear";
+    var updateProgress = window.scrollOptimizer.throttle(function () {
+      var scroll = window.pageYOffset || document.documentElement.scrollTop;
+      var height = document.documentElement.scrollHeight - window.innerHeight;
+      var progress = pathLength - (scroll * pathLength) / height;
+      progressPath.style.strokeDashoffset = progress;
+
+      // Progress wrap visibility
+      var progressWrap = document.querySelector('.progress-wrap');
+      if (progressWrap) {
+        if (scroll > 150) {
+          progressWrap.classList.add('active-progress');
+        } else {
+          progressWrap.classList.remove('active-progress');
+        }
       }
-    }
-  }, 16);
-  updateProgress();
-  window.addEventListener('scroll', updateProgress, window.scrollOptimizer.scrollOptions);
+    }, 16);
+    updateProgress();
+    window.addEventListener('scroll', updateProgress, window.scrollOptimizer.scrollOptions);
+  }
   jQuery(".progress-wrap").on("click", function (event) {
     event.preventDefault();
     jQuery("html, body").animate(
       {
         scrollTop: 0,
       },
-      duration,
+      scrollTopDuration,
     );
     return false;
   });
