@@ -14,7 +14,7 @@
     gap: 14px;
     padding-bottom: 1.1rem;
     margin-bottom: 1.75rem;
-    border-bottom: 1px solid #80b327;
+    border-bottom: 1px solid #33cc66;
 }
 
 .demande-devis-form .dd-section-header__icon {
@@ -46,6 +46,18 @@
 
 .demande-devis-form .dd-grid .form-group {
     margin-bottom: 0;
+}
+
+.demande-devis-form .form-group .form-label {
+    display: block;
+    margin-bottom: 0.35rem;
+    font-weight: 600;
+    color: #0e1323;
+}
+
+.demande-devis-form .form-group .form-label + .form-icon {
+    top: calc(50% + 12px);
+    transform: translateY(-50%);
 }
 
 .demande-devis-form .dd-grid .form-control {
@@ -161,8 +173,8 @@
 }
 
 .demande-devis-form .dd-prestation input[type="checkbox"]:checked + label {
-    border-color: #80b327;
-    background: #80b327;
+    border-color: #33cc66;
+    background: #33cc66;
     transform: translateY(-2px);
 }
 

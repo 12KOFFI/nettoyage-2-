@@ -3,29 +3,33 @@
     <div class="dd-section-header">
         <span class="dd-section-header__icon"><i class="fas fa-user"></i></span>
         <div>
-            <h5 class="form-section-title mb-0">Vos coordonnées</h5>
+            <h5 class="form-section-title mb-0">Vos coordonnées <span style="color: red;">*</span></h5>
             <p class="dd-section-header__subtitle">Informations de contact</p>
         </div>
     </div>
     <div class="dd-grid dd-grid--two">
         <div class="form-group">
+            <label class="form-label">Nom <span style="color: red;">*</span></label>
             <span class="form-icon"><i class="fas fa-user"></i></span>
-            {{ form_widget(form.client_nom, {'attr': {'class': 'form-control', 'placeholder': 'Nom *'}}) }}
+            {{ form_widget(form.client_nom, {'attr': {'class': 'form-control', 'placeholder': 'Nom'}}) }}
             {{ form_errors(form.client_nom) }}
         </div>
         <div class="form-group">
+            <label class="form-label">Prénom <span style="color: red;">*</span></label>
             <span class="form-icon"><i class="fas fa-smile"></i></span>
-            {{ form_widget(form.client_prenom, {'attr': {'class': 'form-control', 'placeholder': 'Prénom *'}}) }}
+            {{ form_widget(form.client_prenom, {'attr': {'class': 'form-control', 'placeholder': 'Prénom'}}) }}
             {{ form_errors(form.client_prenom) }}
         </div>
         <div class="form-group">
+            <label class="form-label">Email <span style="color: red;">*</span></label>
             <span class="form-icon"><i class="fas fa-envelope"></i></span>
-            {{ form_widget(form.client_email, {'attr': {'class': 'form-control', 'placeholder': 'Email *'}}) }}
+            {{ form_widget(form.client_email, {'attr': {'class': 'form-control', 'placeholder': 'Email'}}) }}
             {{ form_errors(form.client_email) }}
         </div>
         <div class="form-group">
+            <label class="form-label">Téléphone <span style="color: red;">*</span></label>
             <span class="form-icon"><i class="fas fa-phone"></i></span>
-            {{ form_widget(form.client_telephone, {'attr': {'class': 'form-control', 'placeholder': 'Téléphone *'}}) }}
+            {{ form_widget(form.client_telephone, {'attr': {'class': 'form-control', 'placeholder': 'Téléphone'}}) }}
             {{ form_errors(form.client_telephone) }}
         </div>
     </div>
@@ -35,17 +39,19 @@
     <div class="dd-section-header">
         <span class="dd-section-header__icon"><i class="fas fa-building"></i></span>
         <div>
-            <h5 class="form-section-title mb-0">Informations sur le local</h5>
+            <h5 class="form-section-title mb-0">Informations sur le local <span style="color: red;">*</span></h5>
             <p class="dd-section-header__subtitle">Détails du lieu à nettoyer</p>
         </div>
     </div>
     <div class="dd-grid dd-grid--two">
         <div class="form-group">
+            <label class="form-label">Type de local <span style="color: red;">*</span></label>
             <span class="form-icon"><i class="fas fa-home"></i></span>
             {{ form_widget(form.local_type, {'attr': {'class': 'form-control', 'id': 'local_type_select', 'onchange': "document.getElementById('local_type_autre_wrap').style.display = this.value === 'autre' ? 'block' : 'none'"}}) }}
             {{ form_errors(form.local_type) }}
         </div>
         <div class="form-group">
+            <label class="form-label">Adresse <span style="color: red;">*</span></label>
             <span class="form-icon"><i class="fas fa-map-marker-alt"></i></span>
             {{ form_widget(form.local_ville, {'attr': {'class': 'form-control', 'placeholder': 'Ville ou adresse complète'}}) }}
             {{ form_errors(form.local_ville) }}
@@ -55,8 +61,9 @@
             <input type="text" name="local_type_autre" class="form-control" placeholder="Précisez le type de local">
         </div>
         <div class="form-group" style="grid-column: 1 / -1;">
+            <label class="form-label">Surface (m²) <span style="color: red;">*</span></label>
             <span class="form-icon"><i class="fas fa-ruler-combined"></i></span>
-            {{ form_widget(form.local_surface, {'attr': {'class': 'form-control', 'placeholder': 'Surface en m² *'}}) }}
+            {{ form_widget(form.local_surface, {'attr': {'class': 'form-control', 'placeholder': 'Surface en m²'}}) }}
             {{ form_errors(form.local_surface) }}
         </div>
     </div>
@@ -66,12 +73,12 @@
     <div class="dd-section-header">
         <span class="dd-section-header__icon"><i class="fas fa-broom"></i></span>
         <div>
-            <h5 class="form-section-title mb-0">Détails de la prestation</h5>
+            <h5 class="form-section-title mb-0">Détails de la prestation <span style="color: red;">*</span></h5>
             <p class="dd-section-header__subtitle">Sélectionnez vos besoins</p>
         </div>
     </div>
     <div class="form-group mb-4">
-        <label class="form-label fw-bold mb-3"><i class="fas fa-list me-2"></i>Prestations souhaitées</label>
+        <label class="form-label fw-bold mb-3"><i class="fas fa-list me-2"></i>Prestations souhaitées <span style="color: red;">*</span></label>
         <div class="dd-prestations-grid">
             {% for child in form.prestation %}
                 <div class="dd-prestation">
@@ -108,11 +115,13 @@
     </div>
     <div class="dd-grid dd-grid--two">
         <div class="form-group">
+            <label class="form-label">Fréquence <span style="color: red;">*</span></label>
             <span class="form-icon"><i class="fas fa-repeat"></i></span>
             {{ form_widget(form.frequence, {'attr': {'class': 'form-control', 'id': 'frequence_select', 'onchange': "document.getElementById('frequence_autre_wrap').style.display = this.value === 'Autre' ? 'block' : 'none'"}}) }}
             {{ form_errors(form.frequence) }}
         </div>
         <div class="form-group">
+            <label class="form-label">Créneau horaire <span style="color: red;">*</span></label>
             <span class="form-icon"><i class="fas fa-clock"></i></span>
             {{ form_widget(form.creneau_horaire, {'attr': {'class': 'form-control'}}) }}
             {{ form_errors(form.creneau_horaire) }}

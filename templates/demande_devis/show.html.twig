@@ -7,7 +7,7 @@
     <div class="page-inner">
       <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row pt-2 pb-4">
         <div>
-          <h3 class="fw-bold mb-3">Demande de devis #{{ devis.id }}</h3>
+          <h3 class="fw-bold mb-3">Demande de devis</h3>
           <h6 class="op-7 mb-2">Visualisation des données client</h6>
         </div>
         <div class="ms-md-auto py-2 py-md-0 d-flex gap-2">
@@ -538,9 +538,29 @@
               }
 
               modal.hide();
+
+              $.notify({
+                icon: 'fas fa-check-circle',
+                message: 'Description administrative enregistrée avec succès.'
+              }, {
+                type: 'success',
+                placement: { from: 'top', align: 'right' },
+                delay: 3000,
+                timer: 1000,
+                animate: { enter: 'animated fadeInDown', exit: 'animated fadeOutUp' }
+              });
             })
             .catch(() => {
-              alert('Erreur lors de l\'enregistrement de la description.');
+              $.notify({
+                icon: 'fas fa-exclamation-triangle',
+                message: 'Erreur lors de l\'enregistrement de la description.'
+              }, {
+                type: 'danger',
+                placement: { from: 'top', align: 'right' },
+                delay: 4000,
+                timer: 1000,
+                animate: { enter: 'animated fadeInDown', exit: 'animated fadeOutUp' }
+              });
             });
         });
 

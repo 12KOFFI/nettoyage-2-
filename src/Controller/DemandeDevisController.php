@@ -14,6 +14,7 @@ use App\Service\DemandeDevisService;
 use App\Service\EmailService;
 use App\Service\PdfGenerator;
 use Doctrine\ORM\EntityManagerInterface;
+use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -70,7 +71,7 @@ final class DemandeDevisController extends AbstractController
     }
 
     #[Route('/new', name: 'app_demande_devis_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager, EmailService $emailService): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, EmailService $emailService, LoggerInterface $logger): Response
     {
         $demandeDevi = new DemandeDevis();
         $form = $this->createForm(DemandeDevisType::class, $demandeDevi);
@@ -83,7 +84,11 @@ final class DemandeDevisController extends AbstractController
             try {
                 $emailService->sendNewDemandeDevisNotification($demandeDevi);
             } catch (\Throwable $exception) {
-                $this->addFlash('error', "Erreur lors de l'envoi de l'email : " . $exception->getMessage());
+                $logger->error('Erreur envoi email notification nouvelle demande devis', [
+                    'demande_devis_id' => $demandeDevi->getId(),
+                    'exception' => $exception,
+                ]);
+                $this->addFlash('error', "Impossible d'envoyer l'email de confirmation pour le moment. Veuillez réessayer plus tard.");
             }
 
             return $this->redirectToRoute('app_demande_devis_index', [], Response::HTTP_SEE_OTHER);
@@ -164,7 +169,7 @@ final class DemandeDevisController extends AbstractController
     }
 
     #[Route('/{id}/email', name: 'app_demande_devis_email', methods: ['POST'])]
-    public function sendEmail(Request $request, DemandeDevis $demandeDevis, EmailService $emailService): Response
+    public function sendEmail(Request $request, DemandeDevis $demandeDevis, EmailService $emailService, LoggerInterface $logger): Response
     {
         if (!$this->isCsrfTokenValid('email' . $demandeDevis->getId(), $request->request->get('_token'))) {
             $this->addFlash('error', 'Token CSRF invalide.');
@@ -175,8 +180,13 @@ final class DemandeDevisController extends AbstractController
             $emailService->sendDevisToClient($demandeDevis);
             $clientEmail = $emailService->getClientEmail($demandeDevis);
             $this->addFlash('success', 'Le devis a été envoyé par email à ' . $clientEmail);
-        } catch (\Exception $e) {
-            $this->addFlash('error', "Erreur lors de l'envoi de l'email : " . $e->getMessage());
+        } catch (\Throwable $e) {
+            $logger->error('Erreur envoi devis par email au client', [
+                'demande_devis_id' => $demandeDevis->getId(),
+                'client_email' => $emailService->getClientEmail($demandeDevis),
+                'exception' => $e,
+            ]);
+            $this->addFlash('error', "Impossible d'envoyer l'email au client pour le moment. Veuillez vérifier l'adresse email ou réessayer plus tard.");
         }
 
         return $this->redirectToRoute('app_demande_devis_show', ['id' => $demandeDevis->getId()]);

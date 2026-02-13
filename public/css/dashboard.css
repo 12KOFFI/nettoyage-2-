@@ -5,8 +5,8 @@ body {
 
 .alert-success,
 .alert-danger {
-    background: rgba(31, 157, 85, 0.12);
-    border: 1px solid rgba(31, 157, 85, 0.35);
+    background: rgba(51, 204, 102, 0.12);
+    border: 1px solid rgba(51, 204, 102, 0.35);
     color: #145c2e;
 }
 
@@ -24,7 +24,7 @@ body {
 /* ======= Sidebar Logo ======= */
 .logo-header,
 .sidebar .logo-header {
-    background: #80b327 !important;
+    background: #33cc66 !important;
     border-bottom: 1px solid rgba(255, 255, 255, 0.08);
     padding: 0 20px;
     height: 70px;
@@ -62,7 +62,7 @@ body {
 
 /* ======= Sidebar Body ======= */
 .sidebar[data-background-color="dark"] {
-    background: #021e5eff  !important;
+    background: #003366  !important;
 }
 
 .sidebar .sidebar-wrapper {
@@ -98,13 +98,13 @@ body {
 }
 
 .sidebar .nav > .nav-item a:hover i {
-    color: #80B327 !important;
+    color: #33cc66 !important;
 }
 
 .sidebar .nav > .nav-item.active > a {
     color: #fff !important;
-    background: #80B327 !important;
-    box-shadow: 0 4px 15px rgba(128, 179, 39, 0.35);
+    background: #33cc66 !important;
+    box-shadow: 0 4px 15px rgba(51, 204, 102, 0.35);
 }
 
 .sidebar .nav > .nav-item.active > a:before {
@@ -148,7 +148,7 @@ body {
 }
 
 .sidebar .user .info a > span .user-level {
-    color: #80B327 !important;
+    color: #33cc66 !important;
 }
 
 /* Scrollbar inside sidebar */
@@ -159,7 +159,7 @@ body {
 
 /* Sidebar collapsed state */
 .sidebar_minimize .sidebar .nav > .nav-item.active > a {
-    background: #80B327 !important;
+    background: #33cc66 !important;
 }
 
 .card.card-round {
@@ -236,12 +236,12 @@ body {
 }
 
 .btn-link.btn-primary {
-    color: #80B327 !important;
+    color: #33cc66 !important;
 }
 
 .btn-link.btn-primary:hover {
-    color: #6a9620 !important;
-    background: rgba(31, 157, 85, 0.05) !important;
+    color: #2ba855 !important;
+    background: rgba(51, 204, 102, 0.05) !important;
 }
 
 /* ======= Devis Pages Styles ======= */
@@ -273,18 +273,18 @@ body {
 }
 
 .pagination .page-link {
-    color: #80B327;
+    color: #33cc66;
     border-color: rgba(14, 19, 35, 0.1);
 }
 
 .pagination .page-item.active .page-link {
-    background-color: #80B327;
-    border-color: #80B327;
+    background-color: #33cc66;
+    border-color: #33cc66;
 }
 
 .pagination .page-link:hover {
     background-color: rgba(50, 107, 255, 0.1);
-    border-color: #80B327;
+    border-color: #33cc66;
 }
 
 /* Print styles for invoice */
