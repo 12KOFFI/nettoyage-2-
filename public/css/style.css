@@ -1393,6 +1393,11 @@ only screen and (max-device-width: 991px) {
     }
 }
 @media screen and (max-width: 991px) {
+    html,
+    body {
+        overflow-x: hidden;
+        width: 100%;
+    }
     .navbar {
         padding-left: 0px;
         padding-right: 0px;
@@ -1424,11 +1429,11 @@ only screen and (max-device-width: 991px) {
         display: block !important;
         opacity: 1 !important;
         visibility: visible !important;
-        width: 150px;
-        max-width: 150px;
+        width: 120px;
+        max-width: 120px;
     }
     .nav-scroll .logo-img {
-        width: 150px;
+        width: 120px;
     }
     .navbar .logo {
         text-align: left;
@@ -1437,7 +1442,7 @@ only screen and (max-device-width: 991px) {
     .nav-scroll .logo {}
     .logo-img {
         margin-bottom: 0px;
-        width: 150px;
+        width: 120px;
     }
     .navbar button {
         margin-right: 0px;
@@ -1522,6 +1527,17 @@ only screen and (max-device-width: 991px) {
     }
     .navbar .navbar-right {
         display: none;
+    }
+
+    .team .team-container,
+    .services2 .services2-container {
+        width: 100%;
+    }
+
+    .team .item,
+    .services2 .item {
+        margin-left: 0;
+        margin-right: 0;
     }
 }
 
