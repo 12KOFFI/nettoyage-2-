@@ -1,41 +1,93 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Accueil - Multi-Nettoyage Propreté{% endblock %}
+{% block title %}Accueil - Multi-Nettoyage Propreté plus 94 | Nettoyage professionnel Paris Île-de-France{% endblock %}
+
+{% block meta_description %}Multi-Nettoyage Propreté plus 94 : nettoyage professionnel de bureaux, immeubles, chantiers et industries à Paris et en Île-de-France. Devis gratuit.{% endblock %}
+
+{% block jsonld %}
+    {{ seo_jsonld_local_business() }}
+    {{ seo_jsonld_organization() }}
+{% endblock %}
 
 {% block body %}
-<!-- Header avec vidéo de fond 4K -->
-    <header class="header">
-        <div class="video-fullscreen-wrap">
-            <div class="video-fullscreen-video" data-overlay-dark="3">
-                <video autoplay loop muted playsinline preload="none" poster="{{ asset('img/slider/10.jpg') }}">
-                    <source src="{{ asset('video.mp4') }}" type="video/mp4">
-                </video>
-            </div>
-            <div class="v-middle">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-lg-6 col-md-12">
-                            <h5 class="wow fadeInDown" data-wow-delay=".1s">Votre propreté, notre expertise</h5>
-                            <h3 class="wow zoom-in-place" data-wow-offset="100" data-wow-duration="0.8s">Services de nettoyage professionnel</h3>
-                            <p class="wow fadeInUp" data-wow-delay=".2s">Multi-Nettoyage Propreté plus 94 : votre partenaire pour tous vos besoins de nettoyage professionnel.</p>
-                            <div class="btn-wrap mt-30 wow fadeInUp" data-wow-delay=".3s">
-                                <a href="{{ path('app_about') }}" class="button-1"> <span class="text">En savoir plus</span> <span class="icon"><i class="fa-solid fa-right-long"></i></span> </a>
-                                <a href="{{ path('app_demande_devis_index') }}" class="button-1" style="margin-left: 15px;"> <span class="text">Demander un devis</span> <span class="icon"><i class="fa-solid fa-file-invoice"></i></span> </a>
+<!-- ===// Start: Slider =================================-->
+<section id="slider-section" class="slider-wrapper">
+    <div class="main-slider owl-carousel owl-theme">
+        <!-- Slide 1 -->
+        <div class="item">
+            <img src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=1920&q=80" alt="Nettoyage professionnel">
+            <div class="theme-slider">
+                <div class="theme-table">
+                    <div class="theme-table-cell">
+                        <div class="av-container">
+                            <div class="theme-content text-center wow zoomIn">
+                                <h3 data-animation="fadeInUp" data-delay="150ms">Bienvenue chez Multi-Nettoyage Propreté plus 94</h3>
+                                <h1 data-animation="fadeInUp" data-delay="200ms">Services de nettoyage <span class="primary-color">professionnel</span></h1>
+                                <p data-animation="fadeInUp" data-delay="500ms">Votre partenaire de confiance pour tous vos besoins de propreté à Paris et en Île-de-France.</p>
+                                <a data-animation="fadeInUp" data-delay="800ms" href="{{ path('app_demande_devis_index') }}" class="av-btn av-btn-primary av-btn-bubble">
+                                    Demander un devis <i class="fa fa-arrow-right"></i>
+                                    <span class="bubble_effect"><span class="circle top-left"></span><span class="circle top-left"></span><span class="circle top-left"></span><span class="button effect-button"></span><span class="circle bottom-right"></span><span class="circle bottom-right"></span><span class="circle bottom-right"></span></span>
+                                </a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </header>
+        <!-- Slide 2 -->
+        <div class="item">
+            <img src="https://images.unsplash.com/photo-1628177142898-93e36e4e3a50?auto=format&fit=crop&w=1920&q=80" alt="Nettoyage industriel">
+            <div class="theme-slider">
+                <div class="theme-table">
+                    <div class="theme-table-cell">
+                        <div class="av-container">
+                            <div class="theme-content text-left wow zoomIn">
+                                <h3 data-animation="fadeInUp" data-delay="150ms">Qualité, Réactivité, Professionnalisme</h3>
+                                <h1 data-animation="fadeInLeft" data-delay="200ms">Nettoyage industriel & <span class="primary-color">bureaux</span></h1>
+                                <p data-animation="fadeInLeft" data-delay="500ms">Des solutions de nettoyage adaptées à chaque secteur : industries, bureaux, chantiers et immeubles.</p>
+                                <a data-animation="fadeInUp" data-delay="800ms" href="{{ path('app_demande_devis_index') }}" class="av-btn av-btn-primary av-btn-bubble">
+                                    Demander un devis <i class="fa fa-arrow-right"></i>
+                                    <span class="bubble_effect"><span class="circle top-left"></span><span class="circle top-left"></span><span class="circle top-left"></span><span class="button effect-button"></span><span class="circle bottom-right"></span><span class="circle bottom-right"></span><span class="circle bottom-right"></span></span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Slide 3 -->
+        <div class="item">
+            <img src="https://images.unsplash.com/photo-1563453392212-326f5e854473?auto=format&fit=crop&w=1920&q=80" alt="Nettoyage de vitres">
+            <div class="theme-slider">
+                <div class="theme-table">
+                    <div class="theme-table-cell">
+                        <div class="av-container">
+                            <div class="theme-content text-right wow zoomIn">
+                                <h3 data-animation="fadeInUp" data-delay="150ms">Expertise & Savoir-faire depuis 2017</h3>
+                                <h1 data-animation="fadeInRight" data-delay="200ms">Propreté & <span class="primary-color">Hygiène</span></h1>
+                                <p data-animation="fadeInRight" data-delay="500ms">Des équipes qualifiées et des équipements modernes pour des résultats impeccables à chaque intervention.</p>
+                                <a data-animation="fadeInUp" data-delay="800ms" href="{{ path('app_demande_devis_index') }}" class="av-btn av-btn-primary av-btn-bubble">
+                                    Demander un devis <i class="fa fa-arrow-right"></i>
+                                    <span class="bubble_effect"><span class="circle top-left"></span><span class="circle top-left"></span><span class="circle top-left"></span><span class="button effect-button"></span><span class="circle bottom-right"></span><span class="circle bottom-right"></span><span class="circle bottom-right"></span></span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End: Slider =================================-->
+
     <!-- About -->
     <div class="about section-padding">
         <div class="container">
             <div class="row">
                 <div class="col-lg-5 mb-30">
                     <div class="section-subtitle wow fadeInUp" data-wow-delay=".1s">Présentation</div>
-                    <div class="section-title wow zoomIn" data-wow-delay=".2s">Multi-Nettoyage Propreté plus 94</div>
-                    <p class="wow fadeInUp" data-wow-delay=".3s">Créée en <strong>2017</strong> par des professionnels du nettoyage, notre entreprise intervient à <strong>Paris et en Île-de-France</strong> pour offrir des prestations de qualité dans le nettoyage de locaux professionnels.</p>
+                    <div class="section-title wow zoomIn" data-wow-delay=".2s">Multi-Nettoyage <span>Propreté plus 94</span></div>
+                    <p class="wow fadeInUp" data-wow-delay=".3s">Crée en <strong>2017</strong> par des professionnels du nettoyage, notre entreprise intervient à <strong>Paris et en Île-de-France</strong> pour offrir des prestations de qualité dans le nettoyage de locaux professionnels.</p>
                     <p class="wow fadeInUp" data-wow-delay=".35s" style="margin-top: 15px;"><strong>Notre positionnement :</strong> Qualité, réactivité, professionnalisme. Nous améliorons les conditions de travail dans les lieux publics et privés grâce à notre expertise et notre engagement.</p>
                     <ul class="page-list list-unstyled mb-30">
                         <li class="wow fadeInUp" data-wow-delay=".4s">
@@ -59,8 +111,8 @@
                     </ul>
                     <div class="btn-wrap wow fadeInUp" data-wow-delay=".7s">
                         <a href="{{ path('app_about') }}" class="button-1"> <span class="text">En savoir plus</span> <span class="icon"><i class="fa-solid fa-right-long"></i></span> </a>
-                        <div class="call-button"> <a aria-label="link" href="tel:+33123456789" class="icon"><i class="fa-solid fa-phone-volume"></i></a>
-                            <div class="cont"> <span class="text">Nous contacter</span> <a class="phone" href="tel:+33123456789">+33 0669537573</a> </div>
+                        <div class="call-button"> <a aria-label="link" href="tel:+33 01-80-91-14-63" class="icon"><i class="fa-solid fa-phone-volume"></i></a>
+                            <div class="cont"> <span class="text">Nous contacter sur le fixe</span> <a class="phone" href="tel:+33123456789">+33 01-80-91-14-63</a> </div>
                         </div>
                     </div>
                 </div>
@@ -108,12 +160,11 @@
     </section>
 
     <!-- Services 1 -->
-    <section class="services1 section-padding bg-lightblue">
+    <section class="services1 bg-lightblue" style="padding:40px 0;">
         <div class="container">
             <div class="row">
                 <div class="col-md-12 mb-30 text-center">
-                    <div class="section-subtitle wow fadeInUp" data-wow-delay=".1s">Nos prestations</div>
-                    <div class="section-title wow zoomIn" data-wow-delay=".2s">Services de nettoyage professionnel</div>
+                    <h3 class="section-title wow zoomIn" data-wow-delay=".2s">Services de <span>Nettoyage professionnel</span></h3>
                 </div>
             </div>
             <div class="row">
@@ -209,153 +260,160 @@
     </section>
    
 
-    <!-- Services 3 -->
-    <section class="services3 section-padding">
+    <!-- Notre Expertise -->
+    <section id="features-section" class="features-section section-padding">
         <div class="container">
-            <div class="row align-items-center">
-                <div class="col-lg-4 col-md-12 mb-30">
-                    <div class="section-subtitle wow fadeInUp" data-wow-delay=".1s">Ce que nous proposons</div>
-                    <div class="section-title wow zoomIn" data-wow-delay=".2s">Nos prestations de nettoyage</div>
-                    <p class="wow fadeInUp" data-wow-delay=".3s">Services de nettoyage professionnel pour entreprises, industries et particuliers, avec des années d'expérience et une méthodologie éprouvée.</p>
-                    <div class="btn-wrap wow fadeInUp" data-wow-delay=".4s">
-                        <a href="{{ path('app_services') }}" class="button-1"> <span class="text">Tous nos services</span> <span class="icon"><i class="fa-solid fa-right-long"></i></span> </a>
+            <div class="row">
+                <div class="col-12">
+                    <div class="features-heading text-center wow fadeInUp">
+                        <h3 class="section-title">Nos <span>Prestations de nettoyage</span></h3>
+                        <span class="features-separator"><span><span></span></span></span>
+                        <p>Notre expertise repose sur un savoir-faire approfondi et des méthodes éprouvées pour l'entretien et la propreté de tous vos espaces professionnels.</p>
                     </div>
                 </div>
-                <div class="col-lg-8 col-md-12">
-                    <div class="row">
-                        <div class="col-lg-4 col-md-6">
-                            <div class="item wow zoomIn" data-wow-delay=".5s">
-                                <a href="{{ path('app_service_industriel') }}"> <i class="fa-thin fa-industry"></i>
-                                    <h5>Nettoyage industriel</h5>
-                                    <div class="shape"> <i class="fa-thin fa-industry"></i> </div>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-6">
-                            <div class="item wow zoomIn" data-wow-delay=".6s">
-                                <a href="{{ path('app_service_chantier') }}"> <i class="fa-thin fa-hard-hat"></i>
-                                    <h5>Nettoyage de chantiers</h5>
-                                    <div class="shape"> <i class="fa-thin fa-hard-hat"></i> </div>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-6">
-                            <div class="item wow zoomIn" data-wow-delay=".7s">
-                                <a href="{{ path('app_service_immeuble') }}"> <i class="fa-thin fa-building"></i>
-                                    <h5>Nettoyage d'immeubles</h5>
-                                    <div class="shape"> <i class="fa-thin fa-building"></i> </div>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-6">
-                            <div class="item wow zoomIn" data-wow-delay=".8s">
-                                <a href="{{ path('app_service_bureaux') }}"> <i class="fa-thin fa-briefcase"></i>
-                                    <h5>Nettoyage de bureaux</h5>
-                                    <div class="shape"> <i class="fa-thin fa-briefcase"></i> </div>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-6">
-                            <div class="item wow zoomIn" data-wow-delay=".9s">
-                                <a href="{{ path('app_service_vitres') }}"> <i class="fa-thin fa-window-maximize"></i>
-                                    <h5>Nettoyage de vitres</h5>
-                                    <div class="shape"> <i class="fa-thin fa-window-maximize"></i> </div>
-                                </a>
+            </div>
+            <div class="row features-grid wow fadeInUp" data-wow-delay=".3s">
+                {# — Nettoyage industriel — #}
+                <div class="col-lg-4 col-md-6 mb-30">
+                    <div class="tilter">
+                        <div class="tilter__figure">
+                            <div class="features-item">
+                                <div class="features-inner tilter__caption">
+                                    <div class="features-icon"><i class="fa fa-industry"></i></div>
+                                    <div class="features-content">
+                                        <h6 class="features-title"><a href="{{ path('app_service_industriel') }}">Nettoyage industriel</a></h6>
+                                        <p>Dégraissage, dépoussiérage et entretien complet de vos sites industriels avec des équipements adaptés et des protocoles rigoureux.</p>
+                                    </div>
+                                    <div class="modern-icon"><i class="fa fa-industry"></i></div>
+                                </div>
+                                <div class="tilter__deco--lines"></div>
                             </div>
                         </div>
                     </div>
+                </div>
+                {# — Nettoyage de chantiers — #}
+                <div class="col-lg-4 col-md-6 mb-30">
+                    <div class="tilter">
+                        <div class="tilter__figure">
+                            <div class="features-item">
+                                <div class="features-inner tilter__caption">
+                                    <div class="features-icon"><i class="fa fa-hard-hat"></i></div>
+                                    <div class="features-content">
+                                        <h6 class="features-title"><a href="{{ path('app_service_chantier') }}">Nettoyage de chantiers</a></h6>
+                                        <p>Remise en état après travaux, évacuation des gravats et nettoyage fin pour une livraison impeccable de vos chantiers.</p>
+                                    </div>
+                                    <div class="modern-icon"><i class="fa fa-hard-hat"></i></div>
+                                </div>
+                                <div class="tilter__deco--lines"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {# — Nettoyage d'immeubles — #}
+                <div class="col-lg-4 col-md-6 mb-30">
+                    <div class="tilter">
+                        <div class="tilter__figure">
+                            <div class="features-item">
+                                <div class="features-inner tilter__caption">
+                                    <div class="features-icon"><i class="fa fa-building"></i></div>
+                                    <div class="features-content">
+                                        <h6 class="features-title"><a href="{{ path('app_service_immeuble') }}">Nettoyage d'immeubles</a></h6>
+                                        <p>Entretien des parties communes, cages d'escalier, halls d'entrée et espaces résidentiels pour un cadre de vie agréable.</p>
+                                    </div>
+                                    <div class="modern-icon"><i class="fa fa-building"></i></div>
+                                </div>
+                                <div class="tilter__deco--lines"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {# — Nettoyage de bureaux — #}
+                <div class="col-lg-4 col-md-6 mb-30">
+                    <div class="tilter">
+                        <div class="tilter__figure">
+                            <div class="features-item">
+                                <div class="features-inner tilter__caption">
+                                    <div class="features-icon"><i class="fa fa-briefcase"></i></div>
+                                    <div class="features-content">
+                                        <h6 class="features-title"><a href="{{ path('app_service_bureaux') }}">Nettoyage de bureaux</a></h6>
+                                        <p>Entretien régulier de vos espaces de travail : postes, sanitaires, cuisines et salles de réunion, pour un environnement sain.</p>
+                                    </div>
+                                    <div class="modern-icon"><i class="fa fa-briefcase"></i></div>
+                                </div>
+                                <div class="tilter__deco--lines"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {# — Nettoyage de vitres — #}
+                <div class="col-lg-4 col-md-6 mb-30">
+                    <div class="tilter">
+                        <div class="tilter__figure">
+                            <div class="features-item">
+                                <div class="features-inner tilter__caption">
+                                    <div class="features-icon"><i class="fa fa-clone"></i></div>
+                                    <div class="features-content">
+                                        <h6 class="features-title"><a href="{{ path('app_service_vitres') }}">Nettoyage de vitres</a></h6>
+                                        <p>Lavage intérieur et extérieur de toutes vos surfaces vitrées, façades et vérandas avec des techniques professionnelles.</p>
+                                    </div>
+                                    <div class="modern-icon"><i class="fa fa-clone"></i></div>
+                                </div>
+                                <div class="tilter__deco--lines"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 text-center mt-40 wow fadeInUp" data-wow-delay=".5s">
+                    <a href="{{ path('app_services') }}" class="btn-all-services">
+                        Tous nos services <i class="fa fa-arrow-right"></i>
+                    </a>
                 </div>
             </div>
         </div>
     </section>
-    <!-- Testimonials -->
-    <section id="testimonials" class="testimonials section-padding bg-lightblue">
+    <!-- Ils nous font confiance -->
+    <section id="partner-section" class="partner-section section-padding">
         <div class="container">
             <div class="row">
-                <div class="col-md-12 mb-25 text-center">
-                    <div class="section-subtitle wow fadeInUp" data-wow-delay=".2s">Pourquoi nos clients nous font confiance</div>
-                    <div class="section-title wow zoomIn" data-wow-delay=".4s">Témoignages clients</div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12 wow fadeInUp" data-wow-delay=".6s">
-                    <div class="owl-carousel owl-theme">
-                        <div class="item">
-                            <div class="info valign">
-                                <div class="full-width">
-                                    <p>Service excellent et nettoyage impeccable. Toujours à l'heure, équipe professionnelle et résultats parfaits à chaque intervention ! </p>
-                                    <div class="review-title">
-                                        <div class="img">
-                                            <div class="img-inner"> <img src="{{ asset('img/team/1.jpg') }}" alt="" loading="lazy"> </div>
-                                            <div class="quote-icon"> <i class="fa-solid fa-quote-left"></i> </div>
-                                        </div>
-                                        <div class="text-block">
-                                            <h6>Dan Martin</h6>
-                                            <div class="icons"> <i class="fa-solid fa-star"></i> <i class="fa-solid fa-star"></i> <i class="fa-solid fa-star"></i> <i class="fa-solid fa-star"></i> <i class="fa-solid fa-star"></i> </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="info valign">
-                                <div class="full-width">
-                                    <p>Équipe très professionnelle et soucieuse des détails. Ils rendent l'entretien de nos locaux complètement sans stress.</p>
-                                    <div class="review-title">
-                                        <div class="img">
-                                            <div class="img-inner"> <img src="{{ asset('img/team/2.jpg') }}" alt="" loading="lazy"> </div>
-                                            <div class="quote-icon"> <i class="fa-solid fa-quote-left"></i> </div>
-                                        </div>
-                                        <div class="text-block">
-                                            <h6>Emily Brown</h6>
-                                            <div class="icons"> <i class="fa-solid fa-star"></i> <i class="fa-solid fa-star"></i> <i class="fa-solid fa-star"></i> <i class="fa-solid fa-star"></i> <i class="fa-solid fa-star"></i> </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="info valign">
-                                <div class="full-width">
-                                    <p>Fiables, efficaces et faciles à joindre. Nos bureaux n'ont jamais été aussi propres — vivement recommandé !</p>
-                                    <div class="review-title">
-                                        <div class="img">
-                                            <div class="img-inner"> <img src="{{ asset('img/team/3.jpg') }}" alt="" loading="lazy"> </div>
-                                            <div class="quote-icon"> <i class="fa-solid fa-quote-left"></i> </div>
-                                        </div>
-                                        <div class="text-block">
-                                            <h6>Olivia White</h6>
-                                            <div class="icons"> <i class="fa-solid fa-star"></i> <i class="fa-solid fa-star"></i> <i class="fa-solid fa-star"></i> <i class="fa-solid fa-star"></i> <i class="fa-solid fa-star"></i> </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="info valign">
-                                <div class="full-width">
-                                    <p>Ils prennent soin de chaque détail, de la propreté des sols aux espaces communs. Un service en qui vous pouvez avoir confiance !</p>
-                                    <div class="review-title">
-                                        <div class="img">
-                                            <div class="img-inner"> <img src="{{ asset('img/team/4.jpg') }}" alt="" loading="lazy"> </div>
-                                            <div class="quote-icon"> <i class="fa-solid fa-quote-left"></i> </div>
-                                        </div>
-                                        <div class="text-block">
-                                            <h6>Paul Brown</h6>
-                                            <div class="icons"> <i class="fa-solid fa-star"></i> <i class="fa-solid fa-star"></i> <i class="fa-solid fa-star"></i> <i class="fa-solid fa-star"></i> <i class="fa-solid fa-star"></i> </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                <div class="col-md-12">
+                    <div class="partner-heading text-center wow fadeInUp">
+                        <h3 class="section-title">Ils nous font <span>confiance</span></h3>
+                        <span class="partner-separator"><span><span></span></span></span>
+                        <p>Découvrez les partenaires et clients qui nous ont choisi comme leur allié de confiance pour l'entretien et la propreté de leurs espaces.</p>
                     </div>
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-12 text-center mt-60 wow zoomIn" data-wow-delay=".8s">
-                    <div class="section-info">
-                        <div class="tag">Confiance</div>
-                        <div class="desc">Plus de 1000 clients font confiance à <span class="text-decoration-line-bottom" style="color: #003366;">Multi-Nettoyage Propreté plus 94</span> pour des résultats impeccables.</div>
+                <div class="col-md-12 wow fadeInUp" data-wow-delay=".4s">
+                    <div class="partner-carousel owl-carousel owl-theme">
+                        {% set logos = [
+                            'bateg.png',
+                            'bati renov.png',
+                            'bati solution.png',
+                            'bouygues immobilier.png',
+                            'cbc habitat.png',
+                            'colas.png',
+                            'demathieu bard.png',
+                            'gtm bâtiment.png',
+                            'illiad.png',
+                            'legendre construction.png',
+                            'leon_grosse.png',
+                            'les maçons parisiens.png',
+                            'meunier sa.png',
+                            'nsxity.png',
+                            'paris ouestconstruction.png',
+                            'parthena.png',
+                            'seralu.png'
+                        ] %}
+                        {% for logo in logos %}
+                            <div class="single-partner">
+                                <div class="inner-partner">
+                                    <img src="{{ asset('img/partenaire/' ~ logo) }}" alt="{{ logo|split('.')[0]|capitalize }}" loading="lazy">
+                                </div>
+                            </div>
+                        {% endfor %}
                     </div>
                 </div>
             </div>
@@ -502,7 +560,7 @@
                             <h4>Faites confiance à <span>Multi-Nettoyage Propreté plus 94</span> pour vos besoins de nettoyage, rejoignez-nous dès aujourd'hui.</h4>
                         </div>
                         <div class="help wow fadeInUp" data-wow-delay=".2s">
-                            <div class="icon"><i class="fa-brands fa-whatsapp"></i></div>
+                            <div class="icon"><a href="https://wa.me/message/JFWJXWLHWDP6C1" target="_blank"><i class="fa-brands fa-whatsapp"></i></a></div>
                             <div class="text">
                                 <p>Contactez-nous sur WhatsApp</p> <a href="tel:+330669537573">+33 0669537573</a>
                             </div>
@@ -529,4 +587,54 @@
             <div class="content"> <span><img src="{{ asset('img/asterisk-icon.svg') }}" alt="" loading="lazy">Nettoyage</span> <span><img src="{{ asset('img/asterisk-icon.svg') }}" alt="" loading="lazy">Propreté</span> <span><img src="{{ asset('img/asterisk-icon.svg') }}" alt="" loading="lazy">Bureaux</span> <span><img src="{{ asset('img/asterisk-icon.svg') }}" alt="" loading="lazy">Immeubles</span> <span><img src="{{ asset('img/asterisk-icon.svg') }}" alt="" loading="lazy">Industrie</span> <span><img src="{{ asset('img/asterisk-icon.svg') }}" alt="" loading="lazy">Chantiers</span> <span><img src="{{ asset('img/asterisk-icon.svg') }}" alt="" loading="lazy">Vitrerie</span> <span><img src="{{ asset('img/asterisk-icon.svg') }}" alt="" loading="lazy">Hygiène</span> <span><img src="{{ asset('img/asterisk-icon.svg') }}" alt="" loading="lazy">Qualité</span> <span><img src="{{ asset('img/asterisk-icon.svg') }}" alt="" loading="lazy">Sécurité</span> <span><img src="{{ asset('img/asterisk-icon.svg') }}" alt="" loading="lazy">Professionnel</span> <span><img src="{{ asset('img/asterisk-icon.svg') }}" alt="" loading="lazy">Expertise</span> <span><img src="{{ asset('img/asterisk-icon.svg') }}" alt="" loading="lazy">Entretien</span> <span><img src="{{ asset('img/asterisk-icon.svg') }}" alt="" loading="lazy">Multi-Nettoyage</span> </div>
             <div class="content"> <span><img src="{{ asset('img/asterisk-icon.svg') }}" alt="" loading="lazy">Nettoyage</span> <span><img src="{{ asset('img/asterisk-icon.svg') }}" alt="" loading="lazy">Propreté</span> <span><img src="{{ asset('img/asterisk-icon.svg') }}" alt="" loading="lazy">Bureaux</span> <span><img src="{{ asset('img/asterisk-icon.svg') }}" alt="" loading="lazy">Immeubles</span> <span><img src="{{ asset('img/asterisk-icon.svg') }}" alt="" loading="lazy">Industrie</span> <span><img src="{{ asset('img/asterisk-icon.svg') }}" alt="" loading="lazy">Chantiers</span> <span><img src="{{ asset('img/asterisk-icon.svg') }}" alt="" loading="lazy">Vitrerie</span> <span><img src="{{ asset('img/asterisk-icon.svg') }}" alt="" loading="lazy">Hygiène</span> <span><img src="{{ asset('img/asterisk-icon.svg') }}" alt="" loading="lazy">Qualité</span> <span><img src="{{ asset('img/asterisk-icon.svg') }}" alt="" loading="lazy">Sécurité</span> <span><img src="{{ asset('img/asterisk-icon.svg') }}" alt="" loading="lazy">Professionnel</span> <span><img src="{{ asset('img/asterisk-icon.svg') }}" alt="" loading="lazy">Expertise</span> <span><img src="{{ asset('img/asterisk-icon.svg') }}" alt="" loading="lazy">Entretien</span> <span><img src="{{ asset('img/asterisk-icon.svg') }}" alt="" loading="lazy">Multi-Nettoyage</span> </div>
         </div>
+    </div>
+
+    <!-- Info Contact Section (Footer Above) -->
+    <section class="info-contact-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-6 mb-4 mb-lg-0 wow fadeInUp" data-wow-delay=".1s">
+                    <div class="widget widget-contact">
+                        <div class="contact-area">
+                            <div class="contact-icon">
+                                <i class="fa-thin fa-clock"></i>
+                            </div>
+                            <a href="#" class="contact-info">
+                                <span class="text">Horaire d'Ouverture</span>
+                                <span class="title">Lun-Ven: 9h00 - 18h30</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4 mb-lg-0 wow fadeInUp" data-wow-delay=".3s">
+                    <div class="widget widget-contact">
+                        <div class="contact-area">
+                            <div class="contact-icon">
+                                <i class="fa-thin fa-envelope"></i>
+                            </div>
+                            <a href="mailto:Contact@multinettoyage94.fr" class="contact-info">
+                                <span class="text">Support Mail</span>
+                                <span class="title">Contact@multinettoyage94.fr</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4 mb-lg-0 wow fadeInUp" data-wow-delay=".5s">
+                    <div class="widget widget-contact">
+                        <div class="contact-area">
+                            <div class="contact-icon">
+                                <i class="fa-thin fa-location-dot"></i>
+                            </div>
+                            <a href="#" class="contact-info">
+                                <span class="text">Localisation</span>
+                                <span class="title">94 - Val-de-Marne, Île-de-France</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End: Info Contact Section -->
+
 {% endblock %}

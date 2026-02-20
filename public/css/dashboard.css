@@ -15,10 +15,255 @@ body {
     filter: brightness(0.5);
 }
 
+/* Styles visuels uniquement — position/width gérés nativement par Kaiadmin */
 .main-header {
-    background: rgba(255, 255, 255, 0.95);
-    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-    backdrop-filter: blur(10px);
+    background: rgba(255, 255, 255, 0.97) !important;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.07) !important;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06) !important;
+    /* NE PAS toucher position/width/top : Kaiadmin les gère via fixed + sidebar_minimize */
+}
+
+/* Décalage du contenu sous le header fixe pour les pages en container-fluid
+   (Kaiadmin gère déjà "margin-top:69px" pour .main-panel > .container) */
+.main-panel > .container-fluid {
+    margin-top: 69px;
+}
+
+/* ── Dashboard Page Header ── */
+.dashboard-page-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    padding: 1rem 0 1.5rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+    margin-bottom: 1.75rem;
+}
+.dashboard-page-header .page-title {
+    font-size: 1.45rem;
+    font-weight: 800;
+    color: #1a2035;
+    margin: 0 0 2px;
+    letter-spacing: -0.3px;
+}
+.dashboard-page-header .page-subtitle {
+    font-size: 0.82rem;
+    color: #8898aa;
+    margin: 0;
+}
+.dashboard-page-header .btn-view-all {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #33cc66;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    padding: 9px 20px;
+    font-size: 0.88rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition:
+        background 0.2s,
+        transform 0.15s,
+        box-shadow 0.2s;
+    box-shadow: 0 4px 14px rgba(51, 204, 102, 0.35);
+    white-space: nowrap;
+}
+.dashboard-page-header .btn-view-all:hover {
+    background: #29b559;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(51, 204, 102, 0.45);
+    color: #fff;
+}
+
+/* ── KPI Cards ── */
+.kpi-card {
+    border-radius: 16px;
+    border: none;
+    box-shadow: 0 2px 16px rgba(0, 0, 0, 0.07);
+    background: #fff;
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+    overflow: hidden;
+    position: relative;
+}
+.kpi-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.12);
+}
+.kpi-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    border-radius: 16px 16px 0 0;
+}
+.kpi-total::before {
+    background: linear-gradient(90deg, #5e72e4, #825ee4);
+}
+.kpi-waiting::before {
+    background: linear-gradient(90deg, #ff9e27, #f7c948);
+}
+.kpi-done::before {
+    background: linear-gradient(90deg, #2dce89, #2dcecc);
+}
+
+.kpi-card .kpi-icon {
+    width: 58px;
+    height: 58px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    flex-shrink: 0;
+    transition: transform 0.2s;
+}
+.kpi-card:hover .kpi-icon {
+    transform: scale(1.08) rotate(-4deg);
+}
+
+.kpi-total .kpi-icon {
+    background: rgba(94, 114, 228, 0.12);
+    color: #5e72e4;
+}
+.kpi-waiting .kpi-icon {
+    background: rgba(255, 158, 39, 0.12);
+    color: #ff9e27;
+}
+.kpi-done .kpi-icon {
+    background: rgba(45, 206, 137, 0.12);
+    color: #2dce89;
+}
+
+.kpi-card .kpi-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.09em;
+    font-weight: 700;
+    color: #8898aa;
+    margin-bottom: 4px;
+}
+.kpi-card .kpi-value {
+    font-size: 2rem;
+    font-weight: 800;
+    line-height: 1.1;
+    color: #1a2035;
+}
+.kpi-total .kpi-value {
+    color: #5e72e4;
+}
+.kpi-waiting .kpi-value {
+    color: #ff9e27;
+}
+.kpi-done .kpi-value {
+    color: #2dce89;
+}
+
+.kpi-card .kpi-trend {
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: #adb5bd;
+    margin-top: 2px;
+}
+
+/* ── Chart & Table Cards ── */
+.chart-card {
+    border-radius: 16px;
+    border: none;
+    background: #fff;
+    box-shadow: 0 2px 16px rgba(0, 0, 0, 0.07);
+    margin-bottom: 1.5rem;
+}
+.chart-card .card-body {
+    padding: 1.5rem;
+}
+.section-title {
+    font-size: 0.92rem;
+    font-weight: 800;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: #1a2035;
+    margin-bottom: 1.2rem;
+}
+
+.chart-legend-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    font-size: 0.88rem;
+}
+.chart-legend-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    margin-right: 10px;
+}
+.chart-legend-label {
+    flex-grow: 1;
+    color: #525f7f;
+    font-weight: 500;
+}
+.chart-legend-val {
+    font-weight: 700;
+    color: #1a2035;
+}
+
+/* ── Recent Table ── */
+.table-recent th {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.09em;
+    color: #8898aa;
+    font-weight: 700;
+    border-top: none;
+    border-bottom: 2px solid #f0f2f5 !important;
+    padding: 10px 12px;
+}
+.table-recent td {
+    vertical-align: middle;
+    font-size: 0.88rem;
+    padding: 14px 12px;
+    border-bottom: 1px solid #f8f9fa;
+    color: #525f7f;
+}
+.table-recent tr:last-child td {
+    border-bottom: none;
+}
+.table-recent tbody tr {
+    transition: background 0.15s;
+}
+.table-recent tbody tr:hover td {
+    background: #fafbfe;
+}
+
+/* ── Status Badges ── */
+.badge-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 0.4em 0.9em;
+    border-radius: 8px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    line-height: 1.4;
+}
+.badge-en-attente {
+    background: rgba(255, 158, 39, 0.14);
+    color: #c87800;
+}
+.badge-traite {
+    background: rgba(45, 206, 137, 0.14);
+    color: #1a9e68;
 }
 
 /* ======= Sidebar Logo ======= */
@@ -46,14 +291,13 @@ body {
 
 .logo-header .logo span {
     font-size: 13px;
-   letter-spacing: -0.2px;
+    letter-spacing: -0.2px;
     color: #fff;
     font-weight: 700;
 }
 
 .logo-header .nav-toggle .btn-toggle {
     color: rgba(255, 255, 255, 0.5);
- 
 }
 
 .logo-header .nav-toggle .btn-toggle:hover {
@@ -62,7 +306,7 @@ body {
 
 /* ======= Sidebar Body ======= */
 .sidebar[data-background-color="dark"] {
-    background: #003366  !important;
+    background: #003366 !important;
 }
 
 .sidebar .sidebar-wrapper {
@@ -296,12 +540,12 @@ body {
     .page-inner > .d-flex {
         display: none !important;
     }
-    
+
     .devis-invoice {
         box-shadow: none !important;
         border: none !important;
     }
-    
+
     .card-body {
         padding: 0 !important;
     }

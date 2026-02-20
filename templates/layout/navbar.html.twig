@@ -1,82 +1,172 @@
-<nav class="navbar navbar-expand-lg">
-    <div class="container">
-        <!-- Logo -->
-        <div class="logo-wrapper">
-            <a class="logo" href="{{ path('app_home') }}">
-                <img src="{{ asset('img/logo.png') }}" class="logo-img" alt="Logo">
-            </a>
+<!-- ===// Start: Header =================================-->
+<header id="header-section" class="site-header header-seven">
+    <div class="navigator-wrapper">
+        <!-- ===// Start: Mobile Toggle =================================-->
+        <div class="theme-mobile-nav d-block d-lg-none">
+            <div class="av-container">
+                <div class="theme-mobile-menu">
+                    <div class="mobile-logo">
+                        <a href="{{ path('app_home') }}">
+                            <img src="{{ asset('img/logo.png') }}" alt="Multi-Nettoyage Propreté" class="logo-img">
+                        </a>
+                    </div>
+                    <div class="menu-toggle-wrap">
+                        <div class="hamburger hamburger-menu">
+                            <button type="button" class="toggle-lines menu-toggle" id="mobileMenuOpen">
+                                <div class="top-bun"></div>
+                                <div class="meat"></div>
+                                <div class="bottom-bun"></div>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        
-        <!-- Toggle Button for Mobile -->
-        <div class="navbar-mobile-controls d-lg-none">
-            <button class="navbar-toggler-custom" type="button" id="mobileMenuOpen">
-                <span class="burger-icon"></span>
-            </button>
-        </div>
+        <!-- ===// End: Mobile Toggle =================================-->
 
-        <!-- Desktop Menu -->
-        <div class="collapse navbar-collapse d-none d-lg-flex" id="navbar">
-            <ul class="navbar-nav mx-auto">
-                <li class="nav-item"><a class="nav-link {% if app.request.get('_route') == 'app_home' %}active{% endif %}" href="{{ path('app_home') }}">Accueil</a></li>
-                <li class="nav-item"><a class="nav-link {% if app.request.get('_route') == 'app_about' %}active{% endif %}" href="{{ path('app_about') }}">À propos</a></li>
-                <li class="nav-item dropdown"> 
-                    <a class="nav-link {% if app.request.get('_route') starts with 'app_services' %}active{% endif %} dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
-                        Services <i class="ti-angle-down"></i>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a href="{{ path('app_services') }}" class="dropdown-item"><span>Tous nos services</span></a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a href="{{ path('app_service_industriel') }}" class="dropdown-item"><span>Nettoyage industriel</span></a></li>
-                        <li><a href="{{ path('app_service_chantier') }}" class="dropdown-item"><span>Nettoyage de chantiers</span></a></li>
-                        <li><a href="{{ path('app_service_immeuble') }}" class="dropdown-item"><span>Nettoyage d'immeubles</span></a></li>
-                        <li><a href="{{ path('app_service_bureaux') }}" class="dropdown-item"><span>Nettoyage de bureaux</span></a></li>
-                        <li><a href="{{ path('app_service_vitres') }}" class="dropdown-item"><span>Nettoyage de vitres</span></a></li>
-                    </ul>
-                </li>
-                <li class="nav-item"><a class="nav-link {% if app.request.get('_route') == 'app_demande_devis_index' %}active{% endif %}" href="{{ path('app_demande_devis_index') }}">Contact</a></li>
-            </ul>
-            <div class="navbar-right">
-                <div class="btn-wrap">
-                    <a href="{{ path('app_demande_devis_index') }}" class="button"> 
-                        <span class="text">Demander un devis</span> 
-                        <span class="icon"><i class="fa-solid fa-right-long"></i></span> 
-                    </a>
+        <!-- ===// Start: Top Bar (Desktop) =================================-->
+        <div class="nav-top-bar d-none d-lg-block">
+            <div class="av-container">
+                <div class="av-columns-area">
+                    <div class="av-column-3 my-auto">
+                        <div class="logo">
+                            <a href="{{ path('app_home') }}">
+                                <img src="{{ asset('img/logo.png') }}" alt="Multi-Nettoyage Propreté" class="logo-img">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="av-column-9 my-auto">
+                        <div class="top-bar-right">
+                            <ul class="header-wrap-right">
+                                <li class="widget-wrap">
+                                    <div class="contact-area">
+                                        <div class="contact-icon"><i class="fa fa-phone"></i></div>
+                                        <a href="tel:+33669537573" class="contact-info">
+                                            <span class="title">Appelez-nous</span>
+                                            <span class="text">+33 06 69 53 75 73</span>
+                                        </a>
+                                    </div>
+                                </li>
+                                <li class="widget-wrap">
+                                    <div class="contact-area">
+                                        <div class="contact-icon"><i class="fa fa-clock"></i></div>
+                                        <a href="#" class="contact-info">
+                                            <span class="title">Horaires</span>
+                                            <span class="text">Lun-Ven: 8h-18h</span>
+                                        </a>
+                                    </div>
+                                </li>
+                                <li class="av-button-area">
+                                    <a href="{{ path('app_demande_devis_index') }}" class="av-btn av-btn-primary av-btn-bubble">
+                                        Demander un devis <i class="fa fa-arrow-right"></i>
+                                        <span class="bubble_effect">
+                                            <span class="circle top-left"></span>
+                                            <span class="circle top-left"></span>
+                                            <span class="circle top-left"></span>
+                                            <span class="button effect-button"></span>
+                                            <span class="circle bottom-right"></span>
+                                            <span class="circle bottom-right"></span>
+                                            <span class="circle bottom-right"></span>
+                                        </span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
+        <!-- ===// End: Top Bar =================================-->
 
-        <!-- Mobile Drawer Menu -->
-        <div class="mobile-drawer" id="mobileDrawer">
-            <div class="drawer-header">
-                <div class="drawer-logo">
-                    <img src="{{ asset('img/logo.png') }}" alt="Logo">
-                </div>
-                <button class="drawer-close" id="mobileMenuClose">
-                    <i class="ti-close"></i>
-                </button>
-            </div>
-            <div class="drawer-body">
-                <ul class="drawer-nav">
-                    <li><a href="{{ path('app_home') }}" class="{% if app.request.get('_route') == 'app_home' %}active{% endif %}"><i class="ti-home"></i> Accueil</a></li>
-                    <li><a href="{{ path('app_about') }}" class="{% if app.request.get('_route') == 'app_about' %}active{% endif %}"><i class="ti-user"></i> À propos</a></li>
-                    <li class="has-submenu">
-                        <a href="javascript:void(0);" class="submenu-toggle"><i class="ti-settings"></i> Services <i class="ti-angle-right arrow"></i></a>
-                        <ul class="drawer-submenu">
-                            <li><a href="{{ path('app_services') }}">Tous nos services</a></li>
-                            <li><a href="{{ path('app_service_industriel') }}">Nettoyage industriel</a></li>
-                            <li><a href="{{ path('app_service_chantier') }}">Nettoyage de chantiers</a></li>
-                            <li><a href="{{ path('app_service_immeuble') }}">Nettoyage d'immeubles</a></li>
-                            <li><a href="{{ path('app_service_bureaux') }}">Nettoyage de bureaux</a></li>
-                            <li><a href="{{ path('app_service_vitres') }}">Nettoyage de vitres</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="{{ path('app_demande_devis_index') }}" class="{% if app.request.get('_route') == 'app_demande_devis_index' %}active{% endif %}"><i class="ti-email"></i> Contact</a></li>
-                </ul>
-                <div class="drawer-footer">
-                    <a href="{{ path('app_demande_devis_index') }}" class="btn-drawer-quote">Demander un devis</a>
+        <!-- ===// Start: Navigation Bar (Desktop) =================================-->
+        <div class="navbar-area sticky-nav d-none d-lg-block">
+            <div class="av-container">
+                <div class="av-columns-area">
+                    <div class="av-column-4 my-auto">
+                        <div class="menu-right menu-left">
+                            <ul class="header-wrap-right">
+                                <li class="widget-wrap">
+                                    <div class="widget-wrp">
+                                        <aside class="share-toolkit widget widget_social_widget">
+                                            <a href="#" class="toolkit-hover"><i class="fa fa-share-alt"></i></a>
+                                            <ul>
+                                                <li><a href="#"><i class="fa-brands fa-facebook-f"></i></a></li>
+                                                <li><a href="#"><i class="fa-brands fa-instagram"></i></a></li>
+                                                <li><a href="https://wa.me/message/JFWJXWLHWDP6C1" target="_blank"><i class="fa-brands fa-whatsapp"></i></a></li>
+                                            </ul>
+                                        </aside>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="av-column-8 my-auto">
+                        <div class="theme-menu">
+                            <nav class="menubar">
+                                <ul class="menu-wrap">
+                                    <li class="menu-item {% if app.request.get('_route') == 'app_home' %}active{% endif %}">
+                                        <a href="{{ path('app_home') }}" class="nav-link">Accueil</a>
+                                    </li>
+                                    <li class="menu-item {% if app.request.get('_route') == 'app_about' %}active{% endif %}">
+                                        <a href="{{ path('app_about') }}" class="nav-link">À propos</a>
+                                    </li>
+                                    <li class="menu-item menu-item-has-children {% if app.request.get('_route') starts with 'app_service' %}active{% endif %}">
+                                        <a href="{{ path('app_services') }}" class="nav-link">Services</a>
+                                        <span class="mobile-toggler d-lg-none"><button type="button" class="fa fa-chevron-right"></button></span>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="{{ path('app_services') }}" class="dropdown-item">Tous nos services</a></li>
+                                            <li><a href="{{ path('app_service_industriel') }}" class="dropdown-item">Nettoyage industriel</a></li>
+                                            <li><a href="{{ path('app_service_chantier') }}" class="dropdown-item">Nettoyage de chantiers</a></li>
+                                            <li><a href="{{ path('app_service_immeuble') }}" class="dropdown-item">Nettoyage d'immeubles</a></li>
+                                            <li><a href="{{ path('app_service_bureaux') }}" class="dropdown-item">Nettoyage de bureaux</a></li>
+                                            <li><a href="{{ path('app_service_vitres') }}" class="dropdown-item">Nettoyage de vitres</a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="menu-item {% if app.request.get('_route') == 'app_demande_devis_index' %}active{% endif %}">
+                                        <a href="{{ path('app_demande_devis_index') }}" class="nav-link">Contact</a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="drawer-overlay" id="drawerOverlay"></div>
+        <!-- ===// End: Navigation Bar =================================-->
     </div>
-</nav>
+</header>
+<!-- End: Header =================================-->
+
+<!-- Mobile Drawer Menu -->
+<div class="mobile-drawer" id="mobileDrawer">
+    <div class="drawer-header">
+        <div class="drawer-logo">
+            <img src="{{ asset('img/logo.png') }}" alt="Logo">
+        </div>
+        <button class="drawer-close" id="mobileMenuClose">
+            <i class="ti-close"></i>
+        </button>
+    </div>
+    <div class="drawer-body">
+        <ul class="drawer-nav">
+            <li><a href="{{ path('app_home') }}" class="{% if app.request.get('_route') == 'app_home' %}active{% endif %}"><i class="ti-home"></i> Accueil</a></li>
+            <li><a href="{{ path('app_about') }}" class="{% if app.request.get('_route') == 'app_about' %}active{% endif %}"><i class="ti-user"></i> À propos</a></li>
+            <li class="has-submenu">
+                <a href="javascript:void(0);" class="submenu-toggle"><i class="ti-settings"></i> Services <i class="ti-angle-right arrow"></i></a>
+                <ul class="drawer-submenu">
+                    <li><a href="{{ path('app_services') }}">Tous nos services</a></li>
+                    <li><a href="{{ path('app_service_industriel') }}">Nettoyage industriel</a></li>
+                    <li><a href="{{ path('app_service_chantier') }}">Nettoyage de chantiers</a></li>
+                    <li><a href="{{ path('app_service_immeuble') }}">Nettoyage d'immeubles</a></li>
+                    <li><a href="{{ path('app_service_bureaux') }}">Nettoyage de bureaux</a></li>
+                    <li><a href="{{ path('app_service_vitres') }}">Nettoyage de vitres</a></li>
+                </ul>
+            </li>
+            <li><a href="{{ path('app_demande_devis_index') }}" class="{% if app.request.get('_route') == 'app_demande_devis_index' %}active{% endif %}"><i class="ti-email"></i> Contact</a></li>
+        </ul>
+        <div class="drawer-footer">
+            <a href="{{ path('app_demande_devis_index') }}" class="btn-drawer-quote">Demander un devis</a>
+        </div>
+    </div>
+</div>
+<div class="drawer-overlay" id="drawerOverlay"></div>

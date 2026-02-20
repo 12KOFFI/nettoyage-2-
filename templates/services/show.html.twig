@@ -1,6 +1,13 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ title }} - Multi-Nettoyage Propreté{% endblock %}
+{% block title %}{{ title }} - Multi-Nettoyage Propreté plus 94{% endblock %}
+
+{% block meta_description %}{{ description }}{% endblock %}
+
+{% block jsonld %}
+    {{ seo_jsonld_service(title, description, app.request.uri) }}
+    {{ seo_jsonld_breadcrumb([{name: 'Accueil', url: url('app_home')}, {name: 'Services', url: url('app_services')}, {name: title}]) }}
+{% endblock %}
 
 {% block body %}
 <!-- Banner Header -->

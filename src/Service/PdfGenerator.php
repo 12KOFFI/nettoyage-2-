@@ -20,10 +20,15 @@ class PdfGenerator
      */
     public function generateDevisPdf(DemandeDevis $demandeDevis): string
     {
+        if (function_exists('set_time_limit')) {
+            @set_time_limit(120);
+        }
+
         $options = new Options();
         $options->set('isHtml5ParserEnabled', true);
-        $options->set('isRemoteEnabled', true);
+        $options->set('isRemoteEnabled', false);
         $options->set('defaultFont', 'DejaVu Sans');
+        $options->set('isFontSubsettingEnabled', true);
         $options->set('chroot', $this->projectDir . '/public');
 
         $dompdf = new Dompdf($options);

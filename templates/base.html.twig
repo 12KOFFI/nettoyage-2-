@@ -1,16 +1,38 @@
 <!DOCTYPE html>
-<html lang="zxx">
+<html lang="fr">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
     <title>{% block title %}Multi-Nettoyage Propreté - Services de nettoyage professionnel{% endblock %}</title>
+
+    {# ── SEO Meta ─────────────────────────────────────────── #}
+    <meta name="description" content="{% block meta_description %}Multi-Nettoyage Propreté plus 94 : entreprise de nettoyage professionnel à Paris et Île-de-France. Bureaux, immeubles, chantiers, industries.{% endblock %}">
+    <meta name="robots" content="{% block meta_robots %}index, follow{% endblock %}">
+    <link rel="canonical" href="{% block canonical %}{{ app.request.schemeAndHttpHost ~ app.request.pathInfo }}{% endblock %}">
+
+    {# ── Open Graph ───────────────────────────────────────── #}
+    <meta property="og:type" content="{% block og_type %}website{% endblock %}">
+    <meta property="og:title" content="{% block og_title %}{{ block('title') }}{% endblock %}">
+    <meta property="og:description" content="{% block og_description %}{{ block('meta_description') }}{% endblock %}">
+    <meta property="og:url" content="{{ block('canonical') }}">
+    <meta property="og:image" content="{% block og_image %}{{ app.request.schemeAndHttpHost ~ asset('img/logo.png') }}{% endblock %}">
+    <meta property="og:site_name" content="Multi-Nettoyage Propreté plus 94">
+    <meta property="og:locale" content="fr_FR">
+
+    {# ── Twitter Card ─────────────────────────────────────── #}
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{ block('og_title') }}">
+    <meta name="twitter:description" content="{{ block('og_description') }}">
+    <meta name="twitter:image" content="{{ block('og_image') }}">
+
     <link rel="icon" type="image/png" href="{{ asset('img/logo.png') }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/plugins.css') }}">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/animations.css') }}">
     <style>
     /* Performance hints pour animations WOW */
     .wow {
@@ -26,6 +48,11 @@
     }
     </style>
     {% block stylesheets %}{% endblock %}
+
+    {# ── JSON-LD Structured Data ─────────────────────────── #}
+    {% block jsonld %}
+        {{ seo_jsonld_organization() }}
+    {% endblock %}
 </head>
 <body>
     <!-- Preloader -->
@@ -45,7 +72,9 @@
         </svg>
     </div>
     <!-- Navbar -->
-    {% include 'layout/navbar.html.twig' %}
+    <header role="banner">
+        {% include 'layout/navbar.html.twig' %}
+    </header>
     
     <!-- Flash Messages Toast Container -->
     <div class="toast-container position-fixed top-0 end-0 p-3" style="z-index: 99999;">
@@ -71,9 +100,13 @@
         {% endfor %}
     </div>
 
-    {% block body %}{% endblock %}
+    <main role="main">
+        {% block body %}{% endblock %}
+    </main>
 
-    {% include 'layout/footer.html.twig' %}
+    <footer role="contentinfo">
+        {% include 'layout/footer.html.twig' %}
+    </footer>
    
 
 
@@ -96,6 +129,11 @@
     <script src="{{ asset('js/smooth-scroll.min.js') }}"></script>
     <script src="{{ asset('js/wow.min.js') }}"></script>
     <script src="{{ asset('js/custom.js') }}"></script>
+    <!-- GSAP + ScrollTrigger (CDN) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+    <!-- Animations FX -->
+    <script src="{{ asset('js/animations.js') }}" defer></script>
     <!-- Toast auto-init -->
     <script>
     document.addEventListener('DOMContentLoaded', function () {

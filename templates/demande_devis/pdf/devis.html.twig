@@ -8,8 +8,9 @@
         @page { margin: 25px 25px 80px; }
         body { font-family: 'DejaVu Sans', Arial, sans-serif; font-size: 12px; line-height: 1.5; color: #333; }
         .container { padding: 30px; padding-bottom: 90px; }
-        .header { display: table; width: 100%; margin-bottom: 25px; border-bottom: 3px solid #003366; padding-bottom: 15px; }
-        .header-left, .header-right { display: table-cell; width: 50%; vertical-align: top; }
+        .header { width: 100%; margin-bottom: 25px; border-bottom: 3px solid #003366; padding-bottom: 15px; }
+        .header-table { width: 100%; border-collapse: collapse; }
+        .header-table td { width: 50%; vertical-align: top; }
         .header-right { text-align: right; }
         .logo { max-width: 180px; max-height: 70px; margin-bottom: 8px; }
         .company-name { font-size: 18px; font-weight: bold; color: #003366; }
@@ -25,7 +26,6 @@
         .prestations-table { width: 100%; border-collapse: collapse; margin-top: 10px; }
         .prestations-table th, .prestations-table .prestations-header td { background: #003366; color: #fff; padding: 10px; text-align: left; font-size: 11px; font-weight: bold; }
         .prestations-table td { padding: 10px; border-bottom: 1px solid #eee; font-size: 11px; }
-        .prestations-table tr { page-break-inside: avoid; }
         .prestations-table tr:nth-child(even) { background: #f9f9f9; }
         .totaux { margin-top: 20px; width: 50%; margin-left: auto; }
         .totaux-table { width: 100%; border-collapse: collapse; }
@@ -33,11 +33,13 @@
         .totaux-table .label { text-align: right; font-weight: bold; color: #555; }
         .totaux-table .value { text-align: right; }
         .totaux-table .total-row { background: #003366; color: #fff; font-size: 14px; }
-        .conditions { margin-top: 30px; padding: 15px; background: #f5f5f5; border-radius: 5px; }
+        .conditions { margin-top: 30px; padding: 15px; background: #f5f5f5; }
         .conditions-title { font-weight: bold; margin-bottom: 8px; color: #003366; }
         .conditions-text { font-size: 10px; color: #666; }
-        .signature { margin-top: 40px; display: table; width: 100%; }
-        .signature-box { display: table-cell; width: 48%; padding: 15px; border: 1px solid #ddd; }
+        .signature { margin-top: 40px; }
+        .signature-table { width: 100%; border-collapse: collapse; }
+        .signature-box { width: 48%; padding: 15px; border: 1px solid #ddd; vertical-align: top; }
+        .signature-spacer { width: 4%; }
         .signature-title { font-weight: bold; margin-bottom: 5px; font-size: 11px; }
         .signature-line { border-bottom: 1px solid #333; height: 60px; margin-top: 10px; }
         .footer { position: fixed; bottom: 20px; left: 25px; right: 25px; text-align: center; font-size: 9px; color: #999; border-top: 1px solid #ddd; padding-top: 10px; }
@@ -49,26 +51,30 @@
 <body>
     <div class="container">
         <div class="header">
-            <div class="header-left">
-                {% if logoBase64 %}
-                    <img src="{{ logoBase64 }}" alt="Logo" class="logo">
-                {% endif %}
-                <div class="company-name">Multi-Nettoyage Propreté Plus 94</div>
-                <div class="company-info">
-                    Services de nettoyage professionnel<br>
-                    Paris et Île-de-France<br>
-                    Tél. : 06.69.53.75.73<br>
-                    Email : multinettoyage94@gmail.com
-                </div>
-            </div>
-            <div class="header-right">
-                <div class="devis-title">DEVIS</div>
-                <div class="devis-number">
-                    <strong>N° {{ devis.numeroDevis }}</strong><br>
-                    Date : {{ dateGeneration|date('d/m/Y') }}<br>
-                    Validité : 30 jours
-                </div>
-            </div>
+            <table class="header-table">
+                <tr>
+                    <td class="header-left">
+                        {% if logoBase64 %}
+                            <img src="{{ logoBase64 }}" alt="Logo" class="logo">
+                        {% endif %}
+                        <div class="company-name">Multi-Nettoyage Propreté Plus 94</div>
+                        <div class="company-info">
+                            Services de nettoyage professionnel<br>
+                            Paris et Île-de-France<br>
+                            Tél. : 06.69.53.75.73<br>
+                            Email : multinettoyage94@gmail.com
+                        </div>
+                    </td>
+                    <td class="header-right">
+                        <div class="devis-title">DEVIS</div>
+                        <div class="devis-number">
+                            <strong>N° {{ devis.numeroDevis }}</strong><br>
+                            Date : {{ dateGeneration|date('d/m/Y') }}<br>
+                            Validité : 30 jours
+                        </div>
+                    </td>
+                </tr>
+            </table>
         </div>
 
         <div class="section">
@@ -211,19 +217,23 @@
         </div>
 
         <div class="signature">
-            <div class="signature-box">
-                <div class="signature-title">BON POUR ACCORD</div>
-                <div>Date : _______________</div>
-                <div class="signature-line"></div>
-                <div style="font-size: 10px; color: #666; margin-top: 5px;">Signature du client précédée de la mention "Lu et approuvé"</div>
-            </div>
-            <div style="display: table-cell; width: 4%;"></div>
-            <div class="signature-box">
-                <div class="signature-title">POUR LA SOCIÉTÉ</div>
-                <div>Multi-Nettoyage Propreté Plus 94</div>
-                <div class="signature-line"></div>
-                <div style="font-size: 10px; color: #666; margin-top: 5px;">Cachet et signature</div>
-            </div>
+            <table class="signature-table">
+                <tr>
+                    <td class="signature-box">
+                        <div class="signature-title">BON POUR ACCORD</div>
+                        <div>Date : _______________</div>
+                        <div class="signature-line"></div>
+                        <div style="font-size: 10px; color: #666; margin-top: 5px;">Signature du client précédée de la mention "Lu et approuvé"</div>
+                    </td>
+                    <td class="signature-spacer"></td>
+                    <td class="signature-box">
+                        <div class="signature-title">POUR LA SOCIÉTÉ</div>
+                        <div>Multi-Nettoyage Propreté Plus 94</div>
+                        <div class="signature-line"></div>
+                        <div style="font-size: 10px; color: #666; margin-top: 5px;">Cachet et signature</div>
+                    </td>
+                </tr>
+            </table>
         </div>
 
         <div class="footer">

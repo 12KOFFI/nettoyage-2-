@@ -44,23 +44,23 @@
         </div>
     </div>
     <div class="dd-grid dd-grid--two">
-        <div class="form-group">
+        <div class="form-group js-local-type-group">
             <label class="form-label">Type de local <span style="color: red;">*</span></label>
             <span class="form-icon"><i class="fas fa-home"></i></span>
             {{ form_widget(form.local_type, {'attr': {'class': 'form-control', 'id': 'local_type_select', 'onchange': "document.getElementById('local_type_autre_wrap').style.display = this.value === 'autre' ? 'block' : 'none'"}}) }}
             {{ form_errors(form.local_type) }}
         </div>
-        <div class="form-group">
+        <div class="form-group js-local-ville-group">
             <label class="form-label">Adresse <span style="color: red;">*</span></label>
             <span class="form-icon"><i class="fas fa-map-marker-alt"></i></span>
             {{ form_widget(form.local_ville, {'attr': {'class': 'form-control', 'placeholder': 'Ville ou adresse complète'}}) }}
             {{ form_errors(form.local_ville) }}
         </div>
-        <div class="form-group dd-conditional" id="local_type_autre_wrap" style="display: none; grid-column: 1 / -1;">
+        <div class="form-group dd-conditional js-local-type-autre" id="local_type_autre_wrap" style="display: none; grid-column: 1 / -1;">
             <span class="form-icon"><i class="fas fa-pen"></i></span>
             <input type="text" name="local_type_autre" class="form-control" placeholder="Précisez le type de local">
         </div>
-        <div class="form-group" style="grid-column: 1 / -1;">
+        <div class="form-group js-local-surface-group" style="grid-column: 1 / -1;">
             <label class="form-label">Surface (m²) <span style="color: red;">*</span></label>
             <span class="form-icon"><i class="fas fa-ruler-combined"></i></span>
             {{ form_widget(form.local_surface, {'attr': {'class': 'form-control', 'placeholder': 'Surface en m²'}}) }}
@@ -114,19 +114,19 @@
         {{ form_errors(form.prestation_autre) }}
     </div>
     <div class="dd-grid dd-grid--two">
-        <div class="form-group">
+        <div class="form-group js-frequence-group">
             <label class="form-label">Fréquence <span style="color: red;">*</span></label>
             <span class="form-icon"><i class="fas fa-repeat"></i></span>
             {{ form_widget(form.frequence, {'attr': {'class': 'form-control', 'id': 'frequence_select', 'onchange': "document.getElementById('frequence_autre_wrap').style.display = this.value === 'Autre' ? 'block' : 'none'"}}) }}
             {{ form_errors(form.frequence) }}
         </div>
-        <div class="form-group">
+        <div class="form-group js-creneau-group">
             <label class="form-label">Créneau horaire <span style="color: red;">*</span></label>
             <span class="form-icon"><i class="fas fa-clock"></i></span>
             {{ form_widget(form.creneau_horaire, {'attr': {'class': 'form-control'}}) }}
             {{ form_errors(form.creneau_horaire) }}
         </div>
-        <div class="form-group dd-conditional" id="frequence_autre_wrap" style="display: none; grid-column: 1 / -1; margin-top: 0;">
+        <div class="form-group dd-conditional js-frequence-autre" id="frequence_autre_wrap" style="display: none; grid-column: 1 / -1; margin-top: 0;">
             <span class="form-icon"><i class="fas fa-pen"></i></span>
             <input type="text" name="frequence_autre" class="form-control" placeholder="Précisez la fréquence souhaitée">
         </div>

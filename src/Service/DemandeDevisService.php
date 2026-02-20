@@ -54,6 +54,23 @@ class DemandeDevisService
      */
     public function updateFromForm(FormInterface $form, DemandeDevis $demandeDevis): void
     {
+        // Mettre à jour le Client
+        $client = $demandeDevis->getClient();
+        if ($client) {
+            $client->setNom($form->get('client_nom')->getData());
+            $client->setPrenom($form->get('client_prenom')->getData());
+            $client->setEmail($form->get('client_email')->getData());
+            $client->setTelephone($form->get('client_telephone')->getData());
+        }
+
+        // Mettre à jour le Local
+        $local = $demandeDevis->getLocal();
+        if ($local) {
+            $local->setTypeLocal($form->get('local_type')->getData());
+            $local->setVille($form->get('local_ville')->getData());
+            $local->setSurfaceM2($form->get('local_surface')->getData());
+        }
+
         $prestations = $form->get('prestation')->getData();
         $detailsSpecifiques = $form->get('details_specifiques')->getData() ?? '';
 

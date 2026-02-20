@@ -40,7 +40,7 @@ class EmailService
         
         // Créer l'email
         $email = (new Email())
-            ->from('isaacndri5@gmail.com')
+            ->from($this->adminEmail)
             ->to($client->getEmail())
             ->subject('Votre devis ' . $demandeDevis->getNumeroDevis() . ' - Multi-Nettoyage Propreté Plus 94')
             ->html($this->twig->render('demande_devis/email/devis.html.twig', [
@@ -62,13 +62,16 @@ class EmailService
         $clientName = $client ? trim($client->getPrenom() . ' ' . $client->getNom()) : 'Client non renseigné';
         $clientEmail = $client ? $client->getEmail() : null;
 
-        $fromEmail = $clientEmail ?: $this->adminEmail;
-
         $email = (new Email())
-            ->from($fromEmail)
+            ->from($this->adminEmail)
             ->to($this->adminEmail)
-            ->subject('Nouvelle demande de devis reçue')
-            ->html($this->twig->render('demande_devis/email/new_demande.html.twig', [
+            ->subject('Nouvelle demande de devis reçue - ' . $clientName);
+
+        if ($clientEmail) {
+            $email->replyTo($clientEmail);
+        }
+
+        $email->html($this->twig->render('demande_devis/email/new_demande.html.twig', [
                 'demande' => $demandeDevis,
                 'clientName' => $clientName,
                 'clientEmail' => $clientEmail ?? 'Email non renseigné',

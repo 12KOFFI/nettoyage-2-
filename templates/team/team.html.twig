@@ -1,6 +1,12 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Équipe - Multi-Nettoyage Propreté{% endblock %}
+{% block title %}Notre équipe - Multi-Nettoyage Propreté plus 94{% endblock %}
+
+{% block meta_description %}Rencontrez l'équipe d'experts en nettoyage professionnel de Multi-Nettoyage Propreté plus 94. Des spécialistes qualifiés à votre service.{% endblock %}
+
+{% block jsonld %}
+    {{ seo_jsonld_breadcrumb([{name: 'Accueil', url: url('app_home')}, {name: 'Équipe', url: url('app_team')}]) }}
+{% endblock %}
 
 {% block body %}
 <!-- Banner Header -->

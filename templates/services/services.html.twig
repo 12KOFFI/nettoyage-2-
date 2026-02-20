@@ -1,6 +1,12 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Services - Multi-Nettoyage Propreté{% endblock %}
+{% block title %}Nos services de nettoyage professionnel - Multi-Nettoyage Propreté{% endblock %}
+
+{% block meta_description %}Tous nos services de nettoyage : bureaux, immeubles, chantiers, industries, vitres. Interventions sur Paris et toute l'Île-de-France.{% endblock %}
+
+{% block jsonld %}
+    {{ seo_jsonld_breadcrumb([{name: 'Accueil', url: url('app_home')}, {name: 'Services', url: url('app_services')}]) }}
+{% endblock %}
 
 {% block body %}
 <!-- Banner Header -->

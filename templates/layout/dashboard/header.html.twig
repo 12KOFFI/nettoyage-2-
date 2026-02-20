@@ -1,7 +1,7 @@
 <div class="main-header">
   <div class="main-header-logo">
     <div class="logo-header" data-background-color="dark">
-      <a href="{{ path('app_dashboard') }}" class="logo">
+      <a href="{{ is_granted('ROLE_ADMIN') ? path('app_dashboard') : path('app_demande_devis_liste') }}" class="logo">
         <img
           src="{{ asset('kaiadmin/img/kaiadmin/logo_light.svg') }}"
           alt="navbar brand"

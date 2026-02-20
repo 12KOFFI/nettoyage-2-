@@ -1,7 +1,7 @@
 <div class="sidebar" data-background-color="dark">
   <div class="sidebar-logo">
     <div class="logo-header" data-background-color="dark">
-      <a href="{{ path('app_dashboard') }}" class="logo">
+      <a href="{{ is_granted('ROLE_ADMIN') ? path('app_dashboard') : path('app_demande_devis_liste') }}" class="logo">
         <img
           src="{{ asset('img/logo.png') }}"
           alt="Multi-Nettoyage Propreté"
@@ -34,12 +34,14 @@
           <h4 class="text-section">Navigation</h4>
         </li>
 
+        {% if is_granted('ROLE_ADMIN') %}
         <li class="nav-item {{ app.request.get('_route') == 'app_dashboard' ? 'active' : '' }}">
           <a href="{{ path('app_dashboard') }}">
             <i class="fas fa-tachometer-alt"></i>
             <p>Dashboard</p>
           </a>
         </li>
+        {% endif %}
 
         <li class="nav-section">
           <span class="sidebar-mini-icon">

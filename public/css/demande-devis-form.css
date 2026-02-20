@@ -203,4 +203,32 @@
     .demande-devis-form .dd-prestations-grid {
         grid-template-columns: 1fr;
     }
+
+    .demande-devis-form .js-local-type-group {
+        order: 1;
+    }
+
+    .demande-devis-form .js-local-type-autre {
+        order: 2;
+    }
+
+    .demande-devis-form .js-local-ville-group {
+        order: 3;
+    }
+
+    .demande-devis-form .js-local-surface-group {
+        order: 4;
+    }
+
+    .demande-devis-form .js-frequence-group {
+        order: 1;
+    }
+
+    .demande-devis-form .js-frequence-autre {
+        order: 2;
+    }
+
+    .demande-devis-form .js-creneau-group {
+        order: 3;
+    }
 }

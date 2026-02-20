@@ -1,6 +1,13 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}À propos - Multi-Nettoyage Propreté{% endblock %}
+{% block title %}À propos - Multi-Nettoyage Propreté plus 94 | Notre histoire{% endblock %}
+
+{% block meta_description %}Découvrez Multi-Nettoyage Propreté plus 94, entreprise de nettoyage créée en 2017 à Paris et Île-de-France. Qualité, réactivité, professionnalisme.{% endblock %}
+
+{% block jsonld %}
+    {{ seo_jsonld_webpage('À propos', 'Notre histoire et nos valeurs — Multi-Nettoyage Propreté plus 94', url('app_about')) }}
+    {{ seo_jsonld_breadcrumb([{name: 'Accueil', url: url('app_home')}, {name: 'À propos', url: url('app_about')}]) }}
+{% endblock %}
 
 {% block body %}
 <!-- Banner Header -->

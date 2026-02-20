@@ -19,18 +19,24 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
+#[IsGranted('ROLE_COM')]
 #[Route('/demande/devis')]
 final class DemandeDevisController extends AbstractController
 {
+    #[IsGranted('ROLE_COM')]
     #[Route('/liste', name: 'app_demande_devis_liste', methods: ['GET'])]
     public function liste(Request $request, DemandeDevisRepository $repository): Response
     {
         // Récupération des filtres depuis la requête
+        $emailPrefix = $request->query->get('email_prefix', '');
+        $emailFilter = $emailPrefix !== '' ? $emailPrefix . '@gmail.com' : '';
+
         $filters = [
-            'date_debut' => $request->query->get('date_debut'),
-            'date_fin' => $request->query->get('date_fin'),
-            'email' => $request->query->get('email'),
+            'date_demande' => $request->query->get('date_demande'),
+            'email' => $emailFilter,
+            'email_prefix' => $emailPrefix,
             'statut' => $request->query->get('statut', 'tous'),
         ];
 
@@ -53,7 +59,7 @@ final class DemandeDevisController extends AbstractController
     }
 
     #[Route(name: 'app_demande_devis_index', methods: ['GET', 'POST'])]
-    public function index(Request $request, DemandeDevisService $demandeDevisService): Response
+    public function index(Request $request, DemandeDevisService $demandeDevisService, EmailService $emailService, LoggerInterface $logger): Response
     {
         $demandeDevis = new DemandeDevis();
         $form = $this->createForm(DemandeDevisType::class, $demandeDevis);
@@ -61,6 +67,16 @@ final class DemandeDevisController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $demandeDevisService->createFromForm($form, $demandeDevis);
+
+            try {
+                $emailService->sendNewDemandeDevisNotification($demandeDevis);
+            } catch (\Throwable $e) {
+                $logger->error('Erreur envoi email notification nouvelle demande devis (formulaire public)', [
+                    'demande_devis_id' => $demandeDevis->getId(),
+                    'exception' => $e->getMessage(),
+                ]);
+            }
+
             $this->addFlash('success', 'Votre demande de devis a été envoyée avec succès ! Nous vous recontacterons dans les plus brefs délais.');
             return $this->redirectToRoute('app_demande_devis_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -127,12 +143,16 @@ final class DemandeDevisController extends AbstractController
     public function edit(Request $request, DemandeDevis $demandeDevi, DemandeDevisService $demandeDevisService): Response
     {
         $form = $this->createForm(DemandeDevisType::class, $demandeDevi);
-        $demandeDevisService->populateFormWithDemandeDevis($form, $demandeDevi);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $demandeDevisService->updateFromForm($form, $demandeDevi);
-            return $this->redirectToRoute('app_demande_devis_index', [], Response::HTTP_SEE_OTHER);
+            $this->addFlash('success', 'La demande de devis a été mise à jour avec succès.');
+            return $this->redirectToRoute('app_demande_devis_show', ['id' => $demandeDevi->getId()], Response::HTTP_SEE_OTHER);
+        }
+
+        if (!$form->isSubmitted()) {
+            $demandeDevisService->populateFormWithDemandeDevis($form, $demandeDevi);
         }
 
         return $this->render('demande_devis/edit.html.twig', [
@@ -147,9 +167,10 @@ final class DemandeDevisController extends AbstractController
         if ($this->isCsrfTokenValid('delete' . $demandeDevi->getId(), $request->getPayload()->getString('_token'))) {
             $entityManager->remove($demandeDevi);
             $entityManager->flush();
+            $this->addFlash('success', 'La demande de devis a été supprimée.');
         }
 
-        return $this->redirectToRoute('app_demande_devis_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_demande_devis_liste', [], Response::HTTP_SEE_OTHER);
     }
 
     #[Route('/{id}/pdf', name: 'app_demande_devis_pdf', methods: ['GET'])]

@@ -1,40 +1,135 @@
 {% extends 'base_web.html.twig' %}
 
-{% block title %}Modifier la demande #{{ demande_devi.id }}{% endblock %}
+{% block title %}Modifier la demande {{ demande_devi.numeroDevis }}{% endblock %}
+
+{% block stylesheets %}
+<link rel="stylesheet" href="{{ asset('css/demande-devis-form.css') }}">
+<style>
+  /* Masquer le bouton public intégré au formulaire */
+  .demande-devis-form .btn-wrap { display: none !important; }
+
+  .edit-header-bar {
+    background: #fff;
+    border: 1px solid rgba(0,0,0,.07);
+    border-radius: 14px;
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    box-shadow: 0 2px 10px rgba(0,0,0,.04);
+  }
+  .edit-header-bar .meta-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: .78rem;
+    font-weight: 600;
+    padding: .3em .85em;
+    border-radius: 20px;
+  }
+  .edit-form-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: .75rem;
+    margin-top: 2rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid rgba(0,0,0,.07);
+  }
+</style>
+{% endblock %}
 
 {% block body %}
   <div class="container">
     <div class="page-inner">
-      <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row pt-2 pb-4">
+
+      {# ── Barre d'en-tête ── #}
+      <div class="edit-header-bar">
         <div>
-          <h3 class="fw-bold mb-3">Modifier la demande de devis #{{ demande_devi.id }}</h3>
-          <h6 class="op-7 mb-2">Édition des informations de la demande</h6>
+          <nav aria-label="breadcrumb" class="mb-1">
+            <ol class="breadcrumb mb-0" style="font-size:.79rem;">
+              <li class="breadcrumb-item">
+                <a href="{{ path('app_demande_devis_liste') }}" class="text-muted text-decoration-none">
+                  <i class="fas fa-list me-1"></i>Liste des demandes
+                </a>
+              </li>
+              <li class="breadcrumb-item active fw-semibold" style="color:#5e72e4;">
+                {{ demande_devi.numeroDevis }}
+              </li>
+            </ol>
+          </nav>
+          <h3 class="fw-bold mb-2">
+            Modifier la demande&nbsp;
+            <span style="color:#5e72e4;">{{ demande_devi.numeroDevis }}</span>
+          </h3>
+          <div class="d-flex align-items-center flex-wrap gap-2">
+            {% if demande_devi.client %}
+              <span class="meta-pill" style="background:rgba(94,114,228,.1);color:#5e72e4;">
+                <i class="fas fa-user"></i>{{ demande_devi.client.nom }} {{ demande_devi.client.prenom }}
+              </span>
+            {% endif %}
+            {% if demande_devi.dateDemande %}
+              <span class="meta-pill" style="background:rgba(45,206,137,.1);color:#2dce89;">
+                <i class="fas fa-calendar-alt"></i>{{ demande_devi.dateDemande|date('d/m/Y') }}
+              </span>
+            {% endif %}
+            {% if demande_devi.statut %}
+              <span class="meta-pill" style="background:rgba(255,158,39,.1);color:#ff9e27;">
+                <i class="fas fa-{{ demande_devi.statut == 'traite' ? 'check-circle' : 'hourglass-half' }}"></i>
+                {{ demande_devi.statut == 'en_attente' ? 'En attente' : (demande_devi.statut == 'traite' ? 'Traité' : demande_devi.statut) }}
+              </span>
+            {% endif %}
+          </div>
         </div>
-        <div class="ms-md-auto py-2 py-md-0">
-          <a href="{{ path('app_demande_devis_liste') }}" class="btn btn-secondary btn-round">
-            <i class="fas fa-arrow-left me-2"></i>Retour à la liste
+        <div class="d-flex gap-2">
+          <a href="{{ path('app_demande_devis_show', {'id': demande_devi.id}) }}" class="btn btn-outline-primary btn-sm">
+            <i class="fas fa-eye me-1"></i>Consulter
+          </a>
+          <a href="{{ path('app_demande_devis_liste') }}" class="btn btn-outline-secondary btn-sm">
+            <i class="fas fa-arrow-left me-1"></i>Retour
           </a>
         </div>
       </div>
 
+      {# ── Card formulaire ── #}
       <div class="row">
         <div class="col-md-12">
           <div class="card card-round">
-            <div class="card-header">
+            <div class="card-header" style="border-top: 3px solid #5e72e4; border-radius: 14px 14px 0 0;">
               <div class="card-head-row">
                 <div class="card-title">
-                  <i class="fas fa-edit me-2"></i>Formulaire d'édition
+                  <i class="fas fa-edit me-2 text-primary"></i>Formulaire de modification
                 </div>
               </div>
             </div>
             <div class="card-body">
               {{ include('demande_devis/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
+
+              <div class="edit-form-actions">
+                <a href="{{ path('app_demande_devis_show', {'id': demande_devi.id}) }}" class="btn btn-light">
+                  <i class="fas fa-times me-1"></i>Annuler
+                </a>
+                <button type="submit" form="edit-devis-form" class="btn btn-primary px-4">
+                  <i class="fas fa-save me-1"></i>Enregistrer les modifications
+                </button>
+              </div>
             </div>
           </div>
         </div>
       </div>
 
-
     </div>
   </div>
+{% endblock %}
+
+{% block javascripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  const form = document.querySelector('.demande-devis-form');
+  if (form) form.id = 'edit-devis-form';
+});
+</script>
 {% endblock %}

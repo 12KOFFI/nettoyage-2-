@@ -6,7 +6,9 @@ use App\Repository\DemandeDevisRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
+#[IsGranted('ROLE_ADMIN')]
 final class DashboardController extends AbstractController
 {
     #[Route('/dashboard', name: 'app_dashboard')]
@@ -15,7 +17,7 @@ final class DashboardController extends AbstractController
         $totalDevis = $demandeDevisRepository->count([]);
         $pendingDevis = $demandeDevisRepository->count(['statut' => 'en_attente']);
         $processedDevis = max(0, $totalDevis - $pendingDevis);
-        $latestDevis = $demandeDevisRepository->findBy([], ['date_creation' => 'DESC'], 5);
+        $latestDevis = $demandeDevisRepository->findLatestForDashboard(8);
 
         return $this->render('dashboard/index.html.twig', [
             'totalDevis' => $totalDevis,
