@@ -21,7 +21,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
-#[IsGranted('ROLE_COM')]
 #[Route('/demande/devis')]
 final class DemandeDevisController extends AbstractController
 {
@@ -117,6 +116,7 @@ final class DemandeDevisController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_demande_devis_show', methods: ['GET', 'POST'])]
+    #[IsGranted('ROLE_COM')]
     public function show(Request $request, DemandeDevis $demandeDevis, EntityManagerInterface $entityManager): Response
     {
         $prix = $demandeDevis->getPrix() ?? new Prix();
@@ -140,6 +140,7 @@ final class DemandeDevisController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_demande_devis_edit', methods: ['GET', 'POST'])]
+    #[IsGranted('ROLE_COM')]
     public function edit(Request $request, DemandeDevis $demandeDevi, DemandeDevisService $demandeDevisService): Response
     {
         $form = $this->createForm(DemandeDevisType::class, $demandeDevi);
@@ -162,6 +163,7 @@ final class DemandeDevisController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_demande_devis_delete', methods: ['POST'])]
+    #[IsGranted('ROLE_COM')]
     public function delete(Request $request, DemandeDevis $demandeDevi, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete' . $demandeDevi->getId(), $request->getPayload()->getString('_token'))) {
@@ -174,6 +176,7 @@ final class DemandeDevisController extends AbstractController
     }
 
     #[Route('/{id}/pdf', name: 'app_demande_devis_pdf', methods: ['GET'])]
+    #[IsGranted('ROLE_COM')]
     public function downloadPdf(DemandeDevis $demandeDevis, PdfGenerator $pdfGenerator): Response
     {
         if (!$demandeDevis->getPrix()) {
@@ -190,6 +193,7 @@ final class DemandeDevisController extends AbstractController
     }
 
     #[Route('/{id}/email', name: 'app_demande_devis_email', methods: ['POST'])]
+    #[IsGranted('ROLE_COM')]
     public function sendEmail(Request $request, DemandeDevis $demandeDevis, EmailService $emailService, LoggerInterface $logger): Response
     {
         if (!$this->isCsrfTokenValid('email' . $demandeDevis->getId(), $request->request->get('_token'))) {
@@ -214,6 +218,7 @@ final class DemandeDevisController extends AbstractController
     }
 
     #[Route('/{id}/valider', name: 'app_demande_devis_valider', methods: ['POST'])]
+    #[IsGranted('ROLE_COM')]
     public function valider(Request $request, DemandeDevis $demandeDevis, EntityManagerInterface $entityManager): Response
     {
         if (!$this->isCsrfTokenValid('valider' . $demandeDevis->getId(), $request->request->get('_token'))) {
@@ -234,6 +239,7 @@ final class DemandeDevisController extends AbstractController
     }
 
     #[Route('/{id}/prestations', name: 'app_demande_devis_prestations', methods: ['POST'])]
+    #[IsGranted('ROLE_ADMIN')]
     public function updatePrestations(Request $request, DemandeDevis $demandeDevis, EntityManagerInterface $entityManager): Response
     {
         $this->denyAccessUnlessGranted('ROLE_ADMIN');

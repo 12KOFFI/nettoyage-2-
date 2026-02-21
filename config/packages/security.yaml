@@ -42,7 +42,8 @@ security:
     # Note: Only the *first* matching rule is applied
     access_control:
         - { path: ^/dashboard, roles: ROLE_ADMIN }
-        - { path: ^/demande/devis, roles: ROLE_COM }
+        - { path: ^/demande/devis/liste, roles: ROLE_COM }
+        - { path: ^/demande/devis/\d+($|/), roles: ROLE_COM }
         - { path: ^/profile, roles: IS_AUTHENTICATED_FULLY }
 
 when@test:

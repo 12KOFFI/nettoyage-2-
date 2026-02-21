@@ -105,13 +105,13 @@
                             <nav class="menubar">
                                 <ul class="menu-wrap">
                                     <li class="menu-item {% if app.request.get('_route') == 'app_home' %}active{% endif %}">
-                                        <a href="{{ path('app_home') }}" class="nav-link">Accueil</a>
+                                        <a href="{{ path('app_home') }}" class="nav-link" data-nav-accent="green">Accueil</a>
                                     </li>
                                     <li class="menu-item {% if app.request.get('_route') == 'app_about' %}active{% endif %}">
-                                        <a href="{{ path('app_about') }}" class="nav-link">À propos</a>
+                                        <a href="{{ path('app_about') }}" class="nav-link" data-nav-accent="blue">À propos</a>
                                     </li>
                                     <li class="menu-item menu-item-has-children {% if app.request.get('_route') starts with 'app_service' %}active{% endif %}">
-                                        <a href="{{ path('app_services') }}" class="nav-link">Services</a>
+                                        <a href="{{ path('app_services') }}" class="nav-link" data-nav-accent="blue">Services</a>
                                         <span class="mobile-toggler d-lg-none"><button type="button" class="fa fa-chevron-right"></button></span>
                                         <ul class="dropdown-menu">
                                             <li><a href="{{ path('app_services') }}" class="dropdown-item">Tous nos services</a></li>
@@ -123,7 +123,7 @@
                                         </ul>
                                     </li>
                                     <li class="menu-item {% if app.request.get('_route') == 'app_demande_devis_index' %}active{% endif %}">
-                                        <a href="{{ path('app_demande_devis_index') }}" class="nav-link">Contact</a>
+                                        <a href="{{ path('app_demande_devis_index') }}" class="nav-link" data-nav-accent="green">Contact</a>
                                     </li>
                                 </ul>
                             </nav>
@@ -149,8 +149,8 @@
     </div>
     <div class="drawer-body">
         <ul class="drawer-nav">
-            <li><a href="{{ path('app_home') }}" class="{% if app.request.get('_route') == 'app_home' %}active{% endif %}"><i class="ti-home"></i> Accueil</a></li>
-            <li><a href="{{ path('app_about') }}" class="{% if app.request.get('_route') == 'app_about' %}active{% endif %}"><i class="ti-user"></i> À propos</a></li>
+            <li><a href="{{ path('app_home') }}" class="{% if app.request.get('_route') == 'app_home' %}active{% endif %}" data-nav-accent="green"><i class="ti-home"></i> Accueil</a></li>
+            <li><a href="{{ path('app_about') }}" class="{% if app.request.get('_route') == 'app_about' %}active{% endif %}" data-nav-accent="blue"><i class="ti-user"></i> À propos</a></li>
             <li class="has-submenu">
                 <a href="javascript:void(0);" class="submenu-toggle"><i class="ti-settings"></i> Services <i class="ti-angle-right arrow"></i></a>
                 <ul class="drawer-submenu">
@@ -162,10 +162,10 @@
                     <li><a href="{{ path('app_service_vitres') }}">Nettoyage de vitres</a></li>
                 </ul>
             </li>
-            <li><a href="{{ path('app_demande_devis_index') }}" class="{% if app.request.get('_route') == 'app_demande_devis_index' %}active{% endif %}"><i class="ti-email"></i> Contact</a></li>
+            <li><a href="{{ path('app_demande_devis_index') }}" class="{% if app.request.get('_route') == 'app_demande_devis_index' %}active{% endif %}" data-nav-accent="green"><i class="ti-email"></i> Contact</a></li>
         </ul>
         <div class="drawer-footer">
-            <a href="{{ path('app_demande_devis_index') }}" class="btn-drawer-quote">Demander un devis</a>
+            <a href="{{ path('app_demande_devis_index') }}" class="btn-drawer-quote" data-nav-accent="green">Demander un devis</a>
         </div>
     </div>
 </div>

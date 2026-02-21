@@ -1,1 +1,111 @@
-/* animations.css — vide */
+/* Animations globales (desktop + mobile) */
+
+.fx-reveal {
+    opacity: 0;
+    transform: translate3d(0, 22px, 0);
+    transition:
+        opacity 0.55s ease,
+        transform 0.55s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.fx-reveal.in-view {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+}
+
+/* États de formulaire */
+.demande-devis-form .form-control,
+form .form-control,
+form select,
+form textarea {
+    transition:
+        border-color 0.25s ease,
+        box-shadow 0.25s ease,
+        transform 0.2s ease;
+}
+
+.demande-devis-form .form-control.is-focus,
+form .form-control.is-focus,
+form select.is-focus,
+form textarea.is-focus {
+    border-color: #33cc66 !important;
+    box-shadow: 0 0 0 3px rgba(51, 204, 102, 0.2);
+}
+
+.demande-devis-form .form-control.has-value,
+form .form-control.has-value,
+form select.has-value,
+form textarea.has-value {
+    border-color: rgba(0, 51, 102, 0.35);
+}
+
+.form-shake {
+    animation: formShake 0.36s ease-in-out;
+}
+
+@keyframes formShake {
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+    25% {
+        transform: translateX(-4px);
+    }
+    50% {
+        transform: translateX(4px);
+    }
+    75% {
+        transform: translateX(-3px);
+    }
+}
+
+/* Feedback visuel au clic du menu */
+.menu-wrap > li > a.is-clicked,
+.drawer-nav a.is-clicked,
+.btn-drawer-quote.is-clicked {
+    color: #fff !important;
+    border-radius: 8px;
+}
+
+.menu-wrap > li > a.nav-accent-green.is-clicked,
+.drawer-nav a.nav-accent-green.is-clicked,
+.btn-drawer-quote.nav-accent-green.is-clicked {
+    background: linear-gradient(135deg, #33cc66, #2bb558);
+    box-shadow: 0 8px 20px rgba(51, 204, 102, 0.28);
+}
+
+.menu-wrap > li > a.nav-accent-blue.is-clicked,
+.drawer-nav a.nav-accent-blue.is-clicked,
+.btn-drawer-quote.nav-accent-blue.is-clicked {
+    background: linear-gradient(135deg, #003366, #1d5b94);
+    box-shadow: 0 8px 20px rgba(0, 51, 102, 0.28);
+}
+
+@media (max-width: 991.98px) {
+    .fx-reveal {
+        transform: translate3d(0, 14px, 0);
+        transition-duration: 0.45s;
+    }
+
+    .drawer-nav a.is-clicked {
+        padding-left: 10px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .fx-reveal {
+        opacity: 1 !important;
+        transform: none !important;
+        transition: none !important;
+    }
+
+    .demande-devis-form .form-control,
+    form .form-control,
+    form select,
+    form textarea,
+    .menu-wrap > li > a,
+    .drawer-nav a,
+    .btn-drawer-quote {
+        transition: none !important;
+    }
+}
