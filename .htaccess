@@ -1,0 +1,19 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Si quelqu'un tape /public/... on renvoie vers une URL propre
+    RewriteRule ^public/(.*)$ /$1 [R=301,L]
+
+    # Ne pas réécrire les fichiers/dossiers existants à la racine
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+
+    # Si la ressource existe dans /public, on la sert (css, js, images...)
+    RewriteCond %{DOCUMENT_ROOT}/public/$1 -f [OR]
+    RewriteCond %{DOCUMENT_ROOT}/public/$1 -d
+    RewriteRule ^(.*)$ public/$1 [L]
+
+    # Sinon, on envoie vers le front controller Symfony
+    RewriteRule ^(.*)$ public/index.php [QSA,L]
+
+</IfModule>
