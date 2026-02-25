@@ -267,7 +267,6 @@ body {
 }
 
 /* ======= Sidebar Logo ======= */
-.logo-header,
 .sidebar .logo-header {
     background: #33cc66 !important;
     border-bottom: 1px solid rgba(255, 255, 255, 0.08);
@@ -275,7 +274,7 @@ body {
     height: 70px;
 }
 
-.logo-header .logo {
+.sidebar .logo-header .logo {
     display: flex;
     align-items: center;
     gap: 12px;
@@ -284,24 +283,100 @@ body {
     text-decoration: none;
 }
 
-.logo-header .logo img {
+.sidebar .logo-header .logo img {
     height: 36px;
     filter: brightness(0) invert(1);
 }
 
-.logo-header .logo span {
+.sidebar .logo-header .logo span {
     font-size: 13px;
     letter-spacing: -0.2px;
     color: #fff;
     font-weight: 700;
 }
 
-.logo-header .nav-toggle .btn-toggle {
+.sidebar .logo-header .nav-toggle .btn-toggle {
     color: rgba(255, 255, 255, 0.5);
 }
 
-.logo-header .nav-toggle .btn-toggle:hover {
+.sidebar .logo-header .nav-toggle .btn-toggle:hover {
     color: #fff;
+}
+
+/* Header mobile/topbar (séparé du sidebar pour éviter les conflits) */
+.main-header-logo .logo-header {
+    background: #33cc66 !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 0 16px;
+    height: 70px;
+}
+
+.main-header-logo .logo-header .logo {
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+.main-header-logo .logo-header .logo img {
+    height: 32px;
+    width: auto;
+    filter: none;
+}
+
+.main-header-logo .logo-header .nav-toggle .btn-toggle,
+.main-header-logo .logo-header .topbar-toggler {
+    color: rgba(255, 255, 255, 0.8) !important;
+}
+
+.main-header-logo .logo-header .nav-toggle .btn-toggle:hover,
+.main-header-logo .logo-header .topbar-toggler:hover {
+    color: #fff !important;
+}
+
+@media (max-width: 991.98px) {
+    .main-header .navbar-header .navbar-nav .nav-link,
+    .main-header .navbar-header .topbar-icon .nav-link i,
+    .main-header .navbar-header .profile-username,
+    .main-header .navbar-header .profile-username .op-7,
+    .main-header .navbar-header .profile-username .fw-bold,
+    .main-header .navbar-header .dropdown-toggle.profile-pic {
+        color: #fff !important;
+    }
+
+    .main-header .navbar-header .topbar-nav {
+        gap: 6px;
+    }
+
+    .main-header .navbar-header .topbar-nav .nav-item.topbar-icon .nav-link {
+        width: 36px;
+        height: 36px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background: #003366 !important;
+        border-radius: 10px;
+    }
+
+    .main-header .navbar-header .topbar-nav .nav-item.topbar-icon .nav-link i {
+        color: #fff !important;
+    }
+
+    .main-header
+        .navbar-header
+        .topbar-nav
+        .nav-item.topbar-icon
+        .notification {
+        background: #33cc66 !important;
+        color: #fff !important;
+    }
+}
+
+/* User connecté (avatar header + dropdown) */
+.user-avatar-connected {
+    background: #33cc66 !important;
+    color: #fff !important;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    box-shadow: 0 4px 12px rgba(51, 204, 102, 0.35);
 }
 
 /* ======= Sidebar Body ======= */
@@ -378,6 +453,65 @@ body {
 
 .sidebar .nav > .nav-item.active a p {
     font-weight: 600 !important;
+}
+
+/* ======= Profile Page ======= */
+.profile-page {
+    --profile-blue: #003366;
+    --profile-green: #33cc66;
+}
+
+/* Évite que le header fixe masque le contenu sur profil */
+.profile-page {
+    margin-top: 69px;
+}
+
+.profile-page .profile-back-btn {
+    background: var(--profile-blue);
+    border-color: var(--profile-blue);
+    color: #fff;
+}
+
+.profile-page .profile-back-btn:hover {
+    background: var(--profile-green);
+    border-color: var(--profile-green);
+    color: #fff;
+}
+
+.profile-page .profile-card-title {
+    color: var(--profile-blue);
+}
+
+.profile-page .profile-avatar {
+    background: var(--profile-blue) !important;
+    color: #fff;
+}
+
+.profile-page .profile-email-icon {
+    color: var(--profile-blue);
+}
+
+.profile-page .profile-badge {
+    background: rgba(51, 204, 102, 0.14);
+    border: 1px solid rgba(51, 204, 102, 0.35);
+    color: #1f9d55;
+    font-weight: 700;
+    padding: 0.45em 0.75em;
+    border-radius: 8px;
+    display: inline-flex;
+    align-items: center;
+}
+
+.profile-page .profile-alert-green {
+    background: rgba(51, 204, 102, 0.12);
+    border: 1px solid rgba(51, 204, 102, 0.35);
+    color: #1f9d55;
+}
+
+.profile-page .profile-alert-blue {
+    background: rgba(0, 51, 102, 0.1);
+    border: 1px solid rgba(0, 51, 102, 0.25);
+    color: var(--profile-blue);
 }
 
 /* Sidebar user section */
