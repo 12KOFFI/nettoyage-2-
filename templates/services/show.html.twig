@@ -11,15 +11,17 @@
 
 {% block body %}
 <!-- Banner Header -->
-    <section class="banner-header valign bg-img bg-imgfixed bg-position-bottom" data-overlay-dark="5" data-background="{{ asset('img/slider/10.jpg') }}">
+    <section class="banner-header valign bg-img bg-imgfixed" data-overlay-dark="4" data-background="{{ asset(image) }}" style="min-height: 60vh; display: flex; align-items: center;">
         <div class="container">
-            <div class="row">
-                <div class="col-md-12 text-center">
-                    <h5 class="wow fadeInUp" data-wow-delay=".1s">Nos prestations</h5>
-                    <h3 class="wow fadeInUp" data-wow-delay=".3s">{{ title }}</h3>
+            <div class="row justify-content-center">
+                <div class="col-md-10 text-center">
+                    <h5 class="wow fadeInUp" data-wow-delay=".1s" style="background: rgba(0, 51, 102, 0.8); padding: 8px 20px; border-radius: 30px; display: inline-block; font-size: 14px; letter-spacing: 2px; margin-bottom: 20px;">Nos prestations</h5>
+                    <h3 class="wow fadeInUp" data-wow-delay=".3s" style="font-size: clamp(32px, 5vw, 55px); font-weight: 800; text-shadow: 2px 2px 4px rgba(0,0,0,0.5);">{{ title }}</h3>
+                    
                 </div>
             </div>
         </div>
+        <div style="position:absolute;bottom:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#003366,#33cc66,#003366);"></div>
     </section>
     <!-- Services Page -->
     <section class="page section-padding">

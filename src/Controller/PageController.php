@@ -25,6 +25,7 @@ class PageController extends AbstractController
     {
         return $this->render('services/show.html.twig', [
             'service' => 'industriel',
+            'image' => 'img/services/2.jpg',
             'title' => 'Nettoyage industriel',
             'description' => 'Le nettoyage des sols de votre usine, le nettoyage des machines, entretien des locaux sociaux,…',
             'details' => [
@@ -42,6 +43,7 @@ class PageController extends AbstractController
     {
         return $this->render('services/show.html.twig', [
             'service' => 'chantier',
+            'image' => 'img/services/3.jpg',
             'title' => 'Nettoyage de chantiers',
             'description' => 'L\'entretien des bungalows (bases de vies), le nettoyage final avant livraison, le nettoyage des vitres et encadrements, parkings extérieurs, voiries,…',
             'details' => [
@@ -59,6 +61,7 @@ class PageController extends AbstractController
     {
         return $this->render('services/show.html.twig', [
             'service' => 'immeuble',
+            'image' => 'img/services/1.jpg',
             'title' => 'Nettoyage d\'immeubles',
             'description' => 'Nettoyage des parties communes, locaux poubelle, entretien des jardins et parkings de l\'immeuble.',
             'details' => [
@@ -76,6 +79,7 @@ class PageController extends AbstractController
     {
         return $this->render('services/show.html.twig', [
             'service' => 'bureaux',
+            'image' => 'img/services/4.jpg',
             'title' => 'Nettoyage de bureaux',
             'description' => 'Nettoyage suivant besoins de vos bureaux, nettoyage du mobilier, entretien des sols et des murs, sanitaires, salles de réunion,…',
             'details' => [
@@ -93,6 +97,7 @@ class PageController extends AbstractController
     {
         return $this->render('services/show.html.twig', [
             'service' => 'vitres',
+            'image' => 'img/services/6.jpg',
             'title' => 'Nettoyage de vitres',
             'description' => 'Notre équipe de laveurs de vitres professionnels et qualifiés (CACES), réalise le nettoyage de toutes vos vitres qu\'elles soient accessibles ou inaccessibles avec les moyens adaptés (échafaudage, cordes, nacelles,…)',
             'details' => [
