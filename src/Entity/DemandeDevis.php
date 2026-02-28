@@ -46,6 +46,9 @@ class DemandeDevis
     #[ORM\OneToOne(mappedBy: 'demande_devis', cascade: ['persist', 'remove'])]
     private ?Prix $prix = null;
 
+    #[ORM\Column(length: 500, nullable: true)]
+    private ?string $pdfPath = null;
+
     public function __construct()
     {
         $this->demandePrestations = new ArrayCollection();
@@ -189,6 +192,21 @@ class DemandeDevis
         }
 
         $this->prix = $prix;
+
+        return $this;
+    }
+
+    /**
+     * Retourne le chemin du PDF stocké (relatif à /public)
+     */
+    public function getPdfPath(): ?string
+    {
+        return $this->pdfPath;
+    }
+
+    public function setPdfPath(?string $pdfPath): static
+    {
+        $this->pdfPath = $pdfPath;
 
         return $this;
     }

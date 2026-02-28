@@ -3,7 +3,6 @@
 namespace App\Service;
 
 use App\Entity\DemandeDevis;
-use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
 use Twig\Environment;
@@ -15,8 +14,7 @@ class EmailService
         private PdfGenerator $pdfGenerator,
         private Environment $twig,
         private string $adminEmail
-    ) {
-    }
+    ) {}
 
     /**
      * Envoie le devis par email au client avec le PDF en pièce jointe
@@ -26,7 +24,7 @@ class EmailService
     public function sendDevisToClient(DemandeDevis $demandeDevis): void
     {
         $client = $demandeDevis->getClient();
-        
+
         if (!$client || !$client->getEmail()) {
             throw new \Exception('Aucune adresse email client disponible.');
         }
@@ -35,9 +33,9 @@ class EmailService
             throw new \Exception('Le devis doit avoir un prix avant d\'être envoyé.');
         }
 
-        // Générer le PDF
-        $pdfContent = $this->pdfGenerator->generateDevisPdf($demandeDevis);
-        
+        // Utilise le PDF en cache ou le génère si inexistant
+        $pdfContent = $this->pdfGenerator->getOrGeneratePdf($demandeDevis);
+
         // Créer l'email
         $email = (new Email())
             ->from($this->adminEmail)
@@ -72,10 +70,10 @@ class EmailService
         }
 
         $email->html($this->twig->render('demande_devis/email/new_demande.html.twig', [
-                'demande' => $demandeDevis,
-                'clientName' => $clientName,
-                'clientEmail' => $clientEmail ?? 'Email non renseigné',
-            ]));
+            'demande' => $demandeDevis,
+            'clientName' => $clientName,
+            'clientEmail' => $clientEmail ?? 'Email non renseigné',
+        ]));
 
         $this->mailer->send($email);
     }

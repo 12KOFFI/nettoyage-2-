@@ -2,10 +2,7 @@
 
 namespace App\Controller;
 
-use App\Entity\Client;
 use App\Entity\DemandeDevis;
-use App\Entity\DemandePrestation;
-use App\Entity\Local;
 use App\Entity\Prix;
 use App\Form\DemandeDevisType;
 use App\Form\PrixType;
@@ -117,7 +114,7 @@ final class DemandeDevisController extends AbstractController
 
     #[Route('/{id}', name: 'app_demande_devis_show', methods: ['GET', 'POST'])]
     #[IsGranted('ROLE_COM')]
-    public function show(Request $request, DemandeDevis $demandeDevis, EntityManagerInterface $entityManager): Response
+    public function show(Request $request, DemandeDevis $demandeDevis, EntityManagerInterface $entityManager, PdfGenerator $pdfGenerator): Response
     {
         $prix = $demandeDevis->getPrix() ?? new Prix();
         $prixForm = $this->createForm(PrixType::class, $prix);
@@ -127,6 +124,10 @@ final class DemandeDevisController extends AbstractController
             $prix->setDemandeDevis($demandeDevis);
             $prix->calculateTotalTtc();
             $entityManager->persist($prix);
+
+            // Invalider le PDF en cache car le prix a changé
+            $pdfGenerator->invalidatePdf($demandeDevis);
+
             $entityManager->flush();
 
             $this->addFlash('success', 'Le prix a été enregistré avec succès.');
@@ -141,12 +142,15 @@ final class DemandeDevisController extends AbstractController
 
     #[Route('/{id}/edit', name: 'app_demande_devis_edit', methods: ['GET', 'POST'])]
     #[IsGranted('ROLE_COM')]
-    public function edit(Request $request, DemandeDevis $demandeDevi, DemandeDevisService $demandeDevisService): Response
+    public function edit(Request $request, DemandeDevis $demandeDevi, DemandeDevisService $demandeDevisService, PdfGenerator $pdfGenerator): Response
     {
         $form = $this->createForm(DemandeDevisType::class, $demandeDevi);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            // Invalider le PDF en cache car le devis a été modifié
+            $pdfGenerator->invalidatePdf($demandeDevi);
+
             $demandeDevisService->updateFromForm($form, $demandeDevi);
             $this->addFlash('success', 'La demande de devis a été mise à jour avec succès.');
             return $this->redirectToRoute('app_demande_devis_show', ['id' => $demandeDevi->getId()], Response::HTTP_SEE_OTHER);
@@ -164,9 +168,12 @@ final class DemandeDevisController extends AbstractController
 
     #[Route('/{id}', name: 'app_demande_devis_delete', methods: ['POST'])]
     #[IsGranted('ROLE_COM')]
-    public function delete(Request $request, DemandeDevis $demandeDevi, EntityManagerInterface $entityManager): Response
+    public function delete(Request $request, DemandeDevis $demandeDevi, EntityManagerInterface $entityManager, PdfGenerator $pdfGenerator): Response
     {
         if ($this->isCsrfTokenValid('delete' . $demandeDevi->getId(), $request->getPayload()->getString('_token'))) {
+            // Supprimer le PDF en cache avant de supprimer l'entité
+            $pdfGenerator->invalidatePdf($demandeDevi);
+
             $entityManager->remove($demandeDevi);
             $entityManager->flush();
             $this->addFlash('success', 'La demande de devis a été supprimée.');
@@ -184,11 +191,13 @@ final class DemandeDevisController extends AbstractController
             return $this->redirectToRoute('app_demande_devis_show', ['id' => $demandeDevis->getId()]);
         }
 
-        $pdfContent = $pdfGenerator->generateDevisPdf($demandeDevis);
+        // Utilise le PDF en cache ou le génère si inexistant
+        $pdfContent = $pdfGenerator->getOrGeneratePdf($demandeDevis);
 
         return new Response($pdfContent, 200, [
             'Content-Type' => 'application/pdf',
             'Content-Disposition' => 'attachment; filename="' . $demandeDevis->getNumeroDevis() . '.pdf"',
+            'Content-Length' => strlen($pdfContent),
         ]);
     }
 
@@ -240,7 +249,7 @@ final class DemandeDevisController extends AbstractController
 
     #[Route('/{id}/prestations', name: 'app_demande_devis_prestations', methods: ['POST'])]
     #[IsGranted('ROLE_ADMIN')]
-    public function updatePrestations(Request $request, DemandeDevis $demandeDevis, EntityManagerInterface $entityManager): Response
+    public function updatePrestations(Request $request, DemandeDevis $demandeDevis, EntityManagerInterface $entityManager, PdfGenerator $pdfGenerator): Response
     {
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
 
@@ -256,6 +265,9 @@ final class DemandeDevisController extends AbstractController
                 $demandePrestation->setAdminDescription(trim((string) $descriptions[$id]));
             }
         }
+
+        // Invalider le PDF car les descriptions ont changé
+        $pdfGenerator->invalidatePdf($demandeDevis);
 
         $entityManager->flush();
         $this->addFlash('success', 'Descriptions des prestations mises à jour.');
