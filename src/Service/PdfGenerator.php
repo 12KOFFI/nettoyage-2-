@@ -154,13 +154,22 @@ class PdfGenerator
         $options = new Options();
         $options->set('isHtml5ParserEnabled', true);
         $options->set('isRemoteEnabled', false);           // Pas d'images distantes → plus rapide
-        $options->set('defaultFont', 'Helvetica');          // Police système → pas de chargement DejaVu
+        $options->set('defaultFont', 'Helvetica');          // Police système → pas de chargement externe
         $options->set('isFontSubsettingEnabled', true);     // Sous-ensemble de polices → fichier plus léger
         $options->set('chroot', $this->projectDir . '/public');
         $options->set('isPhpEnabled', false);               // Désactiver PHP dans les templates
-        $options->set('debugKeepTemp', false);               // Pas de fichiers temporaires de debug
+        $options->set('debugKeepTemp', false);
         $options->set('debugCss', false);
         $options->set('debugLayout', false);
+
+        // Cache Dompdf dans var/cache pour éviter les recalculs de polices
+        $fontCacheDir = $this->projectDir . '/var/cache/dompdf';
+        if (!is_dir($fontCacheDir)) {
+            @mkdir($fontCacheDir, 0755, true);
+        }
+        $options->set('fontDir', $fontCacheDir);
+        $options->set('fontCache', $fontCacheDir);
+        $options->set('tempDir', $fontCacheDir);
 
         $dompdf = new Dompdf($options);
 
@@ -186,6 +195,7 @@ class PdfGenerator
 
     /**
      * Retourne le logo encodé en base64 (avec cache en mémoire).
+     * Utilise logo_pdf.png (version optimisée/redimensionnée pour Dompdf).
      */
     private ?string $logoCache = null;
 
@@ -195,7 +205,13 @@ class PdfGenerator
             return $this->logoCache;
         }
 
-        $logoPath = $this->projectDir . '/public/img/logo.png';
+        // Utiliser le logo optimisé pour PDF (petit fichier) en priorité
+        $logoPath = $this->projectDir . '/public/img/logo_pdf.png';
+        if (!file_exists($logoPath)) {
+            // Fallback sur le logo original
+            $logoPath = $this->projectDir . '/public/img/logo.png';
+        }
+
         if (file_exists($logoPath)) {
             $logoData = file_get_contents($logoPath);
             $this->logoCache = 'data:image/png;base64,' . base64_encode($logoData);

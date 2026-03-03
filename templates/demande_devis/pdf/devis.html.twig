@@ -36,8 +36,8 @@
             text-align: right; 
         }
         .logo { 
-            max-width: 180px; 
-            max-height: 70px; 
+            width: 180px; 
+            height: auto; 
             margin-bottom: 8px; 
         }
         .company-name { 
@@ -110,7 +110,7 @@
             border-bottom: 1px solid #eee; 
             font-size: 11px; 
         }
-        .prestations-table tr:nth-child(even) { 
+        .row-even { 
             background: #f9f9f9; 
         }
         .prestation-personnalisee { 
@@ -319,7 +319,7 @@
                         {% if dp.detailsSpecifiques and detailsSpecifiques is null %}
                             {% set detailsSpecifiques = dp.detailsSpecifiques %}
                         {% endif %}
-                        <tr{% if not dp.prestation %} class="prestation-personnalisee"{% endif %}>
+                        <tr class="{{ not dp.prestation ? 'prestation-personnalisee' : '' }}{{ loop.index is even ? ' row-even' : '' }}">
                             <td>
                                 {% if dp.prestation and dp.prestation.libelle != 'Autre (Personnalisée)' %}
                                     {{ dp.prestation.libelle }}

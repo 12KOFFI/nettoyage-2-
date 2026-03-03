@@ -21,26 +21,32 @@
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="gestionDevisDropdown">
               {% if devis.prix %}
               <li>
-                <form action="{{ path('app_demande_devis_valider', {'id': devis.id}) }}" method="post" style="display: inline;">
-                  <input type="hidden" name="_token" value="{{ csrf_token('valider' ~ devis.id) }}">
-                  <button type="submit" class="dropdown-item">
-                    <i class="fas fa-check text-success me-2"></i>Valider le devis
-                  </button>
-                </form>
+                <a class="dropdown-item" id="generatePdfLink" href="{{ path('app_demande_devis_pdf', {'id': devis.id}) }}">
+                  <i class="fas fa-file-pdf text-danger me-2"></i>Générer le PDF du devis
+                </a>
               </li>
-              <li>
+              <li id="emailMenuItem">
+                {% if devis.pdfPath %}
                 <form action="{{ path('app_demande_devis_email', {'id': devis.id}) }}" method="post" style="display: inline;">
                   <input type="hidden" name="_token" value="{{ csrf_token('email' ~ devis.id) }}">
                   <button type="submit" class="dropdown-item">
                     <i class="fas fa-envelope text-primary me-2"></i>Envoyer par email
                   </button>
                 </form>
+                {% else %}
+                <span class="dropdown-item disabled text-muted" title="Veuillez d'abord générer le PDF">
+                  <i class="fas fa-envelope text-muted me-2"></i>Envoyer par email
+                </span>
+                {% endif %}
               </li>
               <li><hr class="dropdown-divider"></li>
               <li>
-                <a class="dropdown-item" href="{{ path('app_demande_devis_pdf', {'id': devis.id}) }}">
-                  <i class="fas fa-file-pdf text-danger me-2"></i>Télécharger le PDF
-                </a>
+                <form action="{{ path('app_demande_devis_valider', {'id': devis.id}) }}" method="post" style="display: inline;">
+                  <input type="hidden" name="_token" value="{{ csrf_token('valider' ~ devis.id) }}">
+                  <button type="submit" class="dropdown-item">
+                    <i class="fas fa-check text-success me-2"></i>Valider le devis
+                  </button>
+                </form>
               </li>
               {% endif %}
             </ul>
@@ -569,6 +575,25 @@
           currentPrestationId = null;
           modalTextarea.value = '';
           modalPrestationName.textContent = '';
+        });
+      }
+
+      // Activer le bouton "Envoyer par email" après clic sur "Générer le PDF"
+      const pdfLink = document.getElementById('generatePdfLink');
+      const emailMenuItem = document.getElementById('emailMenuItem');
+      if (pdfLink && emailMenuItem) {
+        pdfLink.addEventListener('click', function() {
+          // Le PDF se télécharge via le navigateur. On active le bouton email après un court délai.
+          setTimeout(function() {
+            const disabledSpan = emailMenuItem.querySelector('span.disabled');
+            if (disabledSpan) {
+              emailMenuItem.innerHTML = '<form action="{{ path('app_demande_devis_email', {'id': devis.id}) }}" method="post" style="display: inline;">'
+                + '<input type="hidden" name="_token" value="{{ csrf_token('email' ~ devis.id) }}">'
+                + '<button type="submit" class="dropdown-item">'
+                + '<i class="fas fa-envelope text-primary me-2"></i>Envoyer par email'
+                + '</button></form>';
+            }
+          }, 1500);
         });
       }
     });

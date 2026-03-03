@@ -13,8 +13,10 @@ use App\Service\PdfGenerator;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
@@ -191,14 +193,16 @@ final class DemandeDevisController extends AbstractController
             return $this->redirectToRoute('app_demande_devis_show', ['id' => $demandeDevis->getId()]);
         }
 
-        // Utilise le PDF en cache ou le génère si inexistant
-        $pdfContent = $pdfGenerator->getOrGeneratePdf($demandeDevis);
+        // Génère le PDF si nécessaire, puis récupère le chemin sur disque
+        $pdfAbsolutePath = $pdfGenerator->getOrGeneratePdfPath($demandeDevis);
+        $filename = $demandeDevis->getNumeroDevis() . '.pdf';
 
-        return new Response($pdfContent, 200, [
-            'Content-Type' => 'application/pdf',
-            'Content-Disposition' => 'attachment; filename="' . $demandeDevis->getNumeroDevis() . '.pdf"',
-            'Content-Length' => strlen($pdfContent),
-        ]);
+        // BinaryFileResponse : envoie le fichier directement sans le charger en mémoire PHP
+        $response = new BinaryFileResponse($pdfAbsolutePath);
+        $response->setContentDisposition(ResponseHeaderBag::DISPOSITION_ATTACHMENT, $filename);
+        $response->headers->set('Content-Type', 'application/pdf');
+
+        return $response;
     }
 
     #[Route('/{id}/email', name: 'app_demande_devis_email', methods: ['POST'])]
