@@ -27,6 +27,9 @@
     <meta name="twitter:image" content="{{ block('og_image') }}">
 
     <link rel="icon" type="image/png" href="{{ asset('img/logo.png') }}">
+    <link rel="apple-touch-icon" href="{{ asset('img/logo.png') }}">
+    <link rel="manifest" href="{{ asset('manifest.json') }}">
+    <meta name="theme-color" content="#003366">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
@@ -111,24 +114,24 @@
 
 
     <!-- Performance optimization -->
-    <script src="{{ asset('js/scroll-optimizer.js') }}"></script>
+    <script src="{{ asset('js/scroll-optimizer.js') }}" defer></script>
     <!-- jQuery -->
     <script src="{{ asset('js/jquery-3.7.1.min.js') }}"></script>
-    <script src="{{ asset('js/jquery-migrate-3.5.0.min.js') }}"></script>
-    <script src="{{ asset('js/popper.min.js') }}"></script>
-    <script src="{{ asset('js/bootstrap.min.js') }}"></script>
-    <script src="{{ asset('js/modernizr-2.6.2.min.js') }}"></script>
-    <script src="{{ asset('js/imagesloaded.pkgd.min.js') }}"></script>
-    <script src="{{ asset('js/jquery.isotope.v3.0.2.js') }}"></script>
-    <script src="{{ asset('js/scrollIt.min.js') }}"></script>
-    <script src="{{ asset('js/jquery.waypoints.min.js') }}"></script>
-    <script src="{{ asset('js/owl.carousel.min.js') }}"></script>
-    <script src="{{ asset('js/jquery.stellar.min.js') }}"></script>
-    <script src="{{ asset('js/jquery.magnific-popup.js') }}"></script>
-    <script src="{{ asset('js/YouTubePopUp.js') }}"></script>
-    <script src="{{ asset('js/smooth-scroll.min.js') }}"></script>
-    <script src="{{ asset('js/wow.min.js') }}"></script>
-    <script src="{{ asset('js/custom.js') }}"></script>
+    <script src="{{ asset('js/jquery-migrate-3.5.0.min.js') }}" defer></script>
+    <script src="{{ asset('js/popper.min.js') }}" defer></script>
+    <script src="{{ asset('js/bootstrap.min.js') }}" defer></script>
+    <script src="{{ asset('js/modernizr-2.6.2.min.js') }}" defer></script>
+    <script src="{{ asset('js/imagesloaded.pkgd.min.js') }}" defer></script>
+    <script src="{{ asset('js/jquery.isotope.v3.0.2.js') }}" defer></script>
+    <script src="{{ asset('js/scrollIt.min.js') }}" defer></script>
+    <script src="{{ asset('js/jquery.waypoints.min.js') }}" defer></script>
+    <script src="{{ asset('js/owl.carousel.min.js') }}" defer></script>
+    <script src="{{ asset('js/jquery.stellar.min.js') }}" defer></script>
+    <script src="{{ asset('js/jquery.magnific-popup.js') }}" defer></script>
+    <script src="{{ asset('js/YouTubePopUp.js') }}" defer></script>
+    <script src="{{ asset('js/smooth-scroll.min.js') }}" defer></script>
+    <script src="{{ asset('js/wow.min.js') }}" defer></script>
+    <script src="{{ asset('js/custom.js') }}" defer></script>
     <!-- GSAP + ScrollTrigger (CDN) -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>

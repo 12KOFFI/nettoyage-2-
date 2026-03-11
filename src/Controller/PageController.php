@@ -11,19 +11,25 @@ class PageController extends AbstractController
     #[Route('/about', name: 'app_about')]
     public function about(): Response
     {
-        return $this->render('pages/about.html.twig');
+        $response = $this->render('pages/about.html.twig');
+        $response->setSharedMaxAge(3600);
+
+        return $response;
     }
 
     #[Route('/services', name: 'app_services')]
     public function services(): Response
     {
-        return $this->render('services/services.html.twig');
+        $response = $this->render('services/services.html.twig');
+        $response->setSharedMaxAge(3600);
+
+        return $response;
     }
 
     #[Route('/services/nettoyage-industriel', name: 'app_service_industriel')]
     public function serviceIndustriel(): Response
     {
-        return $this->render('services/show.html.twig', [
+        $response = $this->render('services/show.html.twig', [
             'service' => 'industriel',
             'image' => 'img/services/2.jpg',
             'title' => 'Nettoyage industriel',
@@ -36,12 +42,15 @@ class PageController extends AbstractController
                 'Méthodes adaptées aux environnements industriels'
             ]
         ]);
+        $response->setSharedMaxAge(3600);
+
+        return $response;
     }
 
     #[Route('/services/nettoyage-chantier', name: 'app_service_chantier')]
     public function serviceChantier(): Response
     {
-        return $this->render('services/show.html.twig', [
+        $response = $this->render('services/show.html.twig', [
             'service' => 'chantier',
             'image' => 'img/services/3.jpg',
             'title' => 'Nettoyage de chantiers',
@@ -54,12 +63,15 @@ class PageController extends AbstractController
                 'Nettoyage des voiries'
             ]
         ]);
+        $response->setSharedMaxAge(3600);
+
+        return $response;
     }
 
     #[Route('/services/nettoyage-immeuble', name: 'app_service_immeuble')]
     public function serviceImmeuble(): Response
     {
-        return $this->render('services/show.html.twig', [
+        $response = $this->render('services/show.html.twig', [
             'service' => 'immeuble',
             'image' => 'img/services/1.jpg',
             'title' => 'Nettoyage d\'immeubles',
@@ -72,12 +84,15 @@ class PageController extends AbstractController
                 'Maintenance régulière des espaces communs'
             ]
         ]);
+        $response->setSharedMaxAge(3600);
+
+        return $response;
     }
 
     #[Route('/services/nettoyage-bureaux', name: 'app_service_bureaux')]
     public function serviceBureaux(): Response
     {
-        return $this->render('services/show.html.twig', [
+        $response = $this->render('services/show.html.twig', [
             'service' => 'bureaux',
             'image' => 'img/services/4.jpg',
             'title' => 'Nettoyage de bureaux',
@@ -90,12 +105,15 @@ class PageController extends AbstractController
                 'Nettoyage adapté à vos besoins (quotidien, hebdomadaire, ponctuel)'
             ]
         ]);
+        $response->setSharedMaxAge(3600);
+
+        return $response;
     }
 
     #[Route('/services/nettoyage-vitres', name: 'app_service_vitres')]
     public function serviceVitres(): Response
     {
-        return $this->render('services/show.html.twig', [
+        $response = $this->render('services/show.html.twig', [
             'service' => 'vitres',
             'image' => 'img/services/6.jpg',
             'title' => 'Nettoyage de vitres',
@@ -108,6 +126,9 @@ class PageController extends AbstractController
                 'Personnel qualifié CACES'
             ]
         ]);
+        $response->setSharedMaxAge(3600);
+
+        return $response;
     }
 
     #[Route('/team', name: 'app_team')]

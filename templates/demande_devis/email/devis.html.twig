@@ -25,7 +25,7 @@
         
         <p>Ce devis comprend :</p>
         <ul>
-            <li>Intervention sur site : {{ devis.local ? devis.local.ville : 'Non spécifié' }}</li>
+            <li>Intervention sur site : {{ devis.local ? devis.local.adresse ~ ', ' ~ devis.local.codePostal ~ ' ' ~ devis.local.ville : 'Non spécifié' }}</li>
             <li>Fréquence : {{ devis.frequence }}</li>
             <li>Créneau horaire : {{ devis.creneauHoraire }}</li>
         </ul>

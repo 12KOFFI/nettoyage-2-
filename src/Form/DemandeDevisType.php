@@ -48,7 +48,7 @@ class DemandeDevisType extends AbstractType
                 'attr' => ['placeholder' => 'Téléphone *'],
                 'required' => true,
             ])
-            
+
             // Champs Local
             ->add('local_type', ChoiceType::class, [
                 'mapped' => false,
@@ -57,6 +57,7 @@ class DemandeDevisType extends AbstractType
                 'choices' => [
                     'Bureaux' => 'bureaux',
                     'Immeuble' => 'immeuble',
+                    'Appartement et Maison' => 'appartement et maison',
                     'Commerce' => 'commerce',
                     'Entrepôt' => 'entrepot',
                     'Chantier' => 'chantier',
@@ -67,8 +68,20 @@ class DemandeDevisType extends AbstractType
             ])
             ->add('local_ville', TextType::class, [
                 'mapped' => false,
-                'label' => 'Adresse du site à nettoyer',
-                'attr' => ['placeholder' => 'Adresse du site à nettoyer *'],
+                'label' => 'Ville du site à nettoyer',
+                'attr' => ['placeholder' => 'Ville du site à nettoyer *'],
+                'required' => true,
+            ])
+            ->add('local_adresse', TextType::class, [
+                'mapped' => false,
+                'label' => 'Adresse complète (numéro + rue)',
+                'attr' => ['placeholder' => 'Adresse complète (numéro + rue) *'],
+                'required' => true,
+            ])
+            ->add('local_code_postal', TextType::class, [
+                'mapped' => false,
+                'label' => 'Code postal',
+                'attr' => ['placeholder' => 'Code postal *', 'maxlength' => 10],
                 'required' => true,
             ])
             ->add('local_surface', IntegerType::class, [
@@ -77,7 +90,7 @@ class DemandeDevisType extends AbstractType
                 'attr' => ['placeholder' => 'Surface en m² *'],
                 'required' => true,
             ])
-            
+
             // Champs DemandeDevis
             ->add('prestation', EntityType::class, [
                 'class' => Prestation::class,

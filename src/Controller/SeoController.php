@@ -20,18 +20,18 @@ class SeoController extends AbstractController
 
         // Pages statiques avec priorité et fréquence
         $urls = [
-            ['loc' => $urlGenerator->generate('app_home', [], UrlGeneratorInterface::ABSOLUTE_URL), 'priority' => '1.0', 'changefreq' => 'weekly'],
-            ['loc' => $urlGenerator->generate('app_about', [], UrlGeneratorInterface::ABSOLUTE_URL), 'priority' => '0.8', 'changefreq' => 'monthly'],
-            ['loc' => $urlGenerator->generate('app_services', [], UrlGeneratorInterface::ABSOLUTE_URL), 'priority' => '0.9', 'changefreq' => 'monthly'],
-            ['loc' => $urlGenerator->generate('app_service_industriel', [], UrlGeneratorInterface::ABSOLUTE_URL), 'priority' => '0.8', 'changefreq' => 'monthly'],
-            ['loc' => $urlGenerator->generate('app_service_chantier', [], UrlGeneratorInterface::ABSOLUTE_URL), 'priority' => '0.8', 'changefreq' => 'monthly'],
-            ['loc' => $urlGenerator->generate('app_service_immeuble', [], UrlGeneratorInterface::ABSOLUTE_URL), 'priority' => '0.8', 'changefreq' => 'monthly'],
-            ['loc' => $urlGenerator->generate('app_service_bureaux', [], UrlGeneratorInterface::ABSOLUTE_URL), 'priority' => '0.8', 'changefreq' => 'monthly'],
-            ['loc' => $urlGenerator->generate('app_service_vitres', [], UrlGeneratorInterface::ABSOLUTE_URL), 'priority' => '0.8', 'changefreq' => 'monthly'],
-            ['loc' => $urlGenerator->generate('app_team', [], UrlGeneratorInterface::ABSOLUTE_URL), 'priority' => '0.6', 'changefreq' => 'monthly'],
-            ['loc' => $urlGenerator->generate('app_demande_devis_index', [], UrlGeneratorInterface::ABSOLUTE_URL), 'priority' => '0.9', 'changefreq' => 'monthly'],
-            ['loc' => $urlGenerator->generate('app_faq', [], UrlGeneratorInterface::ABSOLUTE_URL), 'priority' => '0.6', 'changefreq' => 'monthly'],
-            ['loc' => $urlGenerator->generate('app_testimonials', [], UrlGeneratorInterface::ABSOLUTE_URL), 'priority' => '0.5', 'changefreq' => 'monthly'],
+            ['loc' => $urlGenerator->generate('app_home', [], UrlGeneratorInterface::ABSOLUTE_URL), 'priority' => '1.0', 'changefreq' => 'weekly', 'lastmod' => '2025-03-01'],
+            ['loc' => $urlGenerator->generate('app_about', [], UrlGeneratorInterface::ABSOLUTE_URL), 'priority' => '0.8', 'changefreq' => 'monthly', 'lastmod' => '2025-01-15'],
+            ['loc' => $urlGenerator->generate('app_services', [], UrlGeneratorInterface::ABSOLUTE_URL), 'priority' => '0.9', 'changefreq' => 'monthly', 'lastmod' => '2025-01-15'],
+            ['loc' => $urlGenerator->generate('app_service_industriel', [], UrlGeneratorInterface::ABSOLUTE_URL), 'priority' => '0.8', 'changefreq' => 'monthly', 'lastmod' => '2025-01-15'],
+            ['loc' => $urlGenerator->generate('app_service_chantier', [], UrlGeneratorInterface::ABSOLUTE_URL), 'priority' => '0.8', 'changefreq' => 'monthly', 'lastmod' => '2025-01-15'],
+            ['loc' => $urlGenerator->generate('app_service_immeuble', [], UrlGeneratorInterface::ABSOLUTE_URL), 'priority' => '0.8', 'changefreq' => 'monthly', 'lastmod' => '2025-01-15'],
+            ['loc' => $urlGenerator->generate('app_service_bureaux', [], UrlGeneratorInterface::ABSOLUTE_URL), 'priority' => '0.8', 'changefreq' => 'monthly', 'lastmod' => '2025-01-15'],
+            ['loc' => $urlGenerator->generate('app_service_vitres', [], UrlGeneratorInterface::ABSOLUTE_URL), 'priority' => '0.8', 'changefreq' => 'monthly', 'lastmod' => '2025-01-15'],
+            ['loc' => $urlGenerator->generate('app_team', [], UrlGeneratorInterface::ABSOLUTE_URL), 'priority' => '0.6', 'changefreq' => 'monthly', 'lastmod' => '2025-01-15'],
+            ['loc' => $urlGenerator->generate('app_demande_devis_index', [], UrlGeneratorInterface::ABSOLUTE_URL), 'priority' => '0.9', 'changefreq' => 'monthly', 'lastmod' => '2025-03-01'],
+            ['loc' => $urlGenerator->generate('app_faq', [], UrlGeneratorInterface::ABSOLUTE_URL), 'priority' => '0.6', 'changefreq' => 'monthly', 'lastmod' => '2025-01-15'],
+            ['loc' => $urlGenerator->generate('app_testimonials', [], UrlGeneratorInterface::ABSOLUTE_URL), 'priority' => '0.5', 'changefreq' => 'monthly', 'lastmod' => '2025-01-15'],
         ];
 
         $response = new Response(
@@ -68,6 +68,9 @@ class SeoController extends AbstractController
         $content .= "# Sitemap\n";
         $content .= "Sitemap: {$hostname}/sitemap.xml\n";
 
-        return new Response($content, 200, ['Content-Type' => 'text/plain']);
+        $response = new Response($content, 200, ['Content-Type' => 'text/plain']);
+        $response->setSharedMaxAge(86400);
+
+        return $response;
     }
 }

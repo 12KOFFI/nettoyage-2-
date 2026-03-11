@@ -125,6 +125,14 @@
                   <label class="form-label fw-bold">Ville</label>
                   <p class="mb-0">{{ devis.local.ville }}</p>
                 </div>
+                <div class="mb-3">
+                  <label class="form-label fw-bold">Adresse</label>
+                  <p class="mb-0">{{ devis.local.adresse }}</p>
+                </div>
+                <div class="mb-3">
+                  <label class="form-label fw-bold">Code postal</label>
+                  <p class="mb-0">{{ devis.local.codePostal }}</p>
+                </div>
                 <div class="mb-0">
                   <label class="form-label fw-bold">Surface</label>
                   <p class="mb-0">{{ devis.local.surfaceM2 }} m²</p>
@@ -220,6 +228,9 @@
                               <strong>{{ demandePrest.prestation.libelle }}</strong>
                             {% else %}
                               <strong><i class="fas fa-plus-circle me-2"></i>Autre (Personnalisée)</strong>
+                              {% if demandePrest.detailsSpecifiques %}
+                                <br><span class="text-muted ms-4"><i class="fas fa-arrow-right me-1"></i>{{ demandePrest.detailsSpecifiques }}</span>
+                              {% endif %}
                             {% endif %}
                           </td>
                           <td>
@@ -260,18 +271,6 @@
                     </form>
                   {% endif %}
                 </div>
-              {% set detailsSpecifiques = null %}
-              {% for demandePrest in devis.demandePrestations %}
-                {% if demandePrest.detailsSpecifiques and detailsSpecifiques is null %}
-                  {% set detailsSpecifiques = demandePrest.detailsSpecifiques %}
-                {% endif %}
-              {% endfor %}
-              {% if detailsSpecifiques %}
-              <div class="card-footer">
-                <strong><i class="fas fa-info-circle me-2"></i>Détails spécifiques :</strong>
-                <p class="mb-0 mt-1">{{ detailsSpecifiques }}</p>
-              </div>
-              {% endif %}
               </div>
             </div>
           </div>

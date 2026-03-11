@@ -10,6 +10,8 @@
             <tr>
                 <th>Id</th>
                 <th>Type_local</th>
+                <th>Adresse</th>
+                <th>Code postal</th>
                 <th>Ville</th>
                 <th>Surface_m2</th>
                 <th>actions</th>
@@ -20,6 +22,8 @@
             <tr>
                 <td>{{ local.id }}</td>
                 <td>{{ local.typeLocal }}</td>
+                <td>{{ local.adresse }}</td>
+                <td>{{ local.codePostal }}</td>
                 <td>{{ local.ville }}</td>
                 <td>{{ local.surfaceM2 }}</td>
                 <td>
@@ -29,7 +33,7 @@
             </tr>
         {% else %}
             <tr>
-                <td colspan="5">no records found</td>
+                <td colspan="7">no records found</td>
             </tr>
         {% endfor %}
         </tbody>

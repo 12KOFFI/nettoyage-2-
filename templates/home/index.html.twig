@@ -7,6 +7,12 @@
 {% block jsonld %}
     {{ seo_jsonld_local_business() }}
     {{ seo_jsonld_organization() }}
+    {{ seo_jsonld_faq([
+        {q: "À quelle fréquence faire nettoyer mes bureaux ?", a: "Pour un environnement de travail optimal, nous recommandons un nettoyage quotidien pour les bureaux, et un nettoyage approfondi hebdomadaire. La fréquence peut être adaptée selon vos besoins et le trafic de vos locaux."},
+        {q: "Quels produits de nettoyage utilisez-vous ?", a: "Nous utilisons exclusivement des produits écologiques et certifiés, respectueux de l'environnement et de la santé. Tous nos produits sont adaptés aux différents types de surfaces et répondent aux normes de sécurité en vigueur."},
+        {q: "Proposez-vous des contrats d'entretien régulier ?", a: "Oui, nous proposons des contrats d'entretien régulier adaptés à vos besoins : quotidien, hebdomadaire, mensuel ou ponctuel. Ces contrats garantissent une propreté constante et des tarifs préférentiels."},
+        {q: "Intervenez-vous en dehors des heures ouvrables ?", a: "Absolument. Nous intervenons selon vos contraintes : tôt le matin, en soirée, ou le week-end pour ne pas perturber votre activité. Notre flexibilité s'adapte à vos horaires."}
+    ]) }}
 {% endblock %}
 
 {% block body %}
@@ -23,6 +29,7 @@
                             <div class="theme-content text-center wow zoomIn">
                                 <h3 data-animation="fadeInUp" data-delay="150ms">Bienvenue chez Multi-Nettoyage Propreté plus 94</h3>
                                 <h1 data-animation="fadeInUp" data-delay="200ms">Services de nettoyage <span class="primary-color">professionnel</span></h1>
+
                                 <p data-animation="fadeInUp" data-delay="500ms">Votre partenaire de confiance pour tous vos besoins de propreté à Paris et en Île-de-France.</p>
                                 <a data-animation="fadeInUp" data-delay="800ms" href="{{ path('app_demande_devis_index') }}" class="av-btn av-btn-primary av-btn-bubble">
                                     Demander un devis <i class="fa fa-arrow-right"></i>
@@ -43,7 +50,7 @@
                         <div class="av-container">
                             <div class="theme-content text-left wow zoomIn">
                                 <h3 data-animation="fadeInUp" data-delay="150ms">Qualité, Réactivité, Professionnalisme</h3>
-                                <h1 data-animation="fadeInLeft" data-delay="200ms">Nettoyage industriel & <span class="primary-color">bureaux</span></h1>
+                                <h2 data-animation="fadeInLeft" data-delay="200ms">Nettoyage industriel & <span class="primary-color">bureaux</span></h2>
                                 <p data-animation="fadeInLeft" data-delay="500ms">Des solutions de nettoyage adaptées à chaque secteur : industries, bureaux, chantiers et immeubles.</p>
                                 <a data-animation="fadeInUp" data-delay="800ms" href="{{ path('app_demande_devis_index') }}" class="av-btn av-btn-primary av-btn-bubble">
                                     Demander un devis <i class="fa fa-arrow-right"></i>
@@ -64,7 +71,7 @@
                         <div class="av-container">
                             <div class="theme-content text-right wow zoomIn">
                                 <h3 data-animation="fadeInUp" data-delay="150ms">Expertise & Savoir-faire depuis 2017</h3>
-                                <h1 data-animation="fadeInRight" data-delay="200ms">Propreté & <span class="primary-color">Hygiène</span></h1>
+                                <h2 data-animation="fadeInRight" data-delay="200ms">Propreté & <span class="primary-color">Hygiène</span></h2>
                                 <p data-animation="fadeInRight" data-delay="500ms">Des équipes qualifiées et des équipements modernes pour des résultats impeccables à chaque intervention.</p>
                                 <a data-animation="fadeInUp" data-delay="800ms" href="{{ path('app_demande_devis_index') }}" class="av-btn av-btn-primary av-btn-bubble">
                                     Demander un devis <i class="fa fa-arrow-right"></i>
@@ -118,10 +125,10 @@
                 </div>
                 <div class="col-lg-6 offset-lg-1 col-md-12">
                     <div class="row g-3">
-                        <div class="col-6 text-end"> <img class="img-fluid rounded w-75 wow zoomIn" data-wow-delay="0.1s" src="{{ asset('img/a1.jpg') }}" alt="" style="margin-top: 25%;" loading="lazy" width="400" height="300"> </div>
-                        <div class="col-6 text-start"> <img class="img-fluid rounded w-100 wow zoomIn" data-wow-delay="0.3s" src="{{ asset('img/a2.jpg') }}" alt="" loading="lazy" width="400" height="300"> </div>
-                        <div class="col-6 text-end"> <img class="img-fluid rounded w-50 wow zoomIn" data-wow-delay="0.5s" src="{{ asset('img/a3.jpg') }}" alt="" loading="lazy" width="400" height="300"> </div>
-                        <div class="col-6 text-start"> <img class="img-fluid rounded w-75 wow zoomIn" data-wow-delay="0.7s" src="{{ asset('img/a4.jpg') }}" alt="" loading="lazy" width="400" height="300"> </div>
+                        <div class="col-6 text-end"> <img class="img-fluid rounded w-75 wow zoomIn" data-wow-delay="0.1s" src="{{ asset('img/a1.jpg') }}" alt="Équipe de nettoyage professionnel en action" style="margin-top: 25%;" loading="lazy" width="400" height="300"> </div>
+                        <div class="col-6 text-start"> <img class="img-fluid rounded w-100 wow zoomIn" data-wow-delay="0.3s" src="{{ asset('img/a2.jpg') }}" alt="Nettoyage de bureaux professionnels" loading="lazy" width="400" height="300"> </div>
+                        <div class="col-6 text-end"> <img class="img-fluid rounded w-50 wow zoomIn" data-wow-delay="0.5s" src="{{ asset('img/a3.jpg') }}" alt="Entretien d'immeubles et parties communes" loading="lazy" width="400" height="300"> </div>
+                        <div class="col-6 text-start"> <img class="img-fluid rounded w-75 wow zoomIn" data-wow-delay="0.7s" src="{{ asset('img/a4.jpg') }}" alt="Matériel de nettoyage professionnel" loading="lazy" width="400" height="300"> </div>
                     </div>
                 </div>
             </div>
@@ -164,7 +171,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12 mb-30 text-center">
-                    <h3 class="section-title wow zoomIn" data-wow-delay=".2s">Services de <span>Nettoyage professionnel</span></h3>
+                    <h2 class="section-title wow zoomIn" data-wow-delay=".2s">Services de <span>Nettoyage professionnel</span></h2>
                 </div>
             </div>
             <div class="row">
@@ -172,7 +179,7 @@
                     <div class="owl-carousel owl-theme">
                         <div class="item">
                             <div class="row rest">
-                                <div class="col-lg-6 col-md-12 img rest"> <img src="{{ asset('img/services/2.jpg') }}" class="img-cover" alt="" loading="lazy">
+                                <div class="col-lg-6 col-md-12 img rest"> <img src="{{ asset('img/services/2.jpg') }}" class="img-cover" alt="Nettoyage industriel professionnel" loading="lazy">
                                     <div class="arrow">
                                         <div class="icon"> <a href="{{ path('app_service_industriel') }}"><span class="fa-light fa-arrow-up-right"></span></a> </div>
                                     </div>
@@ -187,7 +194,7 @@
                         </div>
                         <div class="item">
                             <div class="row rest">
-                                <div class="col-lg-6 col-md-12 img rest"> <img src="{{ asset('img/services/3.jpg') }}" class="img-cover" alt="" loading="lazy">
+                                <div class="col-lg-6 col-md-12 img rest"> <img src="{{ asset('img/services/3.jpg') }}" class="img-cover" alt="Nettoyage de chantiers avant livraison" loading="lazy">
                                     <div class="arrow">
                                         <div class="icon"> <a href="{{ path('app_service_chantier') }}"><span class="fa-light fa-arrow-up-right"></span></a> </div>
                                     </div>
@@ -202,7 +209,7 @@
                         </div>
                         <div class="item">
                             <div class="row rest">
-                                <div class="col-lg-6 col-md-12 img rest"> <img src="{{ asset('img/services/1.jpg') }}" class="img-cover" alt="" loading="lazy">
+                                <div class="col-lg-6 col-md-12 img rest"> <img src="{{ asset('img/services/1.jpg') }}" class="img-cover" alt="Nettoyage d'immeubles et parties communes" loading="lazy">
                                     <div class="arrow">
                                         <div class="icon"> <a href="{{ path('app_service_immeuble') }}"><span class="fa-light fa-arrow-up-right"></span></a> </div>
                                     </div>
@@ -217,7 +224,7 @@
                         </div>
                         <div class="item">
                             <div class="row rest">
-                                <div class="col-lg-6 col-md-12 img rest"> <img src="{{ asset('img/services/4.jpg') }}" class="img-cover" alt="" loading="lazy">
+                                <div class="col-lg-6 col-md-12 img rest"> <img src="{{ asset('img/services/4.jpg') }}" class="img-cover" alt="Nettoyage de bureaux et espaces de travail" loading="lazy">
                                     <div class="arrow">
                                         <div class="icon"> <a href="{{ path('app_service_bureaux') }}"><span class="fa-light fa-arrow-up-right"></span></a> </div>
                                     </div>
@@ -232,7 +239,7 @@
                         </div>
                         <div class="item">
                             <div class="row rest">
-                                <div class="col-lg-6 col-md-12 img rest"> <img src="{{ asset('img/services/6.jpg') }}" class="img-cover" alt="" loading="lazy">
+                                <div class="col-lg-6 col-md-12 img rest"> <img src="{{ asset('img/services/6.jpg') }}" class="img-cover" alt="Nettoyage de vitres professionnelles" loading="lazy">
                                     <div class="arrow">
                                         <div class="icon"> <a href="{{ path('app_service_vitres') }}"><span class="fa-light fa-arrow-up-right"></span></a> </div>
                                     </div>
@@ -266,7 +273,7 @@
             <div class="row">
                 <div class="col-12">
                     <div class="features-heading text-center wow fadeInUp">
-                        <h3 class="section-title">Nos <span>Prestations de nettoyage</span></h3>
+                        <h2 class="section-title">Nos <span>Prestations de nettoyage</span></h2>
                         <span class="features-separator"><span><span></span></span></span>
                         <p>Notre expertise repose sur un savoir-faire approfondi et des méthodes éprouvées pour l'entretien et la propreté de tous vos espaces professionnels.</p>
                     </div>
@@ -379,7 +386,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="partner-heading text-center wow fadeInUp">
-                        <h3 class="section-title">Ils nous font <span>confiance</span></h3>
+                        <h2 class="section-title">Ils nous font <span>confiance</span></h2>
                         <span class="partner-separator"><span><span></span></span></span>
                         <p>Découvrez les partenaires et clients qui nous ont choisi comme leur allié de confiance pour l'entretien et la propreté de leurs espaces.</p>
                     </div>
@@ -584,8 +591,8 @@
     <!-- Scrolling -->
     <div class="scrolling scrolling-ticker">
         <div class="wrapper feather-shadow2">
-            <div class="content"> <span><img src="{{ asset('img/asterisk-icon.svg') }}" alt="" loading="lazy">Nettoyage</span> <span><img src="{{ asset('img/asterisk-icon.svg') }}" alt="" loading="lazy">Propreté</span> <span><img src="{{ asset('img/asterisk-icon.svg') }}" alt="" loading="lazy">Bureaux</span> <span><img src="{{ asset('img/asterisk-icon.svg') }}" alt="" loading="lazy">Immeubles</span> <span><img src="{{ asset('img/asterisk-icon.svg') }}" alt="" loading="lazy">Industrie</span> <span><img src="{{ asset('img/asterisk-icon.svg') }}" alt="" loading="lazy">Chantiers</span> <span><img src="{{ asset('img/asterisk-icon.svg') }}" alt="" loading="lazy">Vitrerie</span> <span><img src="{{ asset('img/asterisk-icon.svg') }}" alt="" loading="lazy">Hygiène</span> <span><img src="{{ asset('img/asterisk-icon.svg') }}" alt="" loading="lazy">Qualité</span> <span><img src="{{ asset('img/asterisk-icon.svg') }}" alt="" loading="lazy">Sécurité</span> <span><img src="{{ asset('img/asterisk-icon.svg') }}" alt="" loading="lazy">Professionnel</span> <span><img src="{{ asset('img/asterisk-icon.svg') }}" alt="" loading="lazy">Expertise</span> <span><img src="{{ asset('img/asterisk-icon.svg') }}" alt="" loading="lazy">Entretien</span> <span><img src="{{ asset('img/asterisk-icon.svg') }}" alt="" loading="lazy">Multi-Nettoyage</span> </div>
-            <div class="content"> <span><img src="{{ asset('img/asterisk-icon.svg') }}" alt="" loading="lazy">Nettoyage</span> <span><img src="{{ asset('img/asterisk-icon.svg') }}" alt="" loading="lazy">Propreté</span> <span><img src="{{ asset('img/asterisk-icon.svg') }}" alt="" loading="lazy">Bureaux</span> <span><img src="{{ asset('img/asterisk-icon.svg') }}" alt="" loading="lazy">Immeubles</span> <span><img src="{{ asset('img/asterisk-icon.svg') }}" alt="" loading="lazy">Industrie</span> <span><img src="{{ asset('img/asterisk-icon.svg') }}" alt="" loading="lazy">Chantiers</span> <span><img src="{{ asset('img/asterisk-icon.svg') }}" alt="" loading="lazy">Vitrerie</span> <span><img src="{{ asset('img/asterisk-icon.svg') }}" alt="" loading="lazy">Hygiène</span> <span><img src="{{ asset('img/asterisk-icon.svg') }}" alt="" loading="lazy">Qualité</span> <span><img src="{{ asset('img/asterisk-icon.svg') }}" alt="" loading="lazy">Sécurité</span> <span><img src="{{ asset('img/asterisk-icon.svg') }}" alt="" loading="lazy">Professionnel</span> <span><img src="{{ asset('img/asterisk-icon.svg') }}" alt="" loading="lazy">Expertise</span> <span><img src="{{ asset('img/asterisk-icon.svg') }}" alt="" loading="lazy">Entretien</span> <span><img src="{{ asset('img/asterisk-icon.svg') }}" alt="" loading="lazy">Multi-Nettoyage</span> </div>
+            <div class="content"> <span><img src="{{ asset('img/asterisk-icon.svg') }}" alt="" role="presentation" loading="lazy">Nettoyage</span> <span><img src="{{ asset('img/asterisk-icon.svg') }}" alt="" role="presentation" loading="lazy">Propreté</span> <span><img src="{{ asset('img/asterisk-icon.svg') }}" alt="" role="presentation" loading="lazy">Bureaux</span> <span><img src="{{ asset('img/asterisk-icon.svg') }}" alt="" role="presentation" loading="lazy">Immeubles</span> <span><img src="{{ asset('img/asterisk-icon.svg') }}" alt="" role="presentation" loading="lazy">Industrie</span> <span><img src="{{ asset('img/asterisk-icon.svg') }}" alt="" role="presentation" loading="lazy">Chantiers</span> <span><img src="{{ asset('img/asterisk-icon.svg') }}" alt="" role="presentation" loading="lazy">Vitrerie</span> <span><img src="{{ asset('img/asterisk-icon.svg') }}" alt="" role="presentation" loading="lazy">Hygiène</span> <span><img src="{{ asset('img/asterisk-icon.svg') }}" alt="" role="presentation" loading="lazy">Qualité</span> <span><img src="{{ asset('img/asterisk-icon.svg') }}" alt="" role="presentation" loading="lazy">Sécurité</span> <span><img src="{{ asset('img/asterisk-icon.svg') }}" alt="" role="presentation" loading="lazy">Professionnel</span> <span><img src="{{ asset('img/asterisk-icon.svg') }}" alt="" role="presentation" loading="lazy">Expertise</span> <span><img src="{{ asset('img/asterisk-icon.svg') }}" alt="" role="presentation" loading="lazy">Entretien</span> <span><img src="{{ asset('img/asterisk-icon.svg') }}" alt="" role="presentation" loading="lazy">Multi-Nettoyage</span> </div>
+            <div class="content"> <span><img src="{{ asset('img/asterisk-icon.svg') }}" alt="" role="presentation" loading="lazy">Nettoyage</span> <span><img src="{{ asset('img/asterisk-icon.svg') }}" alt="" role="presentation" loading="lazy">Propreté</span> <span><img src="{{ asset('img/asterisk-icon.svg') }}" alt="" role="presentation" loading="lazy">Bureaux</span> <span><img src="{{ asset('img/asterisk-icon.svg') }}" alt="" role="presentation" loading="lazy">Immeubles</span> <span><img src="{{ asset('img/asterisk-icon.svg') }}" alt="" role="presentation" loading="lazy">Industrie</span> <span><img src="{{ asset('img/asterisk-icon.svg') }}" alt="" role="presentation" loading="lazy">Chantiers</span> <span><img src="{{ asset('img/asterisk-icon.svg') }}" alt="" role="presentation" loading="lazy">Vitrerie</span> <span><img src="{{ asset('img/asterisk-icon.svg') }}" alt="" role="presentation" loading="lazy">Hygiène</span> <span><img src="{{ asset('img/asterisk-icon.svg') }}" alt="" role="presentation" loading="lazy">Qualité</span> <span><img src="{{ asset('img/asterisk-icon.svg') }}" alt="" role="presentation" loading="lazy">Sécurité</span> <span><img src="{{ asset('img/asterisk-icon.svg') }}" alt="" role="presentation" loading="lazy">Professionnel</span> <span><img src="{{ asset('img/asterisk-icon.svg') }}" alt="" role="presentation" loading="lazy">Expertise</span> <span><img src="{{ asset('img/asterisk-icon.svg') }}" alt="" role="presentation" loading="lazy">Entretien</span> <span><img src="{{ asset('img/asterisk-icon.svg') }}" alt="" role="presentation" loading="lazy">Multi-Nettoyage</span> </div>
         </div>
     </div>
 

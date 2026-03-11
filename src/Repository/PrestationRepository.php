@@ -16,28 +16,16 @@ class PrestationRepository extends ServiceEntityRepository
         parent::__construct($registry, Prestation::class);
     }
 
-    //    /**
-    //     * @return Prestation[] Returns an array of Prestation objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('p')
-    //            ->andWhere('p.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('p.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
-
-    //    public function findOneBySomeField($value): ?Prestation
-    //    {
-    //        return $this->createQueryBuilder('p')
-    //            ->andWhere('p.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
+    /**
+     * @return Prestation[] Prestations dont types_local contient le type donné
+     */
+    public function findByTypeLocal(string $typeLocal): array
+    {
+        return $this->createQueryBuilder('p')
+            ->where('p.types_local LIKE :type')
+            ->setParameter('type', '%"' . $typeLocal . '"%')
+            ->orderBy('p.libelle', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
 }

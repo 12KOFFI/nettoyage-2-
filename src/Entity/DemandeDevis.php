@@ -9,6 +9,11 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: DemandeDevisRepository::class)]
+#[ORM\Table(name: 'demande_devis', indexes: [
+    new ORM\Index(columns: ['statut'], name: 'idx_demande_devis_statut'),
+    new ORM\Index(columns: ['date_creation'], name: 'idx_demande_devis_date_creation'),
+    new ORM\Index(columns: ['date_demande'], name: 'idx_demande_devis_date_demande'),
+])]
 class DemandeDevis
 {
     #[ORM\Id]

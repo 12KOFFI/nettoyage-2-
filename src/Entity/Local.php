@@ -19,6 +19,12 @@ class Local
     private ?string $type_local = null;
 
     #[ORM\Column(length: 255)]
+    private ?string $adresse = null;
+
+    #[ORM\Column(length: 10)]
+    private ?string $code_postal = null;
+
+    #[ORM\Column(length: 255)]
     private ?string $ville = null;
 
     #[ORM\Column]
@@ -60,6 +66,30 @@ class Local
     public function setVille(string $ville): static
     {
         $this->ville = $ville;
+
+        return $this;
+    }
+
+    public function getAdresse(): ?string
+    {
+        return $this->adresse;
+    }
+
+    public function setAdresse(string $adresse): static
+    {
+        $this->adresse = $adresse;
+
+        return $this;
+    }
+
+    public function getCodePostal(): ?string
+    {
+        return $this->code_postal;
+    }
+
+    public function setCodePostal(string $code_postal): static
+    {
+        $this->code_postal = $code_postal;
 
         return $this;
     }

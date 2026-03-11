@@ -47,20 +47,32 @@
         <div class="form-group js-local-type-group">
             <label class="form-label">Type de local <span style="color: red;">*</span></label>
             <span class="form-icon"><i class="fas fa-home"></i></span>
-            {{ form_widget(form.local_type, {'attr': {'class': 'form-control', 'id': 'local_type_select', 'onchange': "document.getElementById('local_type_autre_wrap').style.display = this.value === 'autre' ? 'block' : 'none'"}}) }}
+            {{ form_widget(form.local_type, {'id': 'local_type_select', 'attr': {'class': 'form-control', 'onchange': "document.getElementById('local_type_autre_wrap').style.display = this.value === 'autre' ? 'block' : 'none'"}}) }}
             {{ form_errors(form.local_type) }}
         </div>
         <div class="form-group js-local-ville-group">
-            <label class="form-label">Adresse <span style="color: red;">*</span></label>
+            <label class="form-label">Ville <span style="color: red;">*</span></label>
             <span class="form-icon"><i class="fas fa-map-marker-alt"></i></span>
-            {{ form_widget(form.local_ville, {'attr': {'class': 'form-control', 'placeholder': 'Ville ou adresse complète'}}) }}
+            {{ form_widget(form.local_ville, {'attr': {'class': 'form-control'}}) }}
             {{ form_errors(form.local_ville) }}
         </div>
         <div class="form-group dd-conditional js-local-type-autre" id="local_type_autre_wrap" style="display: none; grid-column: 1 / -1;">
             <span class="form-icon"><i class="fas fa-pen"></i></span>
             <input type="text" name="local_type_autre" class="form-control" placeholder="Précisez le type de local">
         </div>
-        <div class="form-group js-local-surface-group" style="grid-column: 1 / -1;">
+        <div class="form-group" style="grid-column: 1 / -1;">
+            <label class="form-label">Adresse complète (numéro + rue) <span style="color: red;">*</span></label>
+            <span class="form-icon"><i class="fas fa-road"></i></span>
+            {{ form_widget(form.local_adresse, {'attr': {'class': 'form-control', 'placeholder': 'Ex: 12 rue de la Paix'}}) }}
+            {{ form_errors(form.local_adresse) }}
+        </div>
+        <div class="form-group js-local-code-postal-group">
+            <label class="form-label">Code postal <span style="color: red;">*</span></label>
+            <span class="form-icon"><i class="fas fa-mail-bulk"></i></span>
+            {{ form_widget(form.local_code_postal, {'attr': {'class': 'form-control', 'placeholder': 'Code postal'}}) }}
+            {{ form_errors(form.local_code_postal) }}
+        </div>
+        <div class="form-group js-local-surface-group">
             <label class="form-label">Surface (m²) <span style="color: red;">*</span></label>
             <span class="form-icon"><i class="fas fa-ruler-combined"></i></span>
             {{ form_widget(form.local_surface, {'attr': {'class': 'form-control', 'placeholder': 'Surface en m²'}}) }}
@@ -165,9 +177,9 @@ document.addEventListener('DOMContentLoaded', function() {
     const prestationAutreCheckbox = document.getElementById('prestation_autre_checkbox');
     const prestationAutreWrap = document.getElementById('prestation_autre_wrap');
     const prestationAutreTextarea = document.querySelector('#prestation_autre_wrap textarea');
-    
+
     if (!prestationAutreCheckbox || !prestationAutreWrap) return;
-    
+
     function togglePrestationAutre() {
         if (prestationAutreCheckbox.checked) {
             prestationAutreWrap.style.display = 'block';
@@ -178,8 +190,84 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
     }
-    
+
     prestationAutreCheckbox.addEventListener('change', togglePrestationAutre);
     togglePrestationAutre();
+
+    // Filtrage dynamique des prestations par type de local
+    const localTypeSelect = document.getElementById('local_type_select') || document.getElementById('demande_devis_local_type');
+    const prestationsGrid = document.querySelector('.dd-prestations-grid');
+
+    if (localTypeSelect && prestationsGrid) {
+        const allItems = prestationsGrid.querySelectorAll('.dd-prestation');
+        // Items Symfony (tous sauf le dernier qui est l'item "Autre" hardcodé)
+        const prestationItems = Array.prototype.slice.call(allItems, 0, allItems.length - 1);
+        const autreItem = allItems[allItems.length - 1];
+
+        function hideAllPrestations() {
+            prestationItems.forEach(function(item) {
+                item.style.cssText = 'display: none !important;';
+                var input = item.querySelector('input[type="checkbox"]');
+                if (input) {
+                    input.checked = false;
+                    input.disabled = true;
+                }
+            });
+        }
+
+        function showAllPrestations() {
+            prestationItems.forEach(function(item) {
+                item.style.cssText = '';
+                var input = item.querySelector('input[type="checkbox"]');
+                if (input) input.disabled = false;
+            });
+        }
+
+        function filterPrestations() {
+            const selectedType = localTypeSelect.value;
+
+            // Aucun type sélectionné : tout cacher
+            if (!selectedType) {
+                hideAllPrestations();
+                autreItem.style.cssText = 'display: none !important;';
+                return;
+            }
+
+            // Type "autre" : tout afficher
+            if (selectedType === 'autre') {
+                showAllPrestations();
+                autreItem.style.cssText = '';
+                return;
+            }
+
+            // Cacher toutes les prestations d'abord
+            hideAllPrestations();
+
+            // Appel API pour filtrer par type
+            fetch('/prestation/api/by-type?type_local=' + encodeURIComponent(selectedType))
+                .then(function(response) { return response.json(); })
+                .then(function(data) {
+                    var allowedIds = data.map(function(p) { return p.id.toString(); });
+
+                    prestationItems.forEach(function(item) {
+                        var input = item.querySelector('input[type="checkbox"]');
+                        if (input) {
+                            var inputId = input.value;
+                            if (allowedIds.indexOf(inputId) !== -1) {
+                                item.style.cssText = '';
+                                input.disabled = false;
+                            }
+                        }
+                    });
+
+                    // Toujours réafficher l'item "Autre"
+                    autreItem.style.cssText = '';
+                });
+        }
+
+        localTypeSelect.addEventListener('change', filterPrestations);
+        // Toujours filtrer au chargement
+        filterPrestations();
+    }
 });
 </script>

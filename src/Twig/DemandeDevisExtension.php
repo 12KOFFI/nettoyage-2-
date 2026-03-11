@@ -9,6 +9,7 @@ use Twig\TwigFunction;
 class DemandeDevisExtension extends AbstractExtension
 {
     private DemandeDevisRepository $demandeDevisRepository;
+    private ?int $cachedCount = null;
 
     public function __construct(DemandeDevisRepository $demandeDevisRepository)
     {
@@ -24,6 +25,10 @@ class DemandeDevisExtension extends AbstractExtension
 
     public function countPendingDevis(): int
     {
-        return $this->demandeDevisRepository->count(['statut' => 'en_attente']);
+        if ($this->cachedCount === null) {
+            $this->cachedCount = $this->demandeDevisRepository->count(['statut' => 'en_attente']);
+        }
+
+        return $this->cachedCount;
     }
 }

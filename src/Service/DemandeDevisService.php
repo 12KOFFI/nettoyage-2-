@@ -13,8 +13,7 @@ class DemandeDevisService
 {
     public function __construct(
         private EntityManagerInterface $entityManager
-    ) {
-    }
+    ) {}
 
     /**
      * Crée une nouvelle demande de devis à partir des données du formulaire
@@ -28,24 +27,26 @@ class DemandeDevisService
         $client->setEmail($form->get('client_email')->getData());
         $client->setTelephone($form->get('client_telephone')->getData());
         $this->entityManager->persist($client);
-        
+
         // Créer le Local
         $local = new Local();
         $local->setTypeLocal($form->get('local_type')->getData());
+        $local->setAdresse($form->get('local_adresse')->getData());
+        $local->setCodePostal($form->get('local_code_postal')->getData());
         $local->setVille($form->get('local_ville')->getData());
         $local->setSurfaceM2($form->get('local_surface')->getData());
         $this->entityManager->persist($local);
-        
+
         // Configurer la DemandeDevis
         $demandeDevis->setClient($client);
         $demandeDevis->setLocal($local);
         $demandeDevis->setDateDemande(new \DateTime());
         $demandeDevis->setStatut('en_attente');
         $this->entityManager->persist($demandeDevis);
-        
+
         // Créer les DemandePrestation
         $this->createPrestationsFromForm($form, $demandeDevis);
-        
+
         $this->entityManager->flush();
     }
 
@@ -67,6 +68,8 @@ class DemandeDevisService
         $local = $demandeDevis->getLocal();
         if ($local) {
             $local->setTypeLocal($form->get('local_type')->getData());
+            $local->setAdresse($form->get('local_adresse')->getData());
+            $local->setCodePostal($form->get('local_code_postal')->getData());
             $local->setVille($form->get('local_ville')->getData());
             $local->setSurfaceM2($form->get('local_surface')->getData());
         }
@@ -127,6 +130,8 @@ class DemandeDevisService
         // Remplir les données du local
         if ($demandeDevis->getLocal()) {
             $form->get('local_type')->setData($demandeDevis->getLocal()->getTypeLocal());
+            $form->get('local_adresse')->setData($demandeDevis->getLocal()->getAdresse());
+            $form->get('local_code_postal')->setData($demandeDevis->getLocal()->getCodePostal());
             $form->get('local_ville')->setData($demandeDevis->getLocal()->getVille());
             $form->get('local_surface')->setData($demandeDevis->getLocal()->getSurfaceM2());
         }

@@ -1,0 +1,168 @@
+{% extends 'base_web.html.twig' %}
+
+{% block title %}Modifier — {{ prestation.libelle }}{% endblock %}
+
+{% block stylesheets %}
+<style>
+  .prestation-form .form-group { margin-bottom: 1.25rem; }
+  .prestation-form label { font-weight: 600; color: #1a2035; margin-bottom: .4rem; font-size: .875rem; }
+  .prestation-form .form-control { border-radius: 10px; border: 1.5px solid #e3e6ec; padding: .6rem .9rem; transition: border-color .2s, box-shadow .2s; }
+  .prestation-form .form-control:focus { border-color: #33cc66; box-shadow: 0 0 0 3px rgba(51,204,102,.15); }
+  .prestation-form textarea.form-control { min-height: 110px; resize: vertical; }
+
+  .types-local-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: .5rem .75rem; }
+  .types-local-grid .form-check { background: #f8faf9; border: 1.5px solid #e3e6ec; border-radius: 10px; padding: .55rem .75rem .55rem 2.25rem; transition: all .2s; cursor: pointer; }
+  .types-local-grid .form-check:hover { border-color: #33cc66; background: rgba(51,204,102,.04); }
+  .types-local-grid .form-check-input:checked ~ .form-check-label { color: #1a2035; font-weight: 600; }
+  .types-local-grid .form-check-input:checked + .form-check-label { color: #1a2035; }
+  .types-local-grid .form-check:has(.form-check-input:checked) { border-color: #33cc66; background: rgba(51,204,102,.08); }
+  .types-local-grid .form-check-input:checked { background-color: #33cc66; border-color: #33cc66; }
+  .types-local-grid .form-check-label { cursor: pointer; font-size: .875rem; color: #525f7f; }
+
+  .prestation-info-card { background: linear-gradient(135deg, #003366 0%, #004d99 100%); border-radius: 14px; padding: 1.5rem; color: #fff; }
+  .prestation-info-card .info-label { font-size: .7rem; text-transform: uppercase; letter-spacing: .1em; color: rgba(255,255,255,.55); font-weight: 700; margin-bottom: .15rem; }
+  .prestation-info-card .info-value { font-size: .95rem; font-weight: 600; }
+  .prestation-info-card .info-divider { border-top: 1px solid rgba(255,255,255,.12); margin: .75rem 0; }
+
+  .btn-save { background: #33cc66; border-color: #33cc66; color: #fff; font-weight: 600; border-radius: 10px; padding: .55rem 1.75rem; box-shadow: 0 4px 14px rgba(51,204,102,.35); transition: all .2s; }
+  .btn-save:hover { background: #29b559; border-color: #29b559; color: #fff; transform: translateY(-1px); box-shadow: 0 6px 18px rgba(51,204,102,.45); }
+
+  .delete-zone { background: #fff5f5; border: 1.5px dashed #e74c3c; border-radius: 12px; padding: 1rem 1.25rem; }
+  .delete-zone .btn-danger { border-radius: 10px; font-weight: 600; }
+</style>
+{% endblock %}
+
+{% block body %}
+<div class="container-fluid px-4">
+  <div class="page-inner">
+
+    {# ── Header ── #}
+    <div class="d-flex align-items-center justify-content-between mb-4">
+      <div>
+        <h1 class="fw-bold mb-1">Modifier la prestation</h1>
+        <p class="text-muted mb-0">
+          <span class="badge bg-secondary me-1">{{ prestation.codePrestation }}</span>
+          {{ prestation.libelle }}
+        </p>
+      </div>
+      <a href="{{ path('app_prestation_index') }}" class="btn btn-outline-secondary">
+        <i class="fas fa-arrow-left me-1"></i>Retour à la liste
+      </a>
+    </div>
+
+    <div class="row g-4">
+
+      {# ── Formulaire (colonne principale) ── #}
+      <div class="col-12 col-lg-8">
+        <div class="card" style="border-radius:16px; border:none; box-shadow:0 2px 16px rgba(0,0,0,.07);">
+          <div class="card-header bg-transparent border-0 pt-4 px-4 pb-0">
+            <h5 class="fw-bold mb-0"><i class="fas fa-edit me-2 text-primary"></i>Informations de la prestation</h5>
+          </div>
+          <div class="card-body px-4 pb-4 prestation-form">
+            {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  {{ form_label(form.code_prestation, 'Code prestation', {'label_attr': {'class': 'form-label'}}) }}
+                  {{ form_widget(form.code_prestation, {'attr': {'class': 'form-control', 'placeholder': 'Ex: PREST-001'}}) }}
+                  {{ form_errors(form.code_prestation) }}
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  {{ form_label(form.libelle, 'Libellé', {'label_attr': {'class': 'form-label'}}) }}
+                  {{ form_widget(form.libelle, {'attr': {'class': 'form-control', 'placeholder': 'Nom de la prestation'}}) }}
+                  {{ form_errors(form.libelle) }}
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              {{ form_label(form.description, 'Description', {'label_attr': {'class': 'form-label'}}) }}
+              {{ form_widget(form.description, {'attr': {'class': 'form-control', 'placeholder': 'Décrivez la prestation en détail...', 'rows': '4'}}) }}
+              {{ form_errors(form.description) }}
+            </div>
+
+            <div class="form-group">
+              {{ form_label(form.types_local, null, {'label_attr': {'class': 'form-label'}}) }}
+              <p class="text-muted mb-2" style="font-size:.8rem;">Sélectionnez les types de locaux auxquels cette prestation s'applique.</p>
+              <div class="types-local-grid">
+                {% for child in form.types_local %}
+                  <div class="form-check">
+                    {{ form_widget(child, {'attr': {'class': 'form-check-input'}}) }}
+                    {{ form_label(child, null, {'label_attr': {'class': 'form-check-label'}}) }}
+                  </div>
+                {% endfor %}
+              </div>
+              {{ form_errors(form.types_local) }}
+            </div>
+
+            {{ form_rest(form) }}
+
+            <div class="d-flex justify-content-end pt-2">
+              <button type="submit" class="btn btn-save">
+                <i class="fas fa-check me-1"></i>Mettre à jour
+              </button>
+            </div>
+
+            {{ form_end(form) }}
+          </div>
+        </div>
+      </div>
+
+      {# ── Sidebar (infos + suppression) ── #}
+      <div class="col-12 col-lg-4">
+
+        {# Info card #}
+        <div class="prestation-info-card mb-4">
+          <div class="info-label">Identifiant</div>
+          <div class="info-value">#{{ prestation.id }}</div>
+          <div class="info-divider"></div>
+          <div class="info-label">Code</div>
+          <div class="info-value">{{ prestation.codePrestation }}</div>
+          <div class="info-divider"></div>
+          <div class="info-label">Libellé actuel</div>
+          <div class="info-value">{{ prestation.libelle }}</div>
+          {% if prestation.typesLocal is not empty %}
+          <div class="info-divider"></div>
+          <div class="info-label">Types de locaux</div>
+          <div class="info-value">
+            {% for type in prestation.typesLocal %}
+              <span class="badge bg-light text-dark me-1 mb-1" style="font-size:.75rem;">{{ type|capitalize }}</span>
+            {% endfor %}
+          </div>
+          {% endif %}
+        </div>
+
+        {# Quick actions #}
+        <div class="card mb-4" style="border-radius:14px; border:none; box-shadow:0 2px 16px rgba(0,0,0,.07);">
+          <div class="card-body">
+            <h6 class="fw-bold mb-3"><i class="fas fa-bolt me-2 text-warning"></i>Actions rapides</h6>
+            <a href="{{ path('app_prestation_show', {'id': prestation.id}) }}" class="btn btn-outline-primary btn-sm w-100 mb-2">
+              <i class="fas fa-eye me-1"></i>Voir la prestation
+            </a>
+            <a href="{{ path('app_prestation_new') }}" class="btn btn-outline-secondary btn-sm w-100">
+              <i class="fas fa-plus me-1"></i>Créer une nouvelle
+            </a>
+          </div>
+        </div>
+
+        {# Zone de suppression #}
+        <div class="card" style="border-radius:14px; border:none; box-shadow:0 2px 16px rgba(0,0,0,.07);">
+          <div class="card-body">
+            <h6 class="fw-bold mb-3 text-danger"><i class="fas fa-exclamation-triangle me-2"></i>Zone dangereuse</h6>
+            <div class="delete-zone">
+              <p class="mb-2" style="font-size:.82rem; color:#525f7f;">Cette action est irréversible. La prestation sera définitivement supprimée.</p>
+              {{ include('prestation/_delete_form.html.twig') }}
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>{# /row #}
+
+  </div>{# /page-inner #}
+</div>
+{% endblock %}

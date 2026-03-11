@@ -8,6 +8,9 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ClientRepository::class)]
+#[ORM\Table(name: 'client', indexes: [
+    new ORM\Index(columns: ['email'], name: 'idx_client_email'),
+])]
 class Client
 {
     #[ORM\Id]

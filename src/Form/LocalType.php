@@ -13,6 +13,8 @@ class LocalType extends AbstractType
     {
         $builder
             ->add('type_local')
+            ->add('adresse')
+            ->add('code_postal')
             ->add('ville')
             ->add('surface_m2')
         ;

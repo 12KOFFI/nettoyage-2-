@@ -25,6 +25,9 @@ class Prestation
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $description = null;
 
+    #[ORM\Column(type: Types::JSON, nullable: true)]
+    private ?array $types_local = null;
+
     /**
      * @var Collection<int, DemandePrestation>
      */
@@ -73,6 +76,18 @@ class Prestation
     public function setDescription(?string $description): static
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    public function getTypesLocal(): ?array
+    {
+        return $this->types_local;
+    }
+
+    public function setTypesLocal(?array $types_local): static
+    {
+        $this->types_local = $types_local !== null ? array_values($types_local) : null;
 
         return $this;
     }

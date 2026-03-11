@@ -281,7 +281,7 @@
                 </tr>
                 <tr>
                     <td class="info-label">Adresse :</td>
-                    <td class="info-value">{{ local.ville }}</td>
+                    <td class="info-value">{{ local.adresse }}, {{ local.codePostal }} {{ local.ville }}</td>
                 </tr>
                 <tr>
                     <td class="info-label">Surface :</td>
@@ -314,17 +314,16 @@
                         <td style="width: 40%;">Prestation</td>
                         <td style="width: 60%;">Description</td>
                     </tr>
-                    {% set detailsSpecifiques = null %}
                     {% for dp in prestations %}
-                        {% if dp.detailsSpecifiques and detailsSpecifiques is null %}
-                            {% set detailsSpecifiques = dp.detailsSpecifiques %}
-                        {% endif %}
                         <tr class="{{ not dp.prestation ? 'prestation-personnalisee' : '' }}{{ loop.index is even ? ' row-even' : '' }}">
                             <td>
-                                {% if dp.prestation and dp.prestation.libelle != 'Autre (Personnalisée)' %}
+                                {% if dp.prestation %}
                                     {{ dp.prestation.libelle }}
                                 {% else %}
                                     Autre (Personnalisée)
+                                    {% if dp.detailsSpecifiques %}
+                                        <br><em style="color: #555;"> {{ dp.detailsSpecifiques }}</em>
+                                    {% endif %}
                                 {% endif %}
                             </td>
                             <td>{{ dp.adminDescription|default('—') }}</td>
@@ -332,12 +331,6 @@
                     {% endfor %}
                 </tbody>
             </table>
-            {% endif %}
-
-            {% if detailsSpecifiques is defined and detailsSpecifiques %}
-            <div class="details-box">
-                <strong>Détails spécifiques :</strong> {{ detailsSpecifiques }}
-            </div>
             {% endif %}
         </div>
 

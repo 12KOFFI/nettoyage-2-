@@ -7,6 +7,7 @@
 /.env.local.php
 /.env.*.local
 /config/secrets/prod/prod.decrypt.private.php
+
 ###< symfony/framework-bundle ###
 
 ###> phpunit/phpunit ###
@@ -17,6 +18,3 @@
 ###> symfony/asset-mapper ###
 /public/assets/
 ###< symfony/asset-mapper ###
-
-
-

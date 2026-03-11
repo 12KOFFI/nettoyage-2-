@@ -1,0 +1,22 @@
+{
+    "name": "Multi-Nettoyage Propreté plus 94",
+    "short_name": "Multi-Nettoyage",
+    "description": "Entreprise de nettoyage professionnel à Paris et en Île-de-France",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#ffffff",
+    "theme_color": "#003366",
+    "lang": "fr",
+    "icons": [
+        {
+            "src": "/img/logo.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "/img/logo.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ]
+}

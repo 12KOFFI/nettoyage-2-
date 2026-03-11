@@ -49,8 +49,10 @@ class SeoExtension extends AbstractExtension
             ],
             'address' => [
                 '@type' => 'PostalAddress',
+                'streetAddress' => '55, rue de Joinville',
+                'addressLocality' => 'Fontenay-sous-Bois',
                 'addressRegion' => 'Val-de-Marne',
-                'postalCode' => '94',
+                'postalCode' => '94120',
                 'addressCountry' => 'FR',
             ],
             'sameAs' => [
@@ -78,8 +80,10 @@ class SeoExtension extends AbstractExtension
             'email' => 'Contact@multinettoyage94.fr',
             'address' => [
                 '@type' => 'PostalAddress',
+                'streetAddress' => '55, rue de Joinville',
+                'addressLocality' => 'Fontenay-sous-Bois',
                 'addressRegion' => 'Val-de-Marne',
-                'postalCode' => '94',
+                'postalCode' => '94120',
                 'addressCountry' => 'FR',
             ],
             'geo' => [
